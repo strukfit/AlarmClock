@@ -6,12 +6,12 @@
 
 class TimeSpinBox : public QSpinBox {
 public:
-    TimeSpinBox(QWidget* parent = nullptr, int min = 0, int max = 59) : QSpinBox(parent) {
+    TimeSpinBox(QWidget* parent = nullptr, int min = 0, int max = 59) : QSpinBox(parent), max(max) {
         setButtonSymbols(QAbstractSpinBox::NoButtons);
         setWrapping(true);
         setAlignment(Qt::AlignCenter);
         setRange(min, max);
-        //setPrefix("0");
+        setPrefix("0");
 
         QObject::connect(this, QOverload<int>::of(&QSpinBox::valueChanged), [=](int value) {
             if (value < 10)
@@ -39,7 +39,7 @@ protected:
 
             //QMessageBox::information(nullptr, "", currentValue);
 
-            if (currentValue.toInt() <= 23) 
+            if (currentValue.toInt() <= max) 
             {
                 setValue(currentValue.toInt());
             }  
@@ -56,4 +56,7 @@ protected:
         // Вызываем обработчик событий базового класса
         QSpinBox::keyPressEvent(event);
     }
+
+private:
+    int max;
 };

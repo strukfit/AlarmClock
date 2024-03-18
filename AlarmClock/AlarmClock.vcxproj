@@ -100,6 +100,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="SetAlarmWindow.cpp" />
+    <ClInclude Include="TimeSpinBox.h" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>

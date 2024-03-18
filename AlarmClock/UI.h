@@ -8,6 +8,9 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QSpinBox>
+
+#include "TimeSpinBox.h"
 
 class UI
 {
@@ -25,8 +28,10 @@ public:
 	// SetAlarmWindow variables
 	QVBoxLayout* setAlarmWindowVLayout;
 	QPushButton* setAlarmWindowSetAlarmButton;
-	QLineEdit* lineEdit1;
-	QLineEdit* lineEdit2;
+	QHBoxLayout* timeSelectorHBoxLayout;
+	//QSpinBox* hourSpinBox;
+	//QSpinBox* minutesSpinBox;
+	QLabel* separatorLabel;
 
 	// AlarmClockWidget variables
 	QGridLayout* gBoxLayout;

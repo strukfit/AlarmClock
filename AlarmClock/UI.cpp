@@ -30,15 +30,23 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 {
 	setAlarmWindowVLayout = new QVBoxLayout(SetAlarmWindowClass);
 
-	lineEdit1 = new QLineEdit(SetAlarmWindowClass);
+	timeSelectorHBoxLayout = new QHBoxLayout(SetAlarmWindowClass);
 
-	lineEdit2 = new QLineEdit(SetAlarmWindowClass);
+	TimeSpinBox* hourSpinBox = new TimeSpinBox(SetAlarmWindowClass, 0, 23);
+	TimeSpinBox* minutesSpinBox = new TimeSpinBox(SetAlarmWindowClass, 0, 59);
+
+	timeSelectorHBoxLayout->addWidget(hourSpinBox);
+
+	separatorLabel = new QLabel(":");
+	separatorLabel->setStyleSheet(" font-size: 20px ");
+
+	timeSelectorHBoxLayout->addWidget(separatorLabel);
+	timeSelectorHBoxLayout->addWidget(minutesSpinBox);
 
 	setAlarmWindowSetAlarmButton = new QPushButton("setAlarmButton", SetAlarmWindowClass);
 	setAlarmWindowSetAlarmButton->setObjectName("setAlarmWindowSetAlarmButton");
 
-	setAlarmWindowVLayout->addWidget(lineEdit1);
-	setAlarmWindowVLayout->addWidget(lineEdit2);
+	setAlarmWindowVLayout->addLayout(timeSelectorHBoxLayout);
 	setAlarmWindowVLayout->addWidget(setAlarmWindowSetAlarmButton);
 
 	SetAlarmWindowClass->setLayout(setAlarmWindowVLayout);

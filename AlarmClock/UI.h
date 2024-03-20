@@ -16,10 +16,13 @@
 #include "TimeWrapperWidget.h"
 #include "ArrowPushButton.h"
 #include "NameLineEdit.h"
+#include "XPushButton.h"
 
 class UI
 {
 public:
+	~UI();
+
 	void setupMainWindowUI(QMainWindow* MainWindowClass);
 	void setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass);
 	void setupAlarmClockWidgetUI(QWidget* AlarmClockWidgetClass);
@@ -49,7 +52,8 @@ public:
 	ArrowPushButton* arrowDownButton2;
 	TimeWrapperWidget* editNameWrapperWidget;
 	TimeWrapperChildWidget* editNameWidget;
-
+	QHBoxLayout* nameLineEditLayout;
+	XPushButton* xButton;
 
 	// AlarmClockWidget variables
 	QGridLayout* gBoxLayout;
@@ -60,9 +64,9 @@ public:
 private:
 	const QString activeAccentColor = "#78bcec";
 	const QString inactiveAccentColor = "#9c9c9c";
-	//QMainWindow* MainWindowClass;
-	//QDialog* SetAlarmWindowClass;
-	//QWidget* AlarmClockWidgetClass;
+
+	static int defaultNameCounter;
+	QString defaultName = "Alarm clock";
 };
 
 namespace Ui {

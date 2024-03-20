@@ -50,6 +50,9 @@
     <ClCompile Include="NameLineEdit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="XPushButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -67,6 +70,9 @@
     <QtMoc Include="TimeSpinBox.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="NameLineEdit.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UI.h">
@@ -75,7 +81,7 @@
     <ClInclude Include="ArrowPushButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NameLineEdit.h">
+    <ClInclude Include="XPushButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

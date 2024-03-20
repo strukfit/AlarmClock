@@ -16,7 +16,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void setAlarm(const QTime& time);
+    void setAlarm(const QTime& time, const QString name);
     void checkAlarm();
     void openSetAlarmWindow();
 

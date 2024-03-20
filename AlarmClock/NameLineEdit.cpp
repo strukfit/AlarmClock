@@ -3,16 +3,6 @@
 NameLineEdit::NameLineEdit(QWidget* parent):
 	QLineEdit(parent)
 {
-    setStyleSheet(R"(
-        color: white;
-        font-size: 14px;
-        background-color: transparent; 
-        border: 0; 
-        margin-left: 8px; 
-        margin-top: 1px; 
-        margin-right: 33px; 
-        margin-bottom: 0px;
-    )");
 }
 
 NameLineEdit::~NameLineEdit()
@@ -22,7 +12,11 @@ NameLineEdit::~NameLineEdit()
 void NameLineEdit::focusInEvent(QFocusEvent* event)
 {
     QLineEdit::focusInEvent(event);
-    this->selectAll();
+    
+    emit focusGained();
+
+    QTimer::singleShot(0, this, &QLineEdit::selectAll);
+
     if (parent() && parent()->parent()) {
         TimeWrapperWidget* wrapper = qobject_cast<TimeWrapperWidget*>(parent()->parent());
         if (wrapper)
@@ -37,6 +31,9 @@ void NameLineEdit::focusInEvent(QFocusEvent* event)
 void NameLineEdit::focusOutEvent(QFocusEvent* event)
 {
     QLineEdit::focusOutEvent(event);
+
+    emit focusLost();
+
     if (parent() && parent()->parent()) {
         TimeWrapperWidget* wrapper = qobject_cast<TimeWrapperWidget*>(parent()->parent());
         if (wrapper)

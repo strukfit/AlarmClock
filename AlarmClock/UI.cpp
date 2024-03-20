@@ -1,5 +1,39 @@
 #include "UI.h"
 
+UI::~UI()
+{
+	delete mainWindowCentralWidget;
+	delete mainWindowSetAlarmButton;
+	delete alarmsListWidget;
+	delete vBoxLayout;
+
+	delete title;
+	delete setAlarmWindowVLayout;
+	delete setAlarmWindowSetAlarmButton;
+	delete timeSelectorHBoxLayout;
+	delete timeWrapperWidget;
+	delete timeSelectorWidget;
+	delete hourSpinBox;
+	delete minutesSpinBox;
+	delete separatorLabel;
+	delete editNameHBoxLayout;
+	delete editSvgWidget;
+	delete nameLineEdit;
+	delete arrowUpButton1;
+	delete arrowUpButton2;
+	delete arrowDownButton1;
+	delete arrowDownButton2;
+	delete editNameWrapperWidget;
+	delete editNameWidget;
+
+	delete gBoxLayout;
+	delete time;
+	delete name;
+	delete testButton;
+}
+
+int UI::defaultNameCounter = 0;
+
 void UI::setupMainWindowUI(QMainWindow* MainWindowClass)
 {
 	mainWindowCentralWidget = new QWidget(MainWindowClass);
@@ -148,18 +182,67 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 
 	editNameWidget = new TimeWrapperChildWidget(editNameWrapperWidget, "#201c1c");
 	editNameWidget->setFixedSize(243, 30);
-	
-	//editNameWidget->move((editNameWrapperWidget->width() - editNameWidget->width()) / 2, (editNameWrapperWidget->height() - editNameWidget->height()) / 2);
 
 	editNameWidget->move(2, 1);
 
+	nameLineEditLayout = new QHBoxLayout(editNameWidget);
+	nameLineEditLayout->setContentsMargins(0, 1, 2, 0);
+
 	nameLineEdit = new NameLineEdit(editNameWidget);
 	nameLineEdit->setFixedSize(243, 28);
-	//nameLineEdit->hide();
+
+	nameLineEdit->setStyleSheet(R"(
+        color: white;
+        font-size: 14px;
+        background-color: transparent; 
+        border: 0; 
+		margin-left: 9px;
+		margin-right: 35px;
+		margin-bottom: 1px;
+    )");
+	
+	nameLineEdit->setPlaceholderText("Alarm clock name");
+	nameLineEdit->setText(defaultName + " (" + QString::number(defaultNameCounter + 1) + ")");
+
+	xButton = new XPushButton(editNameWidget);
+	xButton->setFixedSize(29, 25);
+	xButton->hide();
+	
+	QObject::connect(nameLineEdit, &NameLineEdit::focusGained, [&] {
+		if(!nameLineEdit->text().isEmpty())
+			xButton->show();
+	});
+
+	QObject::connect(nameLineEdit, &NameLineEdit::focusLost, [&] {
+		xButton->hide();
+	});
+
+	QObject::connect(nameLineEdit, &NameLineEdit::textChanged, [&] {
+		if(!nameLineEdit->text().isEmpty())
+			xButton->show();
+		else 
+			xButton->hide();
+	});
+
+	QObject::connect(xButton, &QPushButton::pressed, [&] {
+		if (!nameLineEdit->text().isEmpty())
+			nameLineEdit->clear();
+		nameLineEdit->setFocus();
+	});
+
+	nameLineEditLayout->addWidget(nameLineEdit);
+	nameLineEditLayout->addStretch(1);
+	nameLineEditLayout->addWidget(xButton);
 
 	editNameHBoxLayout->addWidget(editNameWrapperWidget);
 
 	setAlarmWindowVLayout->addLayout(editNameHBoxLayout);
+
+	QObject::connect(setAlarmWindowSetAlarmButton, &QPushButton::pressed, [&] {
+		if (nameLineEdit->text() == (defaultName + " (" + QString::number(defaultNameCounter + 1) + ")"))
+			defaultNameCounter++;
+	});
+
 	setAlarmWindowVLayout->addWidget(setAlarmWindowSetAlarmButton);
 
 	SetAlarmWindowClass->setLayout(setAlarmWindowVLayout);

@@ -17,8 +17,6 @@ public:
 	QString getName();
 	bool isActive();
 
-	static int count;
-
 public slots:
 	void addAlarm(const QTime& time);
 

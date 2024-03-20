@@ -1,6 +1,6 @@
 #include "AlarmClockWidget.h"
 
-int AlarmClockWidget::count = 0;
+//int AlarmClockWidget::count = 0;
 
 AlarmClockWidget::AlarmClockWidget(QWidget* parent, int id, QTime time, QString name) :
 	QWidget(parent), 
@@ -14,8 +14,6 @@ AlarmClockWidget::AlarmClockWidget(QWidget* parent, int id, QTime time, QString 
 
 	ui->time->setText(time.toString("hh:mm"));
 	ui->name->setText(name);
-
-	count++;
 }
 
 void AlarmClockWidget::setActive(bool flag)

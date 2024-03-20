@@ -9,8 +9,13 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QSpinBox>
+#include <QtSvgWidgets/QSvgWidget>
+#include <QtSvg/QSvgRenderer>
 
 #include "TimeSpinBox.h"
+#include "TimeWrapperWidget.h"
+#include "ArrowPushButton.h"
+#include "NameLineEdit.h"
 
 class UI
 {
@@ -26,12 +31,25 @@ public:
 	QVBoxLayout* vBoxLayout;
 
 	// SetAlarmWindow variables
+	QLabel* title;
 	QVBoxLayout* setAlarmWindowVLayout;
 	QPushButton* setAlarmWindowSetAlarmButton;
 	QHBoxLayout* timeSelectorHBoxLayout;
-	//QSpinBox* hourSpinBox;
-	//QSpinBox* minutesSpinBox;
+	TimeWrapperWidget* timeWrapperWidget;
+	TimeWrapperChildWidget* timeSelectorWidget;
+	TimeSpinBox* hourSpinBox;
+	TimeSpinBox* minutesSpinBox;
 	QLabel* separatorLabel;
+	QHBoxLayout* editNameHBoxLayout;
+	QSvgWidget* editSvgWidget;
+	NameLineEdit* nameLineEdit;
+	ArrowPushButton* arrowUpButton1;
+	ArrowPushButton* arrowUpButton2;
+	ArrowPushButton* arrowDownButton1;
+	ArrowPushButton* arrowDownButton2;
+	TimeWrapperWidget* editNameWrapperWidget;
+	TimeWrapperChildWidget* editNameWidget;
+
 
 	// AlarmClockWidget variables
 	QGridLayout* gBoxLayout;
@@ -40,6 +58,8 @@ public:
 	QPushButton* testButton;
 
 private:
+	const QString activeAccentColor = "#78bcec";
+	const QString inactiveAccentColor = "#9c9c9c";
 	//QMainWindow* MainWindowClass;
 	//QDialog* SetAlarmWindowClass;
 	//QWidget* AlarmClockWidgetClass;

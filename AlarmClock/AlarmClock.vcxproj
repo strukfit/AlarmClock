@@ -38,7 +38,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.7.0_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;svgwidgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -97,10 +97,14 @@
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
     </ClCompile>
     <QtMoc Include="AlarmClockWidget.h" />
+    <ClCompile Include="ArrowPushButton.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="NameLineEdit.cpp" />
     <ClCompile Include="SetAlarmWindow.cpp" />
-    <ClInclude Include="TimeSpinBox.h" />
+    <QtMoc Include="TimeSpinBox.h" />
+    <ClCompile Include="TimeSpinBox.cpp" />
+    <ClCompile Include="TimeWrapperWidget.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -108,11 +112,18 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SetAlarmWindow.h" />
+    <QtMoc Include="TimeWrapperWidget.h" />
+    <ClInclude Include="ArrowPushButton.h" />
+    <ClInclude Include="NameLineEdit.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="C:\Users\struk\Downloads\static\RobotoSlab-Medium.ttf" />
     <Font Include="C:\Users\struk\Downloads\static\RobotoSlab-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\struk\Downloads\edit-2.svg" />
+    <None Include="C:\Users\struk\Downloads\edit.svg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

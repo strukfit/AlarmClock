@@ -53,6 +53,9 @@
     <ClCompile Include="XPushButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IconPushButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -82,6 +85,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="XPushButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IconPushButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

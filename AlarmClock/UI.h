@@ -17,6 +17,7 @@
 #include "ArrowPushButton.h"
 #include "NameLineEdit.h"
 #include "XPushButton.h"
+#include "IconPushButton.h"
 
 class UI
 {
@@ -36,7 +37,6 @@ public:
 	// SetAlarmWindow variables
 	QLabel* title;
 	QVBoxLayout* setAlarmWindowVLayout;
-	QPushButton* setAlarmWindowSetAlarmButton;
 	QHBoxLayout* timeSelectorHBoxLayout;
 	TimeWrapperWidget* timeWrapperWidget;
 	TimeWrapperChildWidget* timeSelectorWidget;
@@ -54,6 +54,9 @@ public:
 	TimeWrapperChildWidget* editNameWidget;
 	QHBoxLayout* nameLineEditLayout;
 	XPushButton* xButton;
+	IconPushButton* setAlarmButton;
+	IconPushButton* cancelButton;
+	QHBoxLayout* saveCancelLayout;
 
 	// AlarmClockWidget variables
 	QGridLayout* gBoxLayout;

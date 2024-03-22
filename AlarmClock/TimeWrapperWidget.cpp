@@ -55,10 +55,12 @@ void TimeWrapperWidget::childFocusOut()
 	update();
 }
 
-TimeWrapperChildWidget::TimeWrapperChildWidget(QWidget* parent, QString backgroundColor) :
+TimeWrapperChildWidget::TimeWrapperChildWidget(QWidget* parent, QString backgroundColor, QString hoveredColor) :
 	QWidget(parent),
 	backgroundColor(backgroundColor),
-	childHasFocus(false)
+	hoveredColor(hoveredColor),
+	childHasFocus(false),
+	hovered(false)
 {
 }
 
@@ -74,9 +76,34 @@ void TimeWrapperChildWidget::paintEvent(QPaintEvent* event)
 		painter.setRenderHint(QPainter::Antialiasing);
 
 		painter.setPen(Qt::NoPen);
+	
 		painter.setBrush(QColor(backgroundColor));
 		painter.drawRoundedRect(rect(), 3, 3);
 	}
+	else if (hovered && !hasFocus())
+	{
+		QPainter painter(this);
+		painter.setRenderHint(QPainter::Antialiasing);
+
+		painter.setPen(Qt::NoPen);
+
+		painter.setBrush(QColor(hoveredColor));
+		painter.drawRoundedRect(rect(), 3, 3);
+	}
+}
+
+void TimeWrapperChildWidget::enterEvent(QEnterEvent* event)
+{
+	QWidget::enterEvent(event);
+	hovered = true;
+	update();
+}
+
+void TimeWrapperChildWidget::leaveEvent(QEvent* event)
+{
+	QWidget::leaveEvent(event);
+	hovered = false;
+	update();
 }
 
 void TimeWrapperChildWidget::childFocusIn()

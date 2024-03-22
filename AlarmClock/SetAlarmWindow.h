@@ -1,6 +1,6 @@
 #pragma once
 #include "UI.h"
-#include "MainWindow.h"
+#include <QTime>
 
 class SetAlarmWindow : public QDialog
 {

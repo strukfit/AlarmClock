@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 
 MainWindow::MainWindow(QWidget* parent) :
-	QMainWindow(parent), ui(new Ui::MainWindowClass)
+	QMainWindow(parent), ui(new Ui::MainWindowClass), setAlarmWindow(nullptr)
 {
 	ui->setupMainWindowUI(this);
 
@@ -26,6 +26,8 @@ MainWindow::MainWindow(QWidget* parent) :
 MainWindow::~MainWindow()
 {
 	delete ui;
+
+	delete setAlarmWindow;
 }
 
 void MainWindow::checkAlarm()
@@ -54,7 +56,7 @@ void MainWindow::checkAlarm()
 
 void MainWindow::openSetAlarmWindow()
 {
-	SetAlarmWindow* setAlarmWindow = new SetAlarmWindow(this);
+	setAlarmWindow = new SetAlarmWindow(this);
 	setAlarmWindow->setModal(true);
 
 	connect(setAlarmWindow, &SetAlarmWindow::setAlarm, this, &MainWindow::setAlarm);

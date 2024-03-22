@@ -1,9 +1,10 @@
 #pragma once
 
-#include "UI.h"
 #include <QTime>
 #include <QTimer>
 #include <QtWidgets/QMessageBox>
+
+#include "UI.h"
 #include "SetAlarmWindow.h"
 #include "AlarmClockWidget.h"
 
@@ -22,4 +23,6 @@ public slots:
 
 private:
     Ui::MainWindowClass* ui;
+
+    SetAlarmWindow* setAlarmWindow;
 };

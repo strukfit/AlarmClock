@@ -9,19 +9,7 @@ ArrowPushButton::ArrowPushButton(QWidget* parent, bool upArrow) :
 	else
 		setIcon(QIcon("Resources/arrow-down-grey.svg"));
 
-	setStyleSheet("background-color: transparent; border-radius: 4px;");
-}
-
-void ArrowPushButton::enterEvent(QEnterEvent* event)
-{
-	QPushButton::enterEvent(event);
-	setStyleSheet("background-color: #302c2c; border-radius: 4px;");
-}
-
-void ArrowPushButton::leaveEvent(QEvent* event)
-{
-	QPushButton::leaveEvent(event);
-	setStyleSheet("background-color: transparent; border-radius: 4px;");
+	setStyleSheet("QPushButton { background-color: transparent; border-radius: 4px; } QPushButton:hover { background-color: #302c2c; } QPushButton:pressed { background-color: #282424; }");
 }
 
 void ArrowPushButton::mousePressEvent(QMouseEvent* event)
@@ -32,8 +20,6 @@ void ArrowPushButton::mousePressEvent(QMouseEvent* event)
 		setIcon(QIcon("Resources/arrow-up-white.svg"));
 	else
 		setIcon(QIcon("Resources/arrow-down-white.svg"));
-
-	setStyleSheet("background-color: #282424; border-radius: 4px;");
 }
 
 void ArrowPushButton::mouseReleaseEvent(QMouseEvent* event)
@@ -44,6 +30,4 @@ void ArrowPushButton::mouseReleaseEvent(QMouseEvent* event)
 		setIcon(QIcon("Resources/arrow-up-grey.svg"));
 	else
 		setIcon(QIcon("Resources/arrow-down-grey.svg"));
-
-	setStyleSheet("background-color: #302c2c; border-radius: 4px;");
 }

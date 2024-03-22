@@ -28,7 +28,7 @@ class TimeWrapperChildWidget : public QWidget
 	Q_OBJECT
 
 public:
-	TimeWrapperChildWidget(QWidget* parent = nullptr, QString backgroundColor = "#000");
+	TimeWrapperChildWidget(QWidget* parent = nullptr, QString backgroundColor = "#000", QString hoveredColor = "#000");
 	~TimeWrapperChildWidget();
 
 	void childFocusIn();
@@ -36,8 +36,10 @@ public:
 
 protected:
 	void paintEvent(QPaintEvent* event) override;
+	void enterEvent(QEnterEvent* event) override;
+	void leaveEvent(QEvent* event) override;
 
 private:
-	QString backgroundColor;
-	bool childHasFocus;
+	QString backgroundColor, hoveredColor;
+	bool childHasFocus, hovered;
 };

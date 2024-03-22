@@ -6,6 +6,7 @@ SetAlarmWindow::SetAlarmWindow(QWidget* parent) :
 	ui->setupSetAlarmWindowUI(this);
 
 	setWindowFlags( Qt::Dialog /*Qt::Popup*/ | Qt::MSWindowsFixedSizeDialogHint | Qt::FramelessWindowHint);
+	//setWindowFlags(Qt::Popup);
 
 	connect(ui->setAlarmButton, &QPushButton::clicked, this, [&] {
 		
@@ -27,4 +28,15 @@ SetAlarmWindow::SetAlarmWindow(QWidget* parent) :
 SetAlarmWindow::~SetAlarmWindow()
 {
 	delete ui;
+}
+
+void SetAlarmWindow::setDefaultValues()
+{
+	ui->setDefaultTime();
+	ui->setDefaultName();
+}
+
+void SetAlarmWindow::setDefaultFocus()
+{
+	ui->hourSpinBox->setFocus();
 }

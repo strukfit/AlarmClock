@@ -27,6 +27,8 @@ public:
 	void setupMainWindowUI(QMainWindow* MainWindowClass);
 	void setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass);
 	void setupAlarmClockWidgetUI(QWidget* AlarmClockWidgetClass);
+	void setDefaultTime();
+	void setDefaultName();
 
 	// MainWindow variables
 	QWidget* mainWindowCentralWidget;

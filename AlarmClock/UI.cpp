@@ -38,6 +38,8 @@ void UI::setupMainWindowUI(QMainWindow* MainWindowClass)
 {
 	mainWindowCentralWidget = new QWidget(MainWindowClass);
 
+	//MainWindowClass->setStyleSheet("QMainWindow:disabled { background-color: #dcdcdc; }");
+
 	vBoxLayout = new QVBoxLayout(mainWindowCentralWidget);
 	
 	alarmsListWidget = new QListWidget(mainWindowCentralWidget);
@@ -162,14 +164,6 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	arrowsDownLayout->addWidget(arrowDownButton2);
 
 	QVBoxLayout* timeSelectorLayout = new QVBoxLayout(SetAlarmWindowClass);
-	//timeSelectorLayout->setSpacing(4);
-	//timeSelectorLayout->setContentsMargins(30, 0, 30, 0);
-
-	//timeSelectorLayout->addLayout(arrowsUpLayout);
-	//timeSelectorLayout->addWidget(timeWrapperWidget);
-	//timeSelectorLayout->addLayout(arrowsDownLayout);
-
-	//setAlarmWindowVLayout->addLayout(timeSelectorLayout);
 
 	setAlarmWindowVLayout->addSpacing(13);
 
@@ -208,7 +202,6 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
     )");
 	
 	nameLineEdit->setPlaceholderText("Alarm clock name");
-	nameLineEdit->setText(defaultName + " (" + QString::number(defaultNameCounter + 1) + ")");
 
 	xButton = new XPushButton(editNameWidget);
 	xButton->setFixedSize(29, 25);
@@ -283,8 +276,6 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 
 	SetAlarmWindowClass->setLayout(setAlarmWindowVLayout);
 
-	hourSpinBox->setFocus();
-
 	QMetaObject::connectSlotsByName(SetAlarmWindowClass);
 }
 
@@ -307,4 +298,15 @@ void UI::setupAlarmClockWidgetUI(QWidget* AlarmClockWidgetClass)
 	AlarmClockWidgetClass->setLayout(gBoxLayout);
 
 	QMetaObject::connectSlotsByName(AlarmClockWidgetClass);
+}
+
+void UI::setDefaultTime()
+{
+	hourSpinBox->setValue(7);
+	minutesSpinBox->setValue(0);
+}
+
+void UI::setDefaultName()
+{
+	nameLineEdit->setText(defaultName + " (" + QString::number(defaultNameCounter + 1) + ")");
 }

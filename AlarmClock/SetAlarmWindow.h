@@ -1,6 +1,7 @@
 #pragma once
 #include "UI.h"
 #include <QTime>
+#include <QApplication>
 
 class SetAlarmWindow : public QDialog
 {
@@ -12,6 +13,9 @@ signals:
 public:
 	SetAlarmWindow(QWidget* parent = nullptr);
 	~SetAlarmWindow();
+
+	void setDefaultValues();
+	void setDefaultFocus();
 
 private:
 	Ui::SetAlarmWindowClass* ui;

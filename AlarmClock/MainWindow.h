@@ -21,8 +21,13 @@ public slots:
     void checkAlarm();
     void openSetAlarmWindow();
 
+signals:
+    void childWindowShowed();
+
 private:
     Ui::MainWindowClass* ui;
 
     SetAlarmWindow* setAlarmWindow;
+
+    QWidget* overlayWidget;
 };

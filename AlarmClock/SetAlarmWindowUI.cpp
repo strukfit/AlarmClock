@@ -1,78 +1,9 @@
-#include "UI.h"
+#include "SetAlarmWindowUI.h"
 
-UI::~UI()
+int SetAlarmWindowUI::defaultNameCounter = 0;
+
+void SetAlarmWindowUI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 {
-	delete mainWindowCentralWidget;
-	delete mainWindowSetAlarmButton;
-	delete alarmsListWidget;
-	delete vBoxLayout;
-
-	delete title;
-	delete setAlarmWindowVLayout;
-	delete setAlarmButton;
-	delete timeSelectorHBoxLayout;
-	delete timeWrapperWidget;
-	delete timeSelectorWidget;
-	delete hourSpinBox;
-	delete minutesSpinBox;
-	delete separatorLabel;
-	delete editNameHBoxLayout;
-	delete editSvgWidget;
-	delete nameLineEdit;
-	delete arrowUpButton1;
-	delete arrowUpButton2;
-	delete arrowDownButton1;
-	delete arrowDownButton2;
-	delete editNameWrapperWidget;
-	delete editNameWidget;
-
-	delete gBoxLayout;
-	delete time;
-	delete name;
-	delete testButton;
-}
-
-int UI::defaultNameCounter = 0;
-
-void UI::setupMainWindowUI(QMainWindow* MainWindowClass)
-{
-	mainWindowCentralWidget = new QWidget(MainWindowClass);
-
-	//MainWindowClass->setStyleSheet("QMainWindow:disabled { background-color: #dcdcdc; }");
-
-	vBoxLayout = new QVBoxLayout(mainWindowCentralWidget);
-	
-	alarmsListWidget = new QListWidget(mainWindowCentralWidget);
-
-	alarmsListWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-	alarmsListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	alarmsListWidget->setStyleSheet(R"(
-		QListWidget::item { 
-			background-color: #323232; 
-			border-radius: 5px; 
-			margin-left: 10px; 
-			margin-right: 10px; 
-			margin-bottom: 5px; 
-			margin-top: 5px; 
-		}
-	)");
-
-	mainWindowSetAlarmButton = new QPushButton("openSetAlarmWindowButton", mainWindowCentralWidget);
-	mainWindowSetAlarmButton->setObjectName("mainWindowSetAlarmButton");
-
-	vBoxLayout->addWidget(alarmsListWidget);
-	vBoxLayout->addWidget(mainWindowSetAlarmButton);
-
-	MainWindowClass->setLayout(vBoxLayout);
-
-	MainWindowClass->setCentralWidget(mainWindowCentralWidget);
-
-	QMetaObject::connectSlotsByName(MainWindowClass);
-
-}
-
-void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
-{	
 	SetAlarmWindowClass->setStyleSheet("background-color: #201c1c; border: none;");
 
 	setAlarmWindowVLayout = new QVBoxLayout(SetAlarmWindowClass);
@@ -129,7 +60,7 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	QObject::connect(arrowUpButton1, &QPushButton::pressed, [&]() {
 		hourSpinBox->setValue(hourSpinBox->value() + 1);
 		hourSpinBox->setFocus();
-	});
+		});
 
 	arrowUpButton2 = new ArrowPushButton(SetAlarmWindowClass, true);
 	arrowUpButton2->setFixedSize(32, 32);
@@ -137,7 +68,7 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	QObject::connect(arrowUpButton2, &QPushButton::pressed, [&]() {
 		minutesSpinBox->setValue(minutesSpinBox->value() + 1);
 		minutesSpinBox->setFocus();
-	});
+		});
 
 	arrowDownButton1 = new ArrowPushButton(SetAlarmWindowClass, false);
 	arrowDownButton1->setFixedSize(32, 32);
@@ -145,7 +76,7 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	QObject::connect(arrowDownButton1, &QPushButton::pressed, [&]() {
 		hourSpinBox->setValue(hourSpinBox->value() - 1);
 		hourSpinBox->setFocus();
-	});
+		});
 
 	arrowDownButton2 = new ArrowPushButton(SetAlarmWindowClass, false);
 	arrowDownButton2->setFixedSize(32, 32);
@@ -153,7 +84,7 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	QObject::connect(arrowDownButton2, &QPushButton::pressed, [&]() {
 		minutesSpinBox->setValue(minutesSpinBox->value() - 1);
 		minutesSpinBox->setFocus();
-	});
+		});
 
 	arrowsUpLayout->addWidget(arrowUpButton1);
 	arrowsUpLayout->addStretch(1);
@@ -200,35 +131,35 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 		margin-right: 35px;
 		margin-bottom: 1px;
     )");
-	
+
 	nameLineEdit->setPlaceholderText("Alarm clock name");
 
 	xButton = new XPushButton(editNameWidget);
 	xButton->setFixedSize(29, 25);
 	xButton->hide();
-	
+
 	QObject::connect(nameLineEdit, &NameLineEdit::focusGained, [&] {
-		if(!nameLineEdit->text().isEmpty())
+		if (!nameLineEdit->text().isEmpty())
 			xButton->show();
-	});
+		});
 
 	QObject::connect(nameLineEdit, &NameLineEdit::focusLost, [&] {
 		xButton->hide();
-	});
+		});
 
 	QObject::connect(nameLineEdit, &NameLineEdit::textChanged, [&] {
-		if(!nameLineEdit->text().isEmpty())
+		if (!nameLineEdit->text().isEmpty())
 			xButton->show();
-		else 
+		else
 			xButton->hide();
-	});
+		});
 
 	QObject::connect(xButton, &QPushButton::pressed, [&] {
 		if (!nameLineEdit->text().isEmpty())
 			nameLineEdit->clear();
 		nameLineEdit->setFocus();
-	});
-	
+		});
+
 	nameLineEditLayout->addWidget(nameLineEdit);
 	nameLineEditLayout->addStretch(1);
 	nameLineEditLayout->addWidget(xButton);
@@ -248,7 +179,7 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	QObject::connect(setAlarmButton, &QPushButton::pressed, [&] {
 		if (nameLineEdit->text() == (defaultName + " (" + QString::number(defaultNameCounter + 1) + ")"))
 			defaultNameCounter++;
-	});
+		});
 
 	cancelButton = new IconPushButton(SetAlarmWindowClass, "Cancel", "white", "#a09c9c", "Resources/x-white.svg", "Resources/x-grey.svg", "#292929", "#2F2F2F", "#232323");;
 	cancelButton->setFixedHeight(32);
@@ -259,7 +190,7 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	saveCancelLayout->addWidget(cancelButton);
 
 	setAlarmWindowVLayout->addSpacing(24);
-	
+
 	QWidget* separatingLine = new QWidget(SetAlarmWindowClass);
 	separatingLine->setStyleSheet("background-color: #191919;");
 	separatingLine->setFixedSize(SetAlarmWindowClass->maximumWidth(), 1);
@@ -279,34 +210,13 @@ void UI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	QMetaObject::connectSlotsByName(SetAlarmWindowClass);
 }
 
-void UI::setupAlarmClockWidgetUI(QWidget* AlarmClockWidgetClass)
-{
-	gBoxLayout = new QGridLayout(AlarmClockWidgetClass);
-
-	time = new QLabel(AlarmClockWidgetClass);
-	time->setStyleSheet("color: white; font-size: 50px; font-weight: bold;");
-
-	name = new QLabel(AlarmClockWidgetClass);
-	name->setStyleSheet("color: white; font-size: 20px;");
-
-	testButton = new QPushButton("test", AlarmClockWidgetClass);
-
-	gBoxLayout->addWidget(time, 0, 0);
-	gBoxLayout->addWidget(name, 1, 0);
-	gBoxLayout->addWidget(testButton, 0, 1);
-
-	AlarmClockWidgetClass->setLayout(gBoxLayout);
-
-	QMetaObject::connectSlotsByName(AlarmClockWidgetClass);
-}
-
-void UI::setDefaultTime()
+void SetAlarmWindowUI::setDefaultTime()
 {
 	hourSpinBox->setValue(7);
 	minutesSpinBox->setValue(0);
 }
 
-void UI::setDefaultName()
+void SetAlarmWindowUI::setDefaultName()
 {
 	nameLineEdit->setText(defaultName + " (" + QString::number(defaultNameCounter + 1) + ")");
 }

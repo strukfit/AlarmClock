@@ -29,7 +29,7 @@
     <ClCompile Include="MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
+    <ClCompile Include="MainWindowUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SetAlarmWindow.cpp">
@@ -56,6 +56,15 @@
     <ClCompile Include="IconPushButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SetAlarmWindowUI.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SetAlarmWindowUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AlarmClockWidgetUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -78,7 +87,7 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UI.h">
+    <ClInclude Include="MainWindowUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ArrowPushButton.h">
@@ -88,6 +97,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IconPushButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AlarmClockWidgetUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

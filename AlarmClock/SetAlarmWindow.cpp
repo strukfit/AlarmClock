@@ -5,7 +5,7 @@ SetAlarmWindow::SetAlarmWindow(QWidget* parent) :
 {
 	ui->setupSetAlarmWindowUI(this);
 
-	setWindowFlags( Qt::Dialog /*Qt::Popup*/ | Qt::MSWindowsFixedSizeDialogHint | Qt::FramelessWindowHint);
+	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint | Qt::FramelessWindowHint);
 	//setWindowFlags(Qt::Popup);
 
 	connect(ui->setAlarmButton, &QPushButton::clicked, this, [&] {

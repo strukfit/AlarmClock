@@ -96,7 +96,10 @@
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
     </ClCompile>
+    <ClCompile Include="AlarmClockWidgetUI.cpp" />
     <ClCompile Include="IconPushButton.cpp" />
+    <ClCompile Include="SetAlarmWindowUI.cpp" />
+    <ClCompile Include="SetAlarmWindowUI.h" />
     <ClCompile Include="XPushButton.cpp" />
     <QtMoc Include="AlarmClockWidget.h" />
     <ClCompile Include="ArrowPushButton.cpp" />
@@ -107,19 +110,20 @@
     <QtMoc Include="TimeSpinBox.h" />
     <ClCompile Include="TimeSpinBox.cpp" />
     <ClCompile Include="TimeWrapperWidget.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="MainWindowUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlarmClockWidgetUI.h" />
     <ClInclude Include="IconPushButton.h" />
     <ClInclude Include="XPushButton.h" />
     <QtMoc Include="SetAlarmWindow.h" />
     <QtMoc Include="TimeWrapperWidget.h" />
     <ClInclude Include="ArrowPushButton.h" />
     <QtMoc Include="NameLineEdit.h" />
-    <ClInclude Include="UI.h" />
+    <ClInclude Include="MainWindowUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="C:\Users\struk\Downloads\static\RobotoSlab-Medium.ttf" />

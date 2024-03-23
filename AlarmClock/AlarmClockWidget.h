@@ -1,7 +1,7 @@
 #pragma once
 #include <QWidget>
 #include <QTime>
-#include "UI.h"
+#include "AlarmClockWidgetUI.h"
 
 class AlarmClockWidget : public QWidget
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include "UI.h"
+#include "SetAlarmWindowUI.h"
 #include <QTime>
 #include <QApplication>
 

@@ -1,15 +1,8 @@
 #pragma once
 
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QDialog>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QListWidget>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QGridLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
-#include <QtWidgets/QSpinBox>
-#include <QtSvgWidgets/QSvgWidget>
+#include <QLabel>
+#include <QBoxLayout>
+#include <QSvgWidget>
 #include <QtSvg/QSvgRenderer>
 
 #include "TimeSpinBox.h"
@@ -19,24 +12,13 @@
 #include "XPushButton.h"
 #include "IconPushButton.h"
 
-class UI
+class SetAlarmWindowUI
 {
 public:
-	~UI();
-
-	void setupMainWindowUI(QMainWindow* MainWindowClass);
 	void setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass);
-	void setupAlarmClockWidgetUI(QWidget* AlarmClockWidgetClass);
 	void setDefaultTime();
 	void setDefaultName();
 
-	// MainWindow variables
-	QWidget* mainWindowCentralWidget;
-	QPushButton* mainWindowSetAlarmButton;
-	QListWidget* alarmsListWidget;
-	QVBoxLayout* vBoxLayout;
-
-	// SetAlarmWindow variables
 	QLabel* title;
 	QVBoxLayout* setAlarmWindowVLayout;
 	QHBoxLayout* timeSelectorHBoxLayout;
@@ -60,12 +42,6 @@ public:
 	IconPushButton* cancelButton;
 	QHBoxLayout* saveCancelLayout;
 
-	// AlarmClockWidget variables
-	QGridLayout* gBoxLayout;
-	QLabel* time;
-	QLabel* name;
-	QPushButton* testButton;
-
 private:
 	const QString activeAccentColor = "#78bcec";
 	const QString inactiveAccentColor = "#9c9c9c";
@@ -75,7 +51,5 @@ private:
 };
 
 namespace Ui {
-	class MainWindowClass : public UI {};
-	class SetAlarmWindowClass : public UI {};
-	class AlarmClockWidgetClass : public UI {};
+	class SetAlarmWindowClass : public SetAlarmWindowUI{};
 } // namespace Ui

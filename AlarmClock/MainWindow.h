@@ -4,7 +4,7 @@
 #include <QTimer>
 #include <QtWidgets/QMessageBox>
 
-#include "UI.h"
+#include "MainWindowUI.h"
 #include "SetAlarmWindow.h"
 #include "AlarmClockWidget.h"
 

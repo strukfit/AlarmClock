@@ -1,5 +1,6 @@
 #include <QtWidgets/QApplication>
 #include <QFont>
+
 #include "MainWindow.h"
 
 int main(int argc, char* argv[])
@@ -8,6 +9,8 @@ int main(int argc, char* argv[])
 
     //QFont defaultFont("RobotoSlab-Regular");
     //a.setFont(defaultFont);
+
+    a.setStyle("Fusion");
 
     MainWindow w;
     w.show();

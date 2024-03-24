@@ -1,5 +1,13 @@
 #include "AlarmClockWidgetUI.h"
 
+AlarmClockWidgetUI::~AlarmClockWidgetUI()
+{
+	delete gBoxLayout;
+	delete time;
+	delete name;
+	delete testButton;
+}
+
 void AlarmClockWidgetUI::setupAlarmClockWidgetUI(QWidget* AlarmClockWidgetClass)
 {
 	gBoxLayout = new QGridLayout(AlarmClockWidgetClass);

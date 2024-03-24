@@ -65,6 +65,9 @@
     <ClCompile Include="AlarmClockWidgetUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DatabaseManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -83,6 +86,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="NameLineEdit.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="DatabaseManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -12,8 +12,6 @@ void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindowClass)
 {
 	mainWindowCentralWidget = new QWidget(MainWindowClass);
 
-	//MainWindowClass->setStyleSheet("QMainWindow:disabled { background-color: #dcdcdc; }");
-
 	vBoxLayout = new QVBoxLayout(mainWindowCentralWidget);
 	
 	alarmsListWidget = new QListWidget(mainWindowCentralWidget);

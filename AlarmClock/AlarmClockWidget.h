@@ -16,9 +16,7 @@ public:
 	QTime getAlarmTime();
 	QString getName();
 	bool isActive();
-
-public slots:
-	void addAlarm(const QTime& time);
+	static int count;
 
 private:
 	Ui::AlarmClockWidgetClass* ui;

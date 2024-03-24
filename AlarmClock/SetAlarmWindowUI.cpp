@@ -8,7 +8,6 @@ void SetAlarmWindowUI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 
 	setAlarmWindowVLayout = new QVBoxLayout(SetAlarmWindowClass);
 	setAlarmWindowVLayout->setContentsMargins(30, 30, 30, 30);
-	//setAlarmWindowVLayout->setSpacing(30);
 
 	title = new QLabel("Add a new alarm clock");
 	title->setStyleSheet("color: white; font-size: 20px; font-weight: bold;");
@@ -25,12 +24,12 @@ void SetAlarmWindowUI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	timeSelectorHBoxLayout = new QHBoxLayout(timeSelectorWidget);
 	timeSelectorHBoxLayout->setContentsMargins(38, 2, 38, 2);
 
-	hourSpinBox = new TimeSpinBox(timeSelectorWidget, 0, 23);
-	hourSpinBox->setFixedSize(70, 70);
+	hoursSpinBox = new TimeSpinBox(timeSelectorWidget, 0, 23);
+	hoursSpinBox->setFixedSize(70, 70);
 	minutesSpinBox = new TimeSpinBox(timeSelectorWidget, 0, 59);
 	minutesSpinBox->setFixedSize(70, 70);
 
-	timeSelectorHBoxLayout->addWidget(hourSpinBox);
+	timeSelectorHBoxLayout->addWidget(hoursSpinBox);
 
 	separatorLabel = new QLabel(timeSelectorWidget);
 	separatorLabel->setText(":");
@@ -58,8 +57,8 @@ void SetAlarmWindowUI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	arrowUpButton1->setFixedSize(32, 32);
 
 	QObject::connect(arrowUpButton1, &QPushButton::pressed, [&]() {
-		hourSpinBox->setValue(hourSpinBox->value() + 1);
-		hourSpinBox->setFocus();
+		hoursSpinBox->setValue(hoursSpinBox->value() + 1);
+		hoursSpinBox->setFocus();
 		});
 
 	arrowUpButton2 = new ArrowPushButton(SetAlarmWindowClass, true);
@@ -74,8 +73,8 @@ void SetAlarmWindowUI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	arrowDownButton1->setFixedSize(32, 32);
 
 	QObject::connect(arrowDownButton1, &QPushButton::pressed, [&]() {
-		hourSpinBox->setValue(hourSpinBox->value() - 1);
-		hourSpinBox->setFocus();
+		hoursSpinBox->setValue(hoursSpinBox->value() - 1);
+		hoursSpinBox->setFocus();
 		});
 
 	arrowDownButton2 = new ArrowPushButton(SetAlarmWindowClass, false);
@@ -210,9 +209,35 @@ void SetAlarmWindowUI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	QMetaObject::connectSlotsByName(SetAlarmWindowClass);
 }
 
+SetAlarmWindowUI::~SetAlarmWindowUI()
+{
+	delete title;
+	delete setAlarmWindowVLayout;
+	delete timeSelectorHBoxLayout;
+	delete timeWrapperWidget;
+	delete timeSelectorWidget;
+	delete hoursSpinBox;
+	delete minutesSpinBox;
+	delete separatorLabel;
+	delete editNameHBoxLayout;
+	delete editSvgWidget;
+	delete nameLineEdit;
+	delete arrowUpButton1;
+	delete arrowUpButton2;
+	delete arrowDownButton1;
+	delete arrowDownButton2;
+	delete editNameWrapperWidget;
+	delete editNameWidget;
+	delete nameLineEditLayout;
+	delete xButton;
+	delete setAlarmButton;
+	delete cancelButton;
+	delete saveCancelLayout;
+}
+
 void SetAlarmWindowUI::setDefaultTime()
 {
-	hourSpinBox->setValue(7);
+	hoursSpinBox->setValue(7);
 	minutesSpinBox->setValue(0);
 }
 

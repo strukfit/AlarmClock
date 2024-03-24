@@ -13,25 +13,29 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	overlayWidget = new QWidget(this);
 	overlayWidget->setGeometry(geometry());
-	overlayWidget->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+	overlayWidget->setStyleSheet("background-color: rgba(0, 0, 0, 0.75);");
 	overlayWidget->hide();
 
-	AlarmClockWidget* alarm1 = new AlarmClockWidget(this, 1, QTime(1, 1), "aboba1");
+	dbManager = new DatabaseManager(this);
 
-	AlarmClockWidget* alarm2 = new AlarmClockWidget(this, 2, QTime(2, 2), "aboba2");
+	connect(dbManager, &DatabaseManager::dataReceived, this, &MainWindow::setAlarm);
 
-	QListWidgetItem* item1 = new QListWidgetItem(ui->alarmsListWidget);
-	item1->setSizeHint(QSize(733, 226));
+	dbManager->open();
 
-	QListWidgetItem* item2 = new QListWidgetItem(ui->alarmsListWidget);
-	item2->setSizeHint(QSize(733, 226));
+	dbManager->tableInit();
 
-	ui->alarmsListWidget->setItemWidget(item1, alarm1);
-	ui->alarmsListWidget->setItemWidget(item2, alarm2);
+	dbManager->selectAll();
+
+	AlarmClockWidget::count = ui->alarmsListWidget->count();
+
+	connect(this, &MainWindow::alarmClockAdded, dbManager, &DatabaseManager::insertData);
 
 	connect(ui->mainWindowSetAlarmButton, &QPushButton::clicked, this, &MainWindow::openSetAlarmWindow);
 
-	connect(setAlarmWindow, &SetAlarmWindow::setAlarm, this, &MainWindow::setAlarm);
+	connect(setAlarmWindow, &SetAlarmWindow::setAlarm, this, [&](const int& id, const QString& name, const QTime& time) {
+		setAlarm(id, name, time);
+		emit alarmClockAdded(id, name, time);
+	});
 	
 	connect(this, &MainWindow::childWindowShowed, [&]() {
 		overlayWidget->show();
@@ -49,6 +53,10 @@ MainWindow::~MainWindow()
 	delete setAlarmWindow;
 
 	delete overlayWidget;
+
+	dbManager->close();
+
+	delete dbManager;
 }
 
 void MainWindow::checkAlarm()
@@ -86,14 +94,14 @@ void MainWindow::openSetAlarmWindow()
 	setAlarmWindow->exec();
 }
 
-void MainWindow::setAlarm(const QTime& time, const QString name)
+void MainWindow::setAlarm(const int& id, const QString& name, const QTime& time)
 {
-	AlarmClockWidget* alarm = new AlarmClockWidget(this, 1, time, name);
+	AlarmClockWidget* alarm = new AlarmClockWidget(this, id, time, name);
 	
 	QListWidgetItem* item = new QListWidgetItem(ui->alarmsListWidget);
 	item->setSizeHint(QSize(733, 226));
 
 	ui->alarmsListWidget->setItemWidget(item, alarm);
-
+	
 	QTimer::singleShot(1000, this, &MainWindow::checkAlarm);
 }

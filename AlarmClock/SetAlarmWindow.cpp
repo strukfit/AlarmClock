@@ -9,13 +9,12 @@ SetAlarmWindow::SetAlarmWindow(QWidget* parent) :
 	//setWindowFlags(Qt::Popup);
 
 	connect(ui->setAlarmButton, &QPushButton::clicked, this, [&] {
-		
-		int h = ui->hourSpinBox->value();
+		int h = ui->hoursSpinBox->value();
 		int m = ui->minutesSpinBox->value();
 
 		QString name = ui->nameLineEdit->text();
 
-		emit setAlarm(QTime(h, m), name);
+		emit setAlarm(AlarmClockWidget::count + 1, name, QTime(h, m));
 
 		close();
 	});
@@ -38,5 +37,5 @@ void SetAlarmWindow::setDefaultValues()
 
 void SetAlarmWindow::setDefaultFocus()
 {
-	ui->hourSpinBox->setFocus();
+	ui->hoursSpinBox->setFocus();
 }

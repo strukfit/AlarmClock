@@ -1,14 +1,17 @@
 #pragma once
-#include "SetAlarmWindowUI.h"
+
 #include <QTime>
 #include <QApplication>
+
+#include "SetAlarmWindowUI.h"
+#include "AlarmClockWidget.h"
 
 class SetAlarmWindow : public QDialog
 {
 	Q_OBJECT
 
 signals:
-	void setAlarm(const QTime& time, const QString name);
+	void setAlarm(const int& id, const QString& name, const QTime& time);
 
 public:
 	SetAlarmWindow(QWidget* parent = nullptr);

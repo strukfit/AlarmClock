@@ -38,7 +38,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.7.0_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets;svgwidgets</QtModules>
+    <QtModules>core;gui;widgets;svgwidgets;sql</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -65,6 +65,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -97,6 +102,7 @@
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
     </ClCompile>
     <ClCompile Include="AlarmClockWidgetUI.cpp" />
+    <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="IconPushButton.cpp" />
     <ClCompile Include="SetAlarmWindowUI.cpp" />
     <ClCompile Include="SetAlarmWindowUI.h" />
@@ -117,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlarmClockWidgetUI.h" />
+    <QtMoc Include="DatabaseManager.h" />
     <ClInclude Include="IconPushButton.h" />
     <ClInclude Include="XPushButton.h" />
     <QtMoc Include="SetAlarmWindow.h" />

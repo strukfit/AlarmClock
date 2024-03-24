@@ -15,6 +15,8 @@
 class SetAlarmWindowUI
 {
 public:
+	~SetAlarmWindowUI();
+
 	void setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass);
 	void setDefaultTime();
 	void setDefaultName();
@@ -24,7 +26,7 @@ public:
 	QHBoxLayout* timeSelectorHBoxLayout;
 	TimeWrapperWidget* timeWrapperWidget;
 	TimeWrapperChildWidget* timeSelectorWidget;
-	TimeSpinBox* hourSpinBox;
+	TimeSpinBox* hoursSpinBox;
 	TimeSpinBox* minutesSpinBox;
 	QLabel* separatorLabel;
 	QHBoxLayout* editNameHBoxLayout;

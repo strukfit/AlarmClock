@@ -12,12 +12,13 @@
 #include "XPushButton.h"
 #include "IconPushButton.h"
 
-class SetAlarmWindowUI
+class AlarmWindowUI
 {
 public:
-	~SetAlarmWindowUI();
+	~AlarmWindowUI();
 
-	void setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass);
+	void setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass);
+	void setupEditAlarmWindowUI(QDialog* SetAlarmWindowClass);
 	void setDefaultTime();
 	void setDefaultName();
 
@@ -53,5 +54,5 @@ private:
 };
 
 namespace Ui {
-	class SetAlarmWindowClass : public SetAlarmWindowUI{};
+	class SetAlarmWindowClass : public AlarmWindowUI{};
 } // namespace Ui

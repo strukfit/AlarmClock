@@ -103,16 +103,18 @@
     </ClCompile>
     <ClCompile Include="AlarmClockWidgetUI.cpp" />
     <ClCompile Include="DatabaseManager.cpp" />
+    <QtMoc Include="EditAlarmWindow.h" />
+    <ClCompile Include="EditAlarmWindow.cpp" />
     <ClCompile Include="IconPushButton.cpp" />
-    <ClCompile Include="SetAlarmWindowUI.cpp" />
-    <ClCompile Include="SetAlarmWindowUI.h" />
+    <ClCompile Include="AlarmWindowUI.cpp" />
+    <ClCompile Include="AlarmWindowUI.h" />
     <ClCompile Include="XPushButton.cpp" />
     <QtMoc Include="AlarmClockWidget.h" />
     <ClCompile Include="ArrowPushButton.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="NameLineEdit.cpp" />
-    <ClCompile Include="SetAlarmWindow.cpp" />
+    <ClCompile Include="AddAlarmWindow.cpp" />
     <QtMoc Include="TimeSpinBox.h" />
     <ClCompile Include="TimeSpinBox.cpp" />
     <ClCompile Include="TimeWrapperWidget.cpp" />
@@ -126,7 +128,7 @@
     <QtMoc Include="DatabaseManager.h" />
     <ClInclude Include="IconPushButton.h" />
     <ClInclude Include="XPushButton.h" />
-    <QtMoc Include="SetAlarmWindow.h" />
+    <QtMoc Include="AddAlarmWindow.h" />
     <QtMoc Include="TimeWrapperWidget.h" />
     <ClInclude Include="ArrowPushButton.h" />
     <QtMoc Include="NameLineEdit.h" />

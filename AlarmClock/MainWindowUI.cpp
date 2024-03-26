@@ -2,19 +2,19 @@
 
 MainWindowUI::~MainWindowUI()
 {
-	delete mainWindowCentralWidget;
-	delete mainWindowSetAlarmButton;
+	delete centralWidget;
+	delete addAlarmButton;
 	delete alarmsListWidget;
 	delete vBoxLayout;
 }
 
 void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindowClass)
 {
-	mainWindowCentralWidget = new QWidget(MainWindowClass);
+	centralWidget = new QWidget(MainWindowClass);
 
-	vBoxLayout = new QVBoxLayout(mainWindowCentralWidget);
+	vBoxLayout = new QVBoxLayout(centralWidget);
 	
-	alarmsListWidget = new QListWidget(mainWindowCentralWidget);
+	alarmsListWidget = new QListWidget(centralWidget);
 
 	alarmsListWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 	alarmsListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -29,15 +29,15 @@ void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindowClass)
 		}
 	)");
 
-	mainWindowSetAlarmButton = new QPushButton("openSetAlarmWindowButton", mainWindowCentralWidget);
-	mainWindowSetAlarmButton->setObjectName("mainWindowSetAlarmButton");
+	addAlarmButton = new QPushButton("Add", centralWidget);
+	addAlarmButton->setObjectName("addAlarmButton");
 
 	vBoxLayout->addWidget(alarmsListWidget);
-	vBoxLayout->addWidget(mainWindowSetAlarmButton);
+	vBoxLayout->addWidget(addAlarmButton);
 
 	MainWindowClass->setLayout(vBoxLayout);
 
-	MainWindowClass->setCentralWidget(mainWindowCentralWidget);
+	MainWindowClass->setCentralWidget(centralWidget);
 
 	QMetaObject::connectSlotsByName(MainWindowClass);
 }

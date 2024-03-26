@@ -1,12 +1,12 @@
-#include "SetAlarmWindow.h"
+#include "AddAlarmWindow.h"
 
-SetAlarmWindow::SetAlarmWindow(QWidget* parent) :
-	QDialog(parent), ui(new Ui::SetAlarmWindowClass)
+AddAlarmWindow::AddAlarmWindow(QWidget* parent) :
+	QDialog(parent), 
+	ui(new Ui::SetAlarmWindowClass)
 {
-	ui->setupSetAlarmWindowUI(this);
+	ui->setupAddAlarmWindowUI(this);
 
 	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint | Qt::FramelessWindowHint);
-	//setWindowFlags(Qt::Popup);
 
 	connect(ui->setAlarmButton, &QPushButton::clicked, this, [&] {
 		int h = ui->hoursSpinBox->value();
@@ -24,18 +24,18 @@ SetAlarmWindow::SetAlarmWindow(QWidget* parent) :
 	});
 }
 
-SetAlarmWindow::~SetAlarmWindow()
+AddAlarmWindow::~AddAlarmWindow()
 {
 	delete ui;
 }
 
-void SetAlarmWindow::setDefaultValues()
+void AddAlarmWindow::setDefaultValues()
 {
 	ui->setDefaultTime();
 	ui->setDefaultName();
 }
 
-void SetAlarmWindow::setDefaultFocus()
+void AddAlarmWindow::setFocus()
 {
 	ui->hoursSpinBox->setFocus();
 }

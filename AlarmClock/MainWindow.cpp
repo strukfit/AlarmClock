@@ -1,15 +1,18 @@
 #include "MainWindow.h"
 
 MainWindow::MainWindow(QWidget* parent) :
-	QMainWindow(parent), ui(new Ui::MainWindowClass), setAlarmWindow(nullptr)
+	QMainWindow(parent), 
+	ui(new Ui::MainWindowClass)
 {
 	ui->setupMainWindowUI(this);
 
 	resize(900, 550);
 
-	setAlarmWindow = new SetAlarmWindow(this);
+	addAlarmWindow = new AddAlarmWindow(this);
+	addAlarmWindow->setModal(true);
 
-	setAlarmWindow->setModal(true);
+	editAlarmWindow = new EditAlarmWindow(this);
+	editAlarmWindow->setModal(true);
 
 	overlayWidget = new QWidget(this);
 	overlayWidget->setGeometry(geometry());
@@ -30,9 +33,9 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	connect(this, &MainWindow::alarmClockAdded, dbManager, &DatabaseManager::insertData);
 
-	connect(ui->mainWindowSetAlarmButton, &QPushButton::clicked, this, &MainWindow::openSetAlarmWindow);
+	connect(ui->addAlarmButton, &QPushButton::clicked, this, &MainWindow::openAddAlarmWindow);
 
-	connect(setAlarmWindow, &SetAlarmWindow::setAlarm, this, [&](const int& id, const QString& name, const QTime& time) {
+	connect(addAlarmWindow, &AddAlarmWindow::setAlarm, this, [&](const int& id, const QString& name, const QTime& time) {
 		setAlarm(id, name, time);
 		emit alarmClockAdded(id, name, time);
 	});
@@ -41,8 +44,22 @@ MainWindow::MainWindow(QWidget* parent) :
 		overlayWidget->show();
 	});
 
-	connect(setAlarmWindow, &QDialog::finished, [&]() {
+	connect(addAlarmWindow, &QDialog::finished, [&]() {
 		overlayWidget->hide();
+	});
+
+	connect(editAlarmWindow, &QDialog::finished, [&]() {
+		overlayWidget->hide();
+	});
+
+	connect(ui->alarmsListWidget, &QListWidget::itemClicked, [&](QListWidgetItem* item){
+		//int listIndex = ui->alarmsListWidget->row(item);
+		//AlarmClockWidget* a = qobject_cast<AlarmClockWidget*>(ui->alarmsListWidget->itemWidget(item));
+		//QMessageBox::information(this, "", "index: " + QString::number(listIndex) + "id: " + QString::number(a->getId()));
+
+		AlarmClockWidget* a = qobject_cast<AlarmClockWidget*>(ui->alarmsListWidget->itemWidget(item));
+
+		openEditAlarmWindow(a->getName(), a->getAlarmTime());
 	});
 }
 
@@ -50,7 +67,7 @@ MainWindow::~MainWindow()
 {
 	delete ui;
 
-	delete setAlarmWindow;
+	delete addAlarmWindow;
 
 	delete overlayWidget;
 
@@ -83,15 +100,26 @@ void MainWindow::checkAlarm()
 	QTimer::singleShot(1000, this, &MainWindow::checkAlarm);
 }
 
-void MainWindow::openSetAlarmWindow()
+void MainWindow::openAddAlarmWindow()
 {
 	emit childWindowShowed();
 
-	setAlarmWindow->setDefaultValues();
+	addAlarmWindow->setDefaultValues();
 
-	setAlarmWindow->setDefaultFocus();
+	addAlarmWindow->setFocus();
 
-	setAlarmWindow->exec();
+	addAlarmWindow->exec();
+}
+
+void MainWindow::openEditAlarmWindow(const QString& name, const QTime& time)
+{
+	emit childWindowShowed();
+
+	editAlarmWindow->setValues(name, time);
+
+	editAlarmWindow->setFocus();
+
+	editAlarmWindow->exec();
 }
 
 void MainWindow::setAlarm(const int& id, const QString& name, const QTime& time)

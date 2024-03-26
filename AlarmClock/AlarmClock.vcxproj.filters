@@ -32,7 +32,7 @@
     <ClCompile Include="MainWindowUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SetAlarmWindow.cpp">
+    <ClCompile Include="AddAlarmWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AlarmClockWidget.cpp">
@@ -56,10 +56,10 @@
     <ClCompile Include="IconPushButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SetAlarmWindowUI.h">
+    <ClCompile Include="AlarmWindowUI.h">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="SetAlarmWindowUI.cpp">
+    <ClCompile Include="AlarmWindowUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AlarmClockWidgetUI.cpp">
@@ -68,12 +68,15 @@
     <ClCompile Include="DatabaseManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EditAlarmWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="SetAlarmWindow.h">
+    <QtMoc Include="AddAlarmWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="AlarmClockWidget.h">
@@ -89,6 +92,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="DatabaseManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="EditAlarmWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

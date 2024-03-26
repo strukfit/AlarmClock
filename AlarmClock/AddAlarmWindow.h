@@ -3,10 +3,10 @@
 #include <QTime>
 #include <QApplication>
 
-#include "SetAlarmWindowUI.h"
+#include "AlarmWindowUI.h"
 #include "AlarmClockWidget.h"
 
-class SetAlarmWindow : public QDialog
+class AddAlarmWindow : public QDialog
 {
 	Q_OBJECT
 
@@ -14,11 +14,11 @@ signals:
 	void setAlarm(const int& id, const QString& name, const QTime& time);
 
 public:
-	SetAlarmWindow(QWidget* parent = nullptr);
-	~SetAlarmWindow();
+	AddAlarmWindow(QWidget* parent = nullptr);
+	~AddAlarmWindow();
 
 	void setDefaultValues();
-	void setDefaultFocus();
+	void setFocus();
 
 private:
 	Ui::SetAlarmWindowClass* ui;

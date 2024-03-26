@@ -1,8 +1,8 @@
-#include "SetAlarmWindowUI.h"
+#include "AlarmWindowUI.h"
 
-int SetAlarmWindowUI::defaultNameCounter = 0;
+int AlarmWindowUI::defaultNameCounter = 0;
 
-void SetAlarmWindowUI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
+void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 {
 	SetAlarmWindowClass->setStyleSheet("background-color: #201c1c; border: none;");
 
@@ -209,7 +209,14 @@ void SetAlarmWindowUI::setupSetAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	QMetaObject::connectSlotsByName(SetAlarmWindowClass);
 }
 
-SetAlarmWindowUI::~SetAlarmWindowUI()
+void AlarmWindowUI::setupEditAlarmWindowUI(QDialog* SetAlarmWindowClass)
+{
+	setupAddAlarmWindowUI(SetAlarmWindowClass);
+
+	title->setText("Edit alarm clock");
+}
+
+AlarmWindowUI::~AlarmWindowUI()
 {
 	delete title;
 	delete setAlarmWindowVLayout;
@@ -235,13 +242,13 @@ SetAlarmWindowUI::~SetAlarmWindowUI()
 	delete saveCancelLayout;
 }
 
-void SetAlarmWindowUI::setDefaultTime()
+void AlarmWindowUI::setDefaultTime()
 {
 	hoursSpinBox->setValue(7);
 	minutesSpinBox->setValue(0);
 }
 
-void SetAlarmWindowUI::setDefaultName()
+void AlarmWindowUI::setDefaultName()
 {
 	nameLineEdit->setText(defaultName + " (" + QString::number(defaultNameCounter + 1) + ")");
 }

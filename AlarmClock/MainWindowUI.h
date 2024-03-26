@@ -12,8 +12,8 @@ public:
 
 	void setupMainWindowUI(QMainWindow* MainWindowClass);
 
-	QWidget* mainWindowCentralWidget;
-	QPushButton* mainWindowSetAlarmButton;
+	QWidget* centralWidget;
+	QPushButton* addAlarmButton;
 	QListWidget* alarmsListWidget;
 	QVBoxLayout* vBoxLayout;
 

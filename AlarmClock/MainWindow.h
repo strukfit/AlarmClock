@@ -5,7 +5,8 @@
 #include <QtWidgets/QMessageBox>
 
 #include "MainWindowUI.h"
-#include "SetAlarmWindow.h"
+#include "AddAlarmWindow.h"
+#include "EditAlarmWindow.h"
 #include "AlarmClockWidget.h"
 #include "DatabaseManager.h"
 
@@ -20,7 +21,8 @@ public:
 public slots:
     void setAlarm(const int& id, const QString& name, const QTime& time);
     void checkAlarm();
-    void openSetAlarmWindow();
+    void openAddAlarmWindow();
+    void openEditAlarmWindow(const QString& name, const QTime& time);
 
 signals:
     void childWindowShowed();
@@ -29,9 +31,11 @@ signals:
 private:
     Ui::MainWindowClass* ui;
 
-   DatabaseManager* dbManager;
+    DatabaseManager* dbManager;
 
-    SetAlarmWindow* setAlarmWindow;
+    AddAlarmWindow* addAlarmWindow;
+
+    EditAlarmWindow* editAlarmWindow;
 
     QWidget* overlayWidget;
 };

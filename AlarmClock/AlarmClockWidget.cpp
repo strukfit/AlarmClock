@@ -23,6 +23,22 @@ void AlarmClockWidget::setActive(bool flag)
 	this->active = flag;
 }
 
+void AlarmClockWidget::setName(const QString& name)
+{
+	this->name = name;
+}
+
+void AlarmClockWidget::setAlarmTime(const QTime& alarmTime)
+{
+	this->alarmTime = alarmTime;
+}
+
+void AlarmClockWidget::updateUI()
+{
+	ui->name->setText(name);
+	ui->time->setText(alarmTime.toString("hh:mm"));
+}
+
 int AlarmClockWidget::getId()
 {
 	return this->id;

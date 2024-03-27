@@ -11,6 +11,9 @@ public:
 	AlarmClockWidget(QWidget* parent = nullptr, int id = NULL, QTime time = QTime(0, 0), QString name = NULL);
 
 	void setActive(bool flag);
+	void setName(const QString& name);
+	void setAlarmTime(const QTime& alarmTime);
+	void updateUI();
 
 	int getId();
 	QTime getAlarmTime();

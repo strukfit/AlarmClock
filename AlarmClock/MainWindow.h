@@ -20,13 +20,15 @@ public:
 
 public slots:
     void setAlarm(const int& id, const QString& name, const QTime& time);
+    void updateAlarm(const int& listId, const QString& name, const QTime& time);
     void checkAlarm();
     void openAddAlarmWindow();
-    void openEditAlarmWindow(const QString& name, const QTime& time);
+    void openEditAlarmWindow(const int& listId, const QString& name, const QTime& time);
 
 signals:
     void childWindowShowed();
     void alarmClockAdded(const int& id, const QString& name, const QTime& time);
+    void alarmClockUpdated(const int& id, const QString& name, const QTime& time);
 
 private:
     Ui::MainWindowClass* ui;

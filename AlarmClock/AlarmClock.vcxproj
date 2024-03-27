@@ -107,7 +107,7 @@
     <ClCompile Include="EditAlarmWindow.cpp" />
     <ClCompile Include="IconPushButton.cpp" />
     <ClCompile Include="AlarmWindowUI.cpp" />
-    <ClCompile Include="AlarmWindowUI.h" />
+    <ClInclude Include="AlarmWindowUI.h" />
     <ClCompile Include="XPushButton.cpp" />
     <QtMoc Include="AlarmClockWidget.h" />
     <ClCompile Include="ArrowPushButton.cpp" />

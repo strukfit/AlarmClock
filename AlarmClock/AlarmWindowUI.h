@@ -45,11 +45,12 @@ public:
 	IconPushButton* cancelButton;
 	QHBoxLayout* saveCancelLayout;
 
+	static int defaultNameCounter;
+
 private:
 	const QString activeAccentColor = "#78bcec";
 	const QString inactiveAccentColor = "#9c9c9c";
 
-	static int defaultNameCounter;
 	QString defaultName = "Alarm clock";
 };
 

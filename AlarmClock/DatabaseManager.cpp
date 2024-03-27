@@ -57,3 +57,13 @@ void DatabaseManager::insertData(const int& id, const QString& name, const QTime
 	query.bindValue(":time", time.toString("hh:mm"));
 	query.exec();
 }
+
+void DatabaseManager::updateData(const int& id, const QString& name, const QTime& time)
+{
+	QSqlQuery query;
+	query.prepare("UPDATE AlarmClocks SET name = :name, time = :time WHERE id = :id;");
+	query.bindValue(":id", id);
+	query.bindValue(":name", name);
+	query.bindValue(":time", time.toString("hh:mm"));
+	query.exec();
+}

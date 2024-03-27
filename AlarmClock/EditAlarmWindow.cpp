@@ -9,12 +9,12 @@ EditAlarmWindow::EditAlarmWindow(QWidget* parent) :
 	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint | Qt::FramelessWindowHint);
 
 	connect(ui->setAlarmButton, &QPushButton::clicked, this, [&] {
-		/*int h = ui->hoursSpinBox->value();
+		int h = ui->hoursSpinBox->value();
 		int m = ui->minutesSpinBox->value();
 
 		QString name = ui->nameLineEdit->text();
 
-		emit setAlarm(AlarmClockWidget::count + 1, name, QTime(h, m));*/
+		emit updateAlarm(this->listId, name, QTime(h, m));
 
 		close();
 	});
@@ -42,8 +42,7 @@ void EditAlarmWindow::setFocus()
 	ui->hoursSpinBox->setFocus();
 }
 
-//void EditAlarmWindow::setDefaultValues()
-//{
-//	ui->setDefaultTime();
-//	ui->setDefaultName();
-//}
+void EditAlarmWindow::setListId(const int& listId)
+{
+	this->listId = listId;
+}

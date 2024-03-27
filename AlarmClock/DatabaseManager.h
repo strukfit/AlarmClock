@@ -23,6 +23,7 @@ public:
 
 public slots:
 	void insertData(const int& id, const QString& name, const QTime& time);
+	void updateData(const int& id, const QString& name, const QTime& time);
 
 signals:
 	void dataReceived(const int& id, const QString& name, const QTime& time);

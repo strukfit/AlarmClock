@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget* parent) :
 	AlarmClockWidget::count = ui->alarmsListWidget->count();
 
 	connect(this, &MainWindow::alarmClockAdded, dbManager, &DatabaseManager::insertData);
+	connect(this, &MainWindow::alarmClockUpdated, dbManager, &DatabaseManager::updateData);
 
 	connect(ui->addAlarmButton, &QPushButton::clicked, this, &MainWindow::openAddAlarmWindow);
 
@@ -39,6 +40,8 @@ MainWindow::MainWindow(QWidget* parent) :
 		setAlarm(id, name, time);
 		emit alarmClockAdded(id, name, time);
 	});
+
+	connect(editAlarmWindow, &EditAlarmWindow::updateAlarm, this, &MainWindow::updateAlarm);
 	
 	connect(this, &MainWindow::childWindowShowed, [&]() {
 		overlayWidget->show();
@@ -53,13 +56,11 @@ MainWindow::MainWindow(QWidget* parent) :
 	});
 
 	connect(ui->alarmsListWidget, &QListWidget::itemClicked, [&](QListWidgetItem* item){
-		//int listIndex = ui->alarmsListWidget->row(item);
-		//AlarmClockWidget* a = qobject_cast<AlarmClockWidget*>(ui->alarmsListWidget->itemWidget(item));
-		//QMessageBox::information(this, "", "index: " + QString::number(listIndex) + "id: " + QString::number(a->getId()));
+		int listId = ui->alarmsListWidget->row(item);
 
-		AlarmClockWidget* a = qobject_cast<AlarmClockWidget*>(ui->alarmsListWidget->itemWidget(item));
+		AlarmClockWidget* selectedAlarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListWidget->itemWidget(item));
 
-		openEditAlarmWindow(a->getName(), a->getAlarmTime());
+		openEditAlarmWindow(listId, selectedAlarm->getName(), selectedAlarm->getAlarmTime());
 	});
 }
 
@@ -111,9 +112,11 @@ void MainWindow::openAddAlarmWindow()
 	addAlarmWindow->exec();
 }
 
-void MainWindow::openEditAlarmWindow(const QString& name, const QTime& time)
+void MainWindow::openEditAlarmWindow(const int& listId, const QString& name, const QTime& time)
 {
 	emit childWindowShowed();
+
+	editAlarmWindow->setListId(listId);
 
 	editAlarmWindow->setValues(name, time);
 
@@ -132,4 +135,28 @@ void MainWindow::setAlarm(const int& id, const QString& name, const QTime& time)
 	ui->alarmsListWidget->setItemWidget(item, alarm);
 	
 	QTimer::singleShot(1000, this, &MainWindow::checkAlarm);
+}
+
+void MainWindow::updateAlarm(const int& listId, const QString& name, const QTime& time)
+{
+	QListWidgetItem* item = ui->alarmsListWidget->item(listId);
+
+	if (item)
+	{
+		AlarmClockWidget* selectedAlarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListWidget->itemWidget(item));
+
+		if (selectedAlarm)
+		{
+			selectedAlarm->setName(name);
+			selectedAlarm->setAlarmTime(time);
+
+			ui->alarmsListWidget->setItemWidget(item, selectedAlarm);
+			//QMessageBox::information(this, "", "name: " + selectedAlarm->getName() + " time " + selectedAlarm->getAlarmTime().toString("hh:mm"));
+			//ui->alarmsListWidget->update();
+
+			selectedAlarm->updateUI();
+		}
+
+		emit alarmClockUpdated(selectedAlarm->getId(), name, time);
+	}
 }

@@ -56,9 +56,6 @@
     <ClCompile Include="IconPushButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AlarmWindowUI.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="AlarmWindowUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -112,6 +109,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AlarmClockWidgetUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AlarmWindowUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

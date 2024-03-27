@@ -10,8 +10,8 @@ class EditAlarmWindow : public QDialog
 {
 	Q_OBJECT
 
-//signals:
-//	void setAlarm(const int& id, const QString& name, const QTime& time);
+signals:
+	void updateAlarm(const int& listId, const QString& name, const QTime& time);
 
 public:
 	EditAlarmWindow(QWidget* parent = nullptr);
@@ -19,7 +19,10 @@ public:
 
 	void setValues(const QString& name, const QTime& time);
 	void setFocus();
+	void setListId(const int& listId);
 
 private:
 	Ui::SetAlarmWindowClass* ui;
+
+	int listId;
 };

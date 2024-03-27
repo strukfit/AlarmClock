@@ -157,7 +157,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 		if (!nameLineEdit->text().isEmpty())
 			nameLineEdit->clear();
 		nameLineEdit->setFocus();
-		});
+	});
 
 	nameLineEditLayout->addWidget(nameLineEdit);
 	nameLineEditLayout->addStretch(1);
@@ -193,10 +193,6 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	QWidget* separatingLine = new QWidget(SetAlarmWindowClass);
 	separatingLine->setStyleSheet("background-color: #191919;");
 	separatingLine->setFixedSize(SetAlarmWindowClass->maximumWidth(), 1);
-
-	//setAlarmWindowVLayout->addWidget(separatingLine);
-
-	//QPoint nameLinePos = SetAlarmWindowClass->mapToGlobal(nameLineEditLayout->geometry().bottomLeft());
 
 	separatingLine->move(0, 310);
 

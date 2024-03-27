@@ -17,8 +17,8 @@ class AlarmWindowUI
 public:
 	~AlarmWindowUI();
 
-	void setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass);
-	void setupEditAlarmWindowUI(QDialog* SetAlarmWindowClass);
+	void setupAddAlarmWindowUI(QDialog* AlarmWindowClass);
+	void setupEditAlarmWindowUI(QDialog* AlarmWindowClass);
 	void setDefaultTime();
 	void setDefaultName();
 
@@ -44,6 +44,8 @@ public:
 	IconPushButton* setAlarmButton;
 	IconPushButton* cancelButton;
 	QHBoxLayout* saveCancelLayout;
+
+	IconPushButton* deleteButton;
 
 	static int defaultNameCounter;
 

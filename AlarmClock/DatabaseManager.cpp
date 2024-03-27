@@ -67,3 +67,11 @@ void DatabaseManager::updateData(const int& id, const QString& name, const QTime
 	query.bindValue(":time", time.toString("hh:mm"));
 	query.exec();
 }
+
+void DatabaseManager::deleteData(const int& id)
+{
+	QSqlQuery query;
+	query.prepare("DELETE FROM AlarmClocks WHERE id = :id;");
+	query.bindValue(":id", id);
+	query.exec();
+}

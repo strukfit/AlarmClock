@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	connect(this, &MainWindow::alarmClockAdded, dbManager, &DatabaseManager::insertData);
 	connect(this, &MainWindow::alarmClockUpdated, dbManager, &DatabaseManager::updateData);
+	connect(this, &MainWindow::alarmClockDeleted, dbManager, &DatabaseManager::deleteData);
 
 	connect(ui->addAlarmButton, &QPushButton::clicked, this, &MainWindow::openAddAlarmWindow);
 
@@ -42,8 +43,10 @@ MainWindow::MainWindow(QWidget* parent) :
 	});
 
 	connect(editAlarmWindow, &EditAlarmWindow::updateAlarm, this, &MainWindow::updateAlarm);
-	
+	connect(editAlarmWindow, &EditAlarmWindow::deleteAlarm, this, &MainWindow::deleteAlarm);
+
 	connect(this, &MainWindow::childWindowShowed, [&]() {
+		//overlayWidget->setGeometry(geometry());
 		overlayWidget->show();
 	});
 
@@ -155,8 +158,30 @@ void MainWindow::updateAlarm(const int& listId, const QString& name, const QTime
 			//ui->alarmsListWidget->update();
 
 			selectedAlarm->updateUI();
+
+			emit alarmClockUpdated(selectedAlarm->getId(), name, time);
+		}
+	}
+}
+
+void MainWindow::deleteAlarm(const int& listId)
+{
+	QListWidgetItem* item = ui->alarmsListWidget->item(listId);
+
+	if (item)
+	{
+		AlarmClockWidget* selectedAlarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListWidget->itemWidget(item));
+
+		if (selectedAlarm)
+		{
+
+			ui->alarmsListWidget->removeItemWidget(item);
+
+			emit alarmClockDeleted(selectedAlarm->getId());
 		}
 
-		emit alarmClockUpdated(selectedAlarm->getId(), name, time);
+		delete selectedAlarm;
 	}
+
+	delete item;
 }

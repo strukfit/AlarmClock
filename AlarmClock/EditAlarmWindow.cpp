@@ -22,6 +22,12 @@ EditAlarmWindow::EditAlarmWindow(QWidget* parent) :
 	connect(ui->cancelButton, &QPushButton::clicked, this, [&] {
 		close();
 	});
+
+	connect(ui->deleteButton, &QPushButton::clicked, this, [&] {
+		emit deleteAlarm(this->listId);
+
+		close();
+	});
 }
 
 EditAlarmWindow::~EditAlarmWindow()

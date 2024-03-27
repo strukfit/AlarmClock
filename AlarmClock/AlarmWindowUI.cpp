@@ -2,18 +2,19 @@
 
 int AlarmWindowUI::defaultNameCounter = 0;
 
-void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
+void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 {
-	SetAlarmWindowClass->setStyleSheet("background-color: #201c1c; border: none;");
+	AlarmWindowClass->setStyleSheet("background-color: #201c1c; border: none;");
 
-	setAlarmWindowVLayout = new QVBoxLayout(SetAlarmWindowClass);
+	setAlarmWindowVLayout = new QVBoxLayout(AlarmWindowClass);
 	setAlarmWindowVLayout->setContentsMargins(30, 30, 30, 30);
 
 	title = new QLabel("Add a new alarm clock");
 	title->setStyleSheet("color: white; font-size: 20px; font-weight: bold;");
+
 	setAlarmWindowVLayout->addWidget(title);
 
-	timeWrapperWidget = new TimeWrapperWidget(SetAlarmWindowClass, "#383434", activeAccentColor);
+	timeWrapperWidget = new TimeWrapperWidget(AlarmWindowClass, "#383434", activeAccentColor);
 	timeWrapperWidget->setFixedSize(272, 80);
 
 	timeSelectorWidget = new TimeWrapperChildWidget(timeWrapperWidget, "#201c1c", "transparent");
@@ -45,15 +46,15 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	timeSelectorHBoxLayout->addWidget(separatorLabel);
 	timeSelectorHBoxLayout->addWidget(minutesSpinBox);
 
-	editNameHBoxLayout = new QHBoxLayout(SetAlarmWindowClass);
+	editNameHBoxLayout = new QHBoxLayout(AlarmWindowClass);
 
-	QHBoxLayout* arrowsUpLayout = new QHBoxLayout(SetAlarmWindowClass);
-	QHBoxLayout* arrowsDownLayout = new QHBoxLayout(SetAlarmWindowClass);
+	QHBoxLayout* arrowsUpLayout = new QHBoxLayout(AlarmWindowClass);
+	QHBoxLayout* arrowsDownLayout = new QHBoxLayout(AlarmWindowClass);
 
 	arrowsUpLayout->setContentsMargins(60, 0, 60, 0);
 	arrowsDownLayout->setContentsMargins(60, 0, 60, 0);
 
-	arrowUpButton1 = new ArrowPushButton(SetAlarmWindowClass, true);
+	arrowUpButton1 = new ArrowPushButton(AlarmWindowClass, true);
 	arrowUpButton1->setFixedSize(32, 32);
 
 	QObject::connect(arrowUpButton1, &QPushButton::pressed, [&]() {
@@ -61,7 +62,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 		hoursSpinBox->setFocus();
 		});
 
-	arrowUpButton2 = new ArrowPushButton(SetAlarmWindowClass, true);
+	arrowUpButton2 = new ArrowPushButton(AlarmWindowClass, true);
 	arrowUpButton2->setFixedSize(32, 32);
 
 	QObject::connect(arrowUpButton2, &QPushButton::pressed, [&]() {
@@ -69,7 +70,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 		minutesSpinBox->setFocus();
 		});
 
-	arrowDownButton1 = new ArrowPushButton(SetAlarmWindowClass, false);
+	arrowDownButton1 = new ArrowPushButton(AlarmWindowClass, false);
 	arrowDownButton1->setFixedSize(32, 32);
 
 	QObject::connect(arrowDownButton1, &QPushButton::pressed, [&]() {
@@ -77,7 +78,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 		hoursSpinBox->setFocus();
 		});
 
-	arrowDownButton2 = new ArrowPushButton(SetAlarmWindowClass, false);
+	arrowDownButton2 = new ArrowPushButton(AlarmWindowClass, false);
 	arrowDownButton2->setFixedSize(32, 32);
 
 	QObject::connect(arrowDownButton2, &QPushButton::pressed, [&]() {
@@ -93,7 +94,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	arrowsDownLayout->addStretch(1);
 	arrowsDownLayout->addWidget(arrowDownButton2);
 
-	QVBoxLayout* timeSelectorLayout = new QVBoxLayout(SetAlarmWindowClass);
+	QVBoxLayout* timeSelectorLayout = new QVBoxLayout(AlarmWindowClass);
 
 	setAlarmWindowVLayout->addSpacing(13);
 
@@ -101,13 +102,13 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 	setAlarmWindowVLayout->addWidget(timeWrapperWidget);
 	setAlarmWindowVLayout->addLayout(arrowsDownLayout);
 
-	editSvgWidget = new QSvgWidget(SetAlarmWindowClass);
+	editSvgWidget = new QSvgWidget(AlarmWindowClass);
 	editSvgWidget->load(QString("Resources/edit-white.svg"));
 	editSvgWidget->setFixedSize(16, 16);
 
 	editNameHBoxLayout->addWidget(editSvgWidget);
 
-	editNameWrapperWidget = new TimeWrapperWidget(SetAlarmWindowClass, "#383434", activeAccentColor, false);
+	editNameWrapperWidget = new TimeWrapperWidget(AlarmWindowClass, "#383434", activeAccentColor, false);
 	editNameWrapperWidget->setFixedSize(247, 34);
 
 	editNameWidget = new TimeWrapperChildWidget(editNameWrapperWidget, "#292929", "#2F2F2F");
@@ -169,9 +170,9 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 
 	setAlarmWindowVLayout->addLayout(editNameHBoxLayout);
 
-	saveCancelLayout = new QHBoxLayout(SetAlarmWindowClass);
+	saveCancelLayout = new QHBoxLayout(AlarmWindowClass);
 
-	setAlarmButton = new IconPushButton(SetAlarmWindowClass, "Save", "#07080a", "#37516a", "Resources/save-dark.svg", "Resources/save-light.svg", "#78bcec", "#70acdc", "#689cc4");
+	setAlarmButton = new IconPushButton(AlarmWindowClass, "Save", "#07080a", "#37516a", "Resources/save-dark.svg", "Resources/save-light.svg", "#78bcec", "#70acdc", "#689cc4");
 	setAlarmButton->setFixedHeight(32);
 	setAlarmButton->setIconSize(QSize(18, 18));
 
@@ -180,7 +181,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 			defaultNameCounter++;
 		});
 
-	cancelButton = new IconPushButton(SetAlarmWindowClass, "Cancel", "white", "#a09c9c", "Resources/x-white.svg", "Resources/x-grey.svg", "#292929", "#2F2F2F", "#232323");;
+	cancelButton = new IconPushButton(AlarmWindowClass, "Cancel", "white", "#a09c9c", "Resources/x-white.svg", "Resources/x-grey.svg", "#292929", "#2F2F2F", "#232323");;
 	cancelButton->setFixedHeight(32);
 	cancelButton->setIconSize(QSize(18, 18));
 
@@ -190,9 +191,9 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 
 	setAlarmWindowVLayout->addSpacing(24);
 
-	QWidget* separatingLine = new QWidget(SetAlarmWindowClass);
+	QWidget* separatingLine = new QWidget(AlarmWindowClass);
 	separatingLine->setStyleSheet("background-color: #191919;");
-	separatingLine->setFixedSize(SetAlarmWindowClass->maximumWidth(), 1);
+	separatingLine->setFixedSize(AlarmWindowClass->maximumWidth(), 1);
 
 	separatingLine->move(0, 310);
 
@@ -200,16 +201,21 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* SetAlarmWindowClass)
 
 	setAlarmWindowVLayout->addLayout(saveCancelLayout);
 
-	SetAlarmWindowClass->setLayout(setAlarmWindowVLayout);
+	AlarmWindowClass->setLayout(setAlarmWindowVLayout);
 
-	QMetaObject::connectSlotsByName(SetAlarmWindowClass);
+	QMetaObject::connectSlotsByName(AlarmWindowClass);
 }
 
-void AlarmWindowUI::setupEditAlarmWindowUI(QDialog* SetAlarmWindowClass)
+void AlarmWindowUI::setupEditAlarmWindowUI(QDialog* AlarmWindowClass)
 {
-	setupAddAlarmWindowUI(SetAlarmWindowClass);
+	setupAddAlarmWindowUI(AlarmWindowClass);
 
 	title->setText("Edit alarm clock");
+
+	deleteButton = new IconPushButton(AlarmWindowClass, "", "transparent", "transparent", "Resources/delete-grey.svg", "Resources/delete-grey.svg", "transparent", "#302c2c", "#282424");
+	deleteButton->setFixedSize(32, 32);
+
+	deleteButton->move(290, 10);
 }
 
 AlarmWindowUI::~AlarmWindowUI()

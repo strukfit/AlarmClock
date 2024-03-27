@@ -12,6 +12,7 @@ class EditAlarmWindow : public QDialog
 
 signals:
 	void updateAlarm(const int& listId, const QString& name, const QTime& time);
+	void deleteAlarm(const int& listId);
 
 public:
 	EditAlarmWindow(QWidget* parent = nullptr);

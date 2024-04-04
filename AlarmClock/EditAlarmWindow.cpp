@@ -1,10 +1,12 @@
 #include "EditAlarmWindow.h"
 
-EditAlarmWindow::EditAlarmWindow(QWidget* parent, const int& listId) :
+EditAlarmWindow::EditAlarmWindow(QWidget* parent, const int& listId, const QString& name, const QTime& time) :
 	QDialog(parent),
 	listId(listId)
 {
 	ui->setupEditAlarmWindowUI(this);
+
+	ui->setValues(name, time);
 
 	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint | Qt::FramelessWindowHint);
 
@@ -33,14 +35,6 @@ EditAlarmWindow::EditAlarmWindow(QWidget* parent, const int& listId) :
 EditAlarmWindow::~EditAlarmWindow()
 {
 	delete ui;
-}
-
-void EditAlarmWindow::setValues(const QString& name, const QTime& time)
-{
-	ui->hoursSpinBox->setValue(time.hour());
-	ui->minutesSpinBox->setValue(time.minute());
-
-	ui->nameLineEdit->setText(name);
 }
 
 void EditAlarmWindow::setFocus()

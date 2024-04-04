@@ -19,6 +19,7 @@ public:
 	QTime getAlarmTime();
 	QString getName();
 	bool isActive();
+
 	static int count;
 
 private:

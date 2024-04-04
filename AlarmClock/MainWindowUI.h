@@ -4,6 +4,10 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QVBoxLayout>
+#include <QGraphicsDropShadowEffect>
+
+#include "AlarmsWidget.h"
+#include "IconPushButton.h"
 
 class MainWindowUI
 {
@@ -11,9 +15,16 @@ public:
 	void setupMainWindowUI(QMainWindow* MainWindowClass);
 
 	QWidget* centralWidget;
-	QPushButton* addAlarmButton;
+	QHBoxLayout* centralLayout;
+	QWidget* functionSelectorWidget;
+	AlarmsWidget* alarmsWidget;
 	QListWidget* alarmsListWidget;
-	QVBoxLayout* vBoxLayout;
+	QVBoxLayout* alarmsListLayout;
+	QWidget* alarmsManagerWidget;
+	QHBoxLayout* alarmsManagerLayout;
+	IconPushButton* deleteAlarmsButton;
+	IconPushButton* confirmButton;
+	IconPushButton* addAlarmButton;
 
 };
 

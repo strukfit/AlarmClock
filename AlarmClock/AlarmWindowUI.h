@@ -6,6 +6,7 @@
 #include <QtSvg/QSvgRenderer>
 #include <QSettings>
 #include <QApplication>
+#include <QTime>
 
 #include "TimeSpinBox.h"
 #include "TimeWrapperWidget.h"
@@ -17,12 +18,14 @@
 class AlarmWindowUI
 {
 public:
+	AlarmWindowUI();
 	~AlarmWindowUI();
 
 	void setupAddAlarmWindowUI(QDialog* AlarmWindowClass);
 	void setupEditAlarmWindowUI(QDialog* AlarmWindowClass);
 	void setDefaultTime();
 	void setDefaultName();
+	void setValues(const QString& name, const QTime& time);
 
 	QLabel* title;
 	QVBoxLayout* setAlarmWindowVLayout;
@@ -49,14 +52,14 @@ public:
 
 	IconPushButton* deleteButton;
 
-	int defaultNameCounter = 0;
+	unsigned int defaultNameCounter = 0;
 
 private:
 	const QString activeAccentColor = "#78bcec";
 	const QString inactiveAccentColor = "#9c9c9c";
 
 	QString defaultName = "Alarm clock";
-
+	QString initialName = "";
 	QString settingsFile = QApplication::applicationDirPath() + "/settings.ini";
 };
 

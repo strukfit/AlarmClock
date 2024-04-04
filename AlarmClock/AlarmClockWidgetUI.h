@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QPushButton>
 
+#include "IconPushButton.h"
+
 class AlarmClockWidgetUI
 {
 public:
@@ -14,6 +16,7 @@ public:
 	QLabel* time;
 	QLabel* name;
 	QPushButton* testButton;
+	IconPushButton* deleteButton;
 };
 
 namespace Ui {

@@ -14,7 +14,7 @@ IconPushButton::IconPushButton(QWidget* parent, QString text, QString textColor,
 	
 	setText(text);
 
-	setStyleSheet(" QPushButton { font-size: 14px; background-color: " + backgroundColor + "; color: " + textColor + "; border-radius: 4px; } QPushButton:hover { background-color: " + hoverColor + "; } QPushButton:pressed { background-color: " + pressedColor + "; color: " + textPressedColor + "}");
+	setStyleSheet(" QPushButton { font-size: 14px; background-color: " + backgroundColor + "; color: " + textColor + "; border-radius: 4px; border: 0;} QPushButton:hover { background-color: " + hoverColor + "; } QPushButton:pressed { background-color: " + pressedColor + "; color: " + textPressedColor + "}");
 }
 
 IconPushButton::~IconPushButton()

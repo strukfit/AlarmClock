@@ -1,5 +1,11 @@
 #include "AlarmWindowUI.h"
 
+AlarmWindowUI::AlarmWindowUI()
+{
+	QSettings settings(settingsFile, QSettings::IniFormat);
+	defaultNameCounter = settings.value("defaultNameCounter", 0).toInt();
+}
+
 AlarmWindowUI::~AlarmWindowUI()
 {
 	QSettings settings(settingsFile, QSettings::IniFormat);
@@ -8,9 +14,6 @@ AlarmWindowUI::~AlarmWindowUI()
 
 void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 {
-	QSettings settings(settingsFile, QSettings::IniFormat);
-	defaultNameCounter = settings.value("defaultNameCounter", 0).toInt();
-
 	AlarmWindowClass->setStyleSheet("background-color: #201c1c; border: none;");
 
 	setAlarmWindowVLayout = new QVBoxLayout(AlarmWindowClass);
@@ -152,7 +155,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 
 	QObject::connect(nameLineEdit, &NameLineEdit::focusLost, [&] {
 		xButton->hide();
-		});
+	});
 
 	QObject::connect(nameLineEdit, &NameLineEdit::textChanged, [&] {
 		if (!nameLineEdit->text().isEmpty())
@@ -223,6 +226,12 @@ void AlarmWindowUI::setupEditAlarmWindowUI(QDialog* AlarmWindowClass)
 	deleteButton->setFixedSize(32, 32);
 
 	deleteButton->move(290, 10);
+
+	QObject::connect(deleteButton, &QPushButton::clicked, [&] {
+		QMessageBox::information(nullptr, "", "initialName: " + initialName + "\ndefaultName: " + (defaultName + " (" + QString::number(defaultNameCounter + 1) + ")"));
+		if (initialName == (defaultName + " (" + QString::number(defaultNameCounter) + ")"))
+			defaultNameCounter--;
+	});
 }
 
 void AlarmWindowUI::setDefaultTime()
@@ -234,4 +243,13 @@ void AlarmWindowUI::setDefaultTime()
 void AlarmWindowUI::setDefaultName()
 {
 	nameLineEdit->setText(defaultName + " (" + QString::number(defaultNameCounter + 1) + ")");
+}
+
+void AlarmWindowUI::setValues(const QString& name, const QTime& time)
+{
+	hoursSpinBox->setValue(time.hour());
+	minutesSpinBox->setValue(time.minute());
+
+	initialName = name;
+	nameLineEdit->setText(name);
 }

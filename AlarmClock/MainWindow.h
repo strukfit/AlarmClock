@@ -3,6 +3,7 @@
 #include <QTime>
 #include <QTimer>
 #include <QtWidgets/QMessageBox>
+#include <QSettings>
 
 #include "MainWindowUI.h"
 #include "AddAlarmWindow.h"

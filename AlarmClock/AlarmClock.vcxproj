@@ -102,11 +102,13 @@
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
     </ClCompile>
     <ClCompile Include="AlarmClockWidgetUI.cpp" />
+    <ClCompile Include="AlarmsWidget.cpp" />
     <ClCompile Include="DatabaseManager.cpp" />
     <QtMoc Include="EditAlarmWindow.h" />
     <ClCompile Include="EditAlarmWindow.cpp" />
     <ClCompile Include="IconPushButton.cpp" />
     <ClCompile Include="AlarmWindowUI.cpp" />
+    <QtMoc Include="AlarmsWidget.h" />
     <ClInclude Include="AlarmWindowUI.h" />
     <ClCompile Include="XPushButton.cpp" />
     <QtMoc Include="AlarmClockWidget.h" />

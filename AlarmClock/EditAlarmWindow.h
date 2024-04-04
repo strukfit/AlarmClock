@@ -15,10 +15,9 @@ signals:
 	void deleteAlarm(const int& listId);
 
 public:
-	EditAlarmWindow(QWidget* parent = nullptr, const int& listId = NULL);
+	EditAlarmWindow(QWidget* parent = nullptr, const int& listId = NULL, const QString& name = NULL, const QTime& time = QTime());
 	~EditAlarmWindow();
 
-	void setValues(const QString& name, const QTime& time);
 	void setFocus();
 
 private:

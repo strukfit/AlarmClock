@@ -44,6 +44,16 @@ MainWindow::MainWindow(QWidget* parent) :
 
 		openEditAlarmWindow(listId, selectedAlarm->getName(), selectedAlarm->getAlarmTime());
 	});
+
+	connect(ui->deleteAlarmsButton, &QPushButton::clicked, [&] {
+		ui->deleteAlarmsButton->hide();
+		ui->confirmButton->show();
+	});
+
+	connect(ui->confirmButton, &QPushButton::clicked, [&] {
+		ui->confirmButton->hide();
+		ui->deleteAlarmsButton->show();
+	});
 }
 
 MainWindow::~MainWindow()
@@ -110,10 +120,8 @@ void MainWindow::openEditAlarmWindow(const int& listId, const QString& name, con
 {
 	emit childWindowShowed();
 
-	EditAlarmWindow* editAlarmWindow = new EditAlarmWindow(this, listId);
+	EditAlarmWindow* editAlarmWindow = new EditAlarmWindow(this, listId, name, time);
 	editAlarmWindow->setModal(true);
-
-	editAlarmWindow->setValues(name, time);
 
 	editAlarmWindow->setFocus();
 
@@ -134,7 +142,7 @@ void MainWindow::setAlarm(const int& id, const QString& name, const QTime& time)
 	AlarmClockWidget* alarm = new AlarmClockWidget(this, id, time, name);
 	
 	QListWidgetItem* item = new QListWidgetItem(ui->alarmsListWidget);
-	item->setSizeHint(QSize(733, 226));
+	item->setSizeHint(QSize(733, 200));
 
 	ui->alarmsListWidget->setItemWidget(item, alarm);
 	
@@ -155,8 +163,6 @@ void MainWindow::updateAlarm(const int& listId, const QString& name, const QTime
 			selectedAlarm->setAlarmTime(time);
 
 			ui->alarmsListWidget->setItemWidget(item, selectedAlarm);
-			//QMessageBox::information(this, "", "name: " + selectedAlarm->getName() + " time " + selectedAlarm->getAlarmTime().toString("hh:mm"));
-			//ui->alarmsListWidget->update();
 
 			selectedAlarm->updateUI();
 

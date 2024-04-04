@@ -1,13 +1,5 @@
 #include "MainWindowUI.h"
 
-MainWindowUI::~MainWindowUI()
-{
-	delete centralWidget;
-	delete addAlarmButton;
-	delete alarmsListWidget;
-	delete vBoxLayout;
-}
-
 void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindowClass)
 {
 	centralWidget = new QWidget(MainWindowClass);

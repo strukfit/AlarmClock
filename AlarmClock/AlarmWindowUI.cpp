@@ -1,9 +1,16 @@
 #include "AlarmWindowUI.h"
 
-int AlarmWindowUI::defaultNameCounter = 0;
+AlarmWindowUI::~AlarmWindowUI()
+{
+	QSettings settings(settingsFile, QSettings::IniFormat);
+	settings.setValue("defaultNameCounter", defaultNameCounter);
+}
 
 void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 {
+	QSettings settings(settingsFile, QSettings::IniFormat);
+	defaultNameCounter = settings.value("defaultNameCounter", 0).toInt();
+
 	AlarmWindowClass->setStyleSheet("background-color: #201c1c; border: none;");
 
 	setAlarmWindowVLayout = new QVBoxLayout(AlarmWindowClass);
@@ -179,7 +186,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 	QObject::connect(setAlarmButton, &QPushButton::pressed, [&] {
 		if (nameLineEdit->text() == (defaultName + " (" + QString::number(defaultNameCounter + 1) + ")"))
 			defaultNameCounter++;
-		});
+	});
 
 	cancelButton = new IconPushButton(AlarmWindowClass, "Cancel", "white", "#a09c9c", "Resources/x-white.svg", "Resources/x-grey.svg", "#292929", "#2F2F2F", "#232323");;
 	cancelButton->setFixedHeight(32);
@@ -216,32 +223,6 @@ void AlarmWindowUI::setupEditAlarmWindowUI(QDialog* AlarmWindowClass)
 	deleteButton->setFixedSize(32, 32);
 
 	deleteButton->move(290, 10);
-}
-
-AlarmWindowUI::~AlarmWindowUI()
-{
-	delete title;
-	delete setAlarmWindowVLayout;
-	delete timeSelectorHBoxLayout;
-	delete timeWrapperWidget;
-	delete timeSelectorWidget;
-	delete hoursSpinBox;
-	delete minutesSpinBox;
-	delete separatorLabel;
-	delete editNameHBoxLayout;
-	delete editSvgWidget;
-	delete nameLineEdit;
-	delete arrowUpButton1;
-	delete arrowUpButton2;
-	delete arrowDownButton1;
-	delete arrowDownButton2;
-	delete editNameWrapperWidget;
-	delete editNameWidget;
-	delete nameLineEditLayout;
-	delete xButton;
-	delete setAlarmButton;
-	delete cancelButton;
-	delete saveCancelLayout;
 }
 
 void AlarmWindowUI::setDefaultTime()

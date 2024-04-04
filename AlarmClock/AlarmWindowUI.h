@@ -4,6 +4,8 @@
 #include <QBoxLayout>
 #include <QSvgWidget>
 #include <QtSvg/QSvgRenderer>
+#include <QSettings>
+#include <QApplication>
 
 #include "TimeSpinBox.h"
 #include "TimeWrapperWidget.h"
@@ -47,13 +49,15 @@ public:
 
 	IconPushButton* deleteButton;
 
-	static int defaultNameCounter;
+	int defaultNameCounter = 0;
 
 private:
 	const QString activeAccentColor = "#78bcec";
 	const QString inactiveAccentColor = "#9c9c9c";
 
 	QString defaultName = "Alarm clock";
+
+	QString settingsFile = QApplication::applicationDirPath() + "/settings.ini";
 };
 
 namespace Ui {

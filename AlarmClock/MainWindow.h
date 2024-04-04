@@ -37,9 +37,5 @@ private:
 
     DatabaseManager* dbManager;
 
-    AddAlarmWindow* addAlarmWindow;
-
-    EditAlarmWindow* editAlarmWindow;
-
     QWidget* overlayWidget;
 };

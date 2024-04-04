@@ -8,8 +8,6 @@
 class AlarmClockWidgetUI
 {
 public:
-	~AlarmClockWidgetUI();
-
 	void setupAlarmClockWidgetUI(QWidget* AlarmClockWidgetClass);
 
 	QGridLayout* gBoxLayout;

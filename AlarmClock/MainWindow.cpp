@@ -8,12 +8,6 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	resize(900, 550);
 
-	addAlarmWindow = new AddAlarmWindow(this);
-	addAlarmWindow->setModal(true);
-
-	editAlarmWindow = new EditAlarmWindow(this);
-	editAlarmWindow->setModal(true);
-
 	overlayWidget = new QWidget(this);
 	overlayWidget->setGeometry(geometry());
 	overlayWidget->setStyleSheet("background-color: rgba(0, 0, 0, 0.75);");
@@ -37,25 +31,10 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	connect(ui->addAlarmButton, &QPushButton::clicked, this, &MainWindow::openAddAlarmWindow);
 
-	connect(addAlarmWindow, &AddAlarmWindow::setAlarm, this, [&](const int& id, const QString& name, const QTime& time) {
-		setAlarm(id, name, time);
-		emit alarmClockAdded(id, name, time);
-	});
-
-	connect(editAlarmWindow, &EditAlarmWindow::updateAlarm, this, &MainWindow::updateAlarm);
-	connect(editAlarmWindow, &EditAlarmWindow::deleteAlarm, this, &MainWindow::deleteAlarm);
 
 	connect(this, &MainWindow::childWindowShowed, [&]() {
 		//overlayWidget->setGeometry(geometry());
 		overlayWidget->show();
-	});
-
-	connect(addAlarmWindow, &QDialog::finished, [&]() {
-		overlayWidget->hide();
-	});
-
-	connect(editAlarmWindow, &QDialog::finished, [&]() {
-		overlayWidget->hide();
 	});
 
 	connect(ui->alarmsListWidget, &QListWidget::itemClicked, [&](QListWidgetItem* item){
@@ -70,8 +49,6 @@ MainWindow::MainWindow(QWidget* parent) :
 MainWindow::~MainWindow()
 {
 	delete ui;
-
-	delete addAlarmWindow;
 
 	delete overlayWidget;
 
@@ -108,24 +85,48 @@ void MainWindow::openAddAlarmWindow()
 {
 	emit childWindowShowed();
 
+	AddAlarmWindow* addAlarmWindow = new AddAlarmWindow(this);
+	addAlarmWindow->setModal(true);
+
 	addAlarmWindow->setDefaultValues();
 
 	addAlarmWindow->setFocus();
 
+	connect(addAlarmWindow, &AddAlarmWindow::setAlarm, this, [&](const int& id, const QString& name, const QTime& time) {
+		setAlarm(id, name, time);
+		emit alarmClockAdded(id, name, time);
+	});
+
+	connect(addAlarmWindow, &QDialog::finished, [&]() {
+		overlayWidget->hide();
+	});
+
 	addAlarmWindow->exec();
+
+	delete addAlarmWindow;
 }
 
 void MainWindow::openEditAlarmWindow(const int& listId, const QString& name, const QTime& time)
 {
 	emit childWindowShowed();
 
-	editAlarmWindow->setListId(listId);
+	EditAlarmWindow* editAlarmWindow = new EditAlarmWindow(this, listId);
+	editAlarmWindow->setModal(true);
 
 	editAlarmWindow->setValues(name, time);
 
 	editAlarmWindow->setFocus();
 
+	connect(editAlarmWindow, &EditAlarmWindow::updateAlarm, this, &MainWindow::updateAlarm);
+	connect(editAlarmWindow, &EditAlarmWindow::deleteAlarm, this, &MainWindow::deleteAlarm);
+
+	connect(editAlarmWindow, &QDialog::finished, [&]() {
+		overlayWidget->hide();
+	});
+
 	editAlarmWindow->exec();
+
+	delete editAlarmWindow;
 }
 
 void MainWindow::setAlarm(const int& id, const QString& name, const QTime& time)

@@ -15,15 +15,14 @@ signals:
 	void deleteAlarm(const int& listId);
 
 public:
-	EditAlarmWindow(QWidget* parent = nullptr);
+	EditAlarmWindow(QWidget* parent = nullptr, const int& listId = NULL);
 	~EditAlarmWindow();
 
 	void setValues(const QString& name, const QTime& time);
 	void setFocus();
-	void setListId(const int& listId);
 
 private:
-	Ui::SetAlarmWindowClass* ui;
+	Ui::SetAlarmWindowClass* ui = new Ui::SetAlarmWindowClass;
 
 	int listId;
 };

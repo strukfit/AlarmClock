@@ -1,8 +1,8 @@
 #include "EditAlarmWindow.h"
 
-EditAlarmWindow::EditAlarmWindow(QWidget* parent) :
+EditAlarmWindow::EditAlarmWindow(QWidget* parent, const int& listId) :
 	QDialog(parent),
-	ui(new Ui::SetAlarmWindowClass)
+	listId(listId)
 {
 	ui->setupEditAlarmWindowUI(this);
 
@@ -46,9 +46,4 @@ void EditAlarmWindow::setValues(const QString& name, const QTime& time)
 void EditAlarmWindow::setFocus()
 {
 	ui->hoursSpinBox->setFocus();
-}
-
-void EditAlarmWindow::setListId(const int& listId)
-{
-	this->listId = listId;
 }

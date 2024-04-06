@@ -228,7 +228,6 @@ void AlarmWindowUI::setupEditAlarmWindowUI(QDialog* AlarmWindowClass)
 	deleteButton->move(290, 10);
 
 	QObject::connect(deleteButton, &QPushButton::clicked, [&] {
-		QMessageBox::information(nullptr, "", "initialName: " + initialName + "\ndefaultName: " + (defaultName + " (" + QString::number(defaultNameCounter + 1) + ")"));
 		if (initialName == (defaultName + " (" + QString::number(defaultNameCounter) + ")"))
 			defaultNameCounter--;
 	});

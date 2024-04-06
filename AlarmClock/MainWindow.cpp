@@ -142,6 +142,7 @@ void MainWindow::setAlarm(const int& id, const QString& name, const QTime& time)
 	AlarmClockWidget* alarm = new AlarmClockWidget(this, id, time, name);
 	
 	QListWidgetItem* item = new QListWidgetItem(ui->alarmsListWidget);
+
 	item->setSizeHint(QSize(733, 200));
 
 	ui->alarmsListWidget->setItemWidget(item, alarm);

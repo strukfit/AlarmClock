@@ -3,6 +3,7 @@
 void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindowClass)
 {
 	centralWidget = new QWidget(MainWindowClass);
+	centralWidget->setStyleSheet("background-color: #272727;");
 
 	centralLayout = new QHBoxLayout(centralWidget);
 	centralLayout->setContentsMargins(0, 0, 0, 0);
@@ -13,35 +14,34 @@ void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindowClass)
 	functionSelectorWidget->setFixedWidth(48);
 
 	alarmsWidget = new AlarmsWidget(centralWidget);
-	alarmsWidget->setStyleSheet("background-color: #272727;");
 
 	alarmsListLayout = new QVBoxLayout(alarmsWidget);
 	alarmsListLayout->setContentsMargins(0, 0, 0, 0);
 
 	alarmsListWidget = new QListWidget(alarmsWidget);
+	alarmsListWidget->setSelectionMode(QAbstractItemView::NoSelection);
 
 	alarmsListWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 	alarmsListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	alarmsListWidget->setStyleSheet(R"(
 		QListWidget {
-			padding-top: 12px;
-			padding-bottom: 2px;
+			
 		}
 
 		QListWidget::item { 
 			background-color: #323232; 
+			margin: 12px 48px 12px 48px;
+		}		
+		
+		QListWidget::item::hover { 
+			background-color: white; 
 			border-radius: 5px; 
-			margin-left: 48px; 
-			margin-right: 48px; 
-			margin-bottom: 12px; 
-			margin-top: 0; 
+			margin: 12px 48px 12px 48px;
 		}
+
 	)");
 
-	alarmsListLayout->addWidget(alarmsListWidget);
-
-	centralLayout->addWidget(functionSelectorWidget);
-	centralLayout->addWidget(alarmsWidget);
+	alarmsListLayout->addWidget(alarmsListWidget);	
 
 	alarmsManagerWidget = new QWidget(alarmsWidget);
 	alarmsManagerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
@@ -77,6 +77,9 @@ void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindowClass)
 	alarmsManagerLayout->addWidget(confirmButton);
 	confirmButton->hide();
 	alarmsManagerLayout->addWidget(addAlarmButton);
+
+	centralLayout->addWidget(functionSelectorWidget);
+	centralLayout->addWidget(alarmsWidget);
 
 	MainWindowClass->setLayout(centralLayout);
 	MainWindowClass->setCentralWidget(centralWidget);

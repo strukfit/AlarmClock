@@ -8,6 +8,7 @@
 
 #include "AlarmsWidget.h"
 #include "IconPushButton.h"
+#include "AlarmsListWidget.h"
 
 class MainWindowUI
 {

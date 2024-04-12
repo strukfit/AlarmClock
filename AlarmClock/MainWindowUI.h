@@ -13,7 +13,6 @@
 #include "AlarmsWidget.h"
 #include "IconPushButton.h"
 #include "AlarmsListWidget.h"
-#include "AlarmClockWidgetDelegate.h"
 
 class MainWindowUI
 {

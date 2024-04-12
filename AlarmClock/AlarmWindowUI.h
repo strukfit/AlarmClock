@@ -12,7 +12,6 @@
 #include "TimeWrapperWidget.h"
 #include "ArrowPushButton.h"
 #include "NameLineEdit.h"
-#include "XPushButton.h"
 #include "IconPushButton.h"
 
 class AlarmWindowUI
@@ -45,7 +44,7 @@ public:
 	TimeWrapperWidget* editNameWrapperWidget;
 	TimeWrapperChildWidget* editNameWidget;
 	QHBoxLayout* nameLineEditLayout;
-	XPushButton* xButton;
+	IconPushButton* xButton;
 	IconPushButton* setAlarmButton;
 	IconPushButton* cancelButton;
 	QHBoxLayout* saveCancelLayout;

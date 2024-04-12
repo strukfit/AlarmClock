@@ -144,7 +144,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 
 	nameLineEdit->setPlaceholderText("Alarm clock name");
 
-	xButton = new XPushButton(editNameWidget);
+	xButton = new IconPushButton(editNameWidget, "", "", "", "Resources/x-grey.svg", "Resources/x-white.svg", "transparent", "#302c2c", "#282424");
 	xButton->setFixedSize(29, 25);
 	xButton->hide();
 
@@ -164,7 +164,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 			xButton->hide();
 		});
 
-	QObject::connect(xButton, &QPushButton::pressed, [&] {
+	QObject::connect(xButton, &QPushButton::clicked, [&] {
 		if (!nameLineEdit->text().isEmpty())
 			nameLineEdit->clear();
 		nameLineEdit->setFocus();

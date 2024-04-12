@@ -50,9 +50,6 @@
     <ClCompile Include="NameLineEdit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XPushButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="IconPushButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,9 +69,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AlarmsListWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AlarmClockWidgetDelegate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -106,15 +100,9 @@
     <QtMoc Include="AlarmsWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="AlarmClockWidgetDelegate.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrowPushButton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XPushButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IconPushButton.h">

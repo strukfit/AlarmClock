@@ -101,6 +101,7 @@
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
     </ClCompile>
+    <ClCompile Include="AlarmClockWidgetDelegate.cpp" />
     <ClCompile Include="AlarmClockWidgetUI.cpp" />
     <ClCompile Include="AlarmsListWidget.cpp" />
     <ClCompile Include="AlarmsWidget.cpp" />
@@ -110,6 +111,7 @@
     <ClCompile Include="IconPushButton.cpp" />
     <ClCompile Include="AlarmWindowUI.cpp" />
     <QtMoc Include="AlarmsWidget.h" />
+    <QtMoc Include="AlarmClockWidgetDelegate.h" />
     <ClInclude Include="AlarmsListWidget.h" />
     <ClInclude Include="AlarmWindowUI.h" />
     <ClCompile Include="XPushButton.cpp" />

@@ -1,19 +1,25 @@
 #include "AlarmClockWidgetUI.h"
 
-void AlarmClockWidgetUI::setupAlarmClockWidgetUI(QWidget* AlarmClockWidgetClass)
+void AlarmClockWidgetUI::setupAlarmClockWidgetUI(QWidget* AlarmClockWidget)
 {
-	gBoxLayout = new QGridLayout(AlarmClockWidgetClass);
+	AlarmClockWidget->setContentsMargins(0, 0, 0, 0);
+	//AlarmClockWidget->setMinimumSize(QSize(0, 180));
+	AlarmClockWidget->setFixedHeight(180);
+	AlarmClockWidget->setAttribute(Qt::WA_StyledBackground, true);
+	AlarmClockWidget->setStyleSheet("background-color: #323232; border-radius: 10px;");
+
+	gBoxLayout = new QGridLayout(AlarmClockWidget);
 	gBoxLayout->setContentsMargins(0, 0, 0, 0);
 
-	time = new QLabel(AlarmClockWidgetClass);
+	time = new QLabel(AlarmClockWidget);
 	time->setStyleSheet("background-color: transparent; color: white; font-size: 50px; font-weight: bold;");
 
-	name = new QLabel(AlarmClockWidgetClass);
+	name = new QLabel(AlarmClockWidget);
 	name->setStyleSheet("background-color: transparent; color: white; font-size: 20px;");
 
-	testButton = new QPushButton("test", AlarmClockWidgetClass);
+	testButton = new QPushButton("test", AlarmClockWidget);
 
-	deleteButton = new IconPushButton(AlarmClockWidgetClass, "", "transparent", "transparent", "Resources/delete-grey.svg", "Resources/delete-grey.svg", "transparent", "#424242", "#363636");
+	deleteButton = new IconPushButton(AlarmClockWidget, "", "transparent", "transparent", "Resources/delete-grey.svg", "Resources/delete-grey.svg", "transparent", "#424242", "#363636");
 	deleteButton->setFixedSize(QSize(36, 36));
 	deleteButton->setIconSize(QSize(16, 16));
 
@@ -23,7 +29,5 @@ void AlarmClockWidgetUI::setupAlarmClockWidgetUI(QWidget* AlarmClockWidgetClass)
 	gBoxLayout->addWidget(deleteButton, 0, 1);
 	deleteButton->hide();
 
-	AlarmClockWidgetClass->setLayout(gBoxLayout);
-
-	QMetaObject::connectSlotsByName(AlarmClockWidgetClass);
+	QMetaObject::connectSlotsByName(AlarmClockWidget);
 }

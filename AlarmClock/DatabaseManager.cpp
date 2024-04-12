@@ -48,10 +48,17 @@ void DatabaseManager::selectAll()
 	}
 }
 
+int DatabaseManager::getLastId()
+{
+	QSqlQuery query("SELECT * FROM AlarmClocks ORDER BY id DESC LIMIT 1;");
+	query.next();
+	return query.value("id").toInt();
+}
+
 void DatabaseManager::insertData(const int& id, const QString& name, const QTime& time)
 {
 	QSqlQuery query;
-	query.prepare("INSERT INTO AlarmClocks (id, name, time) VALUES (:id, :name, :time)");
+	query.prepare("INSERT INTO AlarmClocks (id, name, time) VALUES (:id, :name, :time);");
 	query.bindValue(":id", id);
 	query.bindValue(":name", name);
 	query.bindValue(":time", time.toString("hh:mm"));

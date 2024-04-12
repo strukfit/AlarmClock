@@ -11,11 +11,11 @@ class EditAlarmWindow : public QDialog
 	Q_OBJECT
 
 signals:
-	void updateAlarm(const int& listId, const QString& name, const QTime& time);
-	void deleteAlarm(const int& listId);
+	void updateAlarm(AlarmClockWidget* alarm, const QString& name, const QTime& time);
+	void deleteAlarm(AlarmClockWidget* alarm);
 
 public:
-	EditAlarmWindow(QWidget* parent = nullptr, const int& listId = NULL, const QString& name = NULL, const QTime& time = QTime());
+	EditAlarmWindow(QWidget* parent = nullptr, AlarmClockWidget* alarm = nullptr);
 	~EditAlarmWindow();
 
 	void setFocus();
@@ -23,5 +23,5 @@ public:
 private:
 	Ui::SetAlarmWindowClass* ui = new Ui::SetAlarmWindowClass;
 
-	int listId;
+	AlarmClockWidget* alarm;
 };

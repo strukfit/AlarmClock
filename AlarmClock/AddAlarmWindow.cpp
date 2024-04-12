@@ -14,7 +14,7 @@ AddAlarmWindow::AddAlarmWindow(QWidget* parent) :
 
 		QString name = ui->nameLineEdit->text();
 
-		emit setAlarm(AlarmClockWidget::count + 1, name, QTime(h, m));
+		emit setAlarm(AlarmClockWidget::lastId + 1, name, QTime(h, m));
 
 		close();
 	});

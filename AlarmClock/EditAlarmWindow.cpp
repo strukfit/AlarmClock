@@ -1,12 +1,12 @@
 #include "EditAlarmWindow.h"
 
-EditAlarmWindow::EditAlarmWindow(QWidget* parent, const int& listId, const QString& name, const QTime& time) :
+EditAlarmWindow::EditAlarmWindow(QWidget* parent, AlarmClockWidget* alarm) :
 	QDialog(parent),
-	listId(listId)
+	alarm(alarm)
 {
 	ui->setupEditAlarmWindowUI(this);
 
-	ui->setValues(name, time);
+	ui->setValues(alarm->getName(), alarm->getAlarmTime());
 
 	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint | Qt::FramelessWindowHint);
 
@@ -16,7 +16,7 @@ EditAlarmWindow::EditAlarmWindow(QWidget* parent, const int& listId, const QStri
 
 		QString name = ui->nameLineEdit->text();
 
-		emit updateAlarm(this->listId, name, QTime(h, m));
+		emit updateAlarm(this->alarm, name, QTime(h, m));
 
 		close();
 	});
@@ -26,7 +26,7 @@ EditAlarmWindow::EditAlarmWindow(QWidget* parent, const int& listId, const QStri
 	});
 
 	connect(ui->deleteButton, &QPushButton::clicked, this, [&] {
-		emit deleteAlarm(this->listId);
+		emit deleteAlarm(this->alarm);
 
 		close();
 	});

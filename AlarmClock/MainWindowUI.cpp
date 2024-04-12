@@ -1,8 +1,10 @@
 #include "MainWindowUI.h"
 
-void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindowClass)
+void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindow)
 {
-	centralWidget = new QWidget(MainWindowClass);
+	MainWindow->resize(900, 550);
+
+	centralWidget = new QWidget(MainWindow);
 	centralWidget->setStyleSheet("background-color: #272727;");
 
 	centralLayout = new QHBoxLayout(centralWidget);
@@ -13,35 +15,34 @@ void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindowClass)
 	functionSelectorWidget->setStyleSheet("background-color: white;");
 	functionSelectorWidget->setFixedWidth(48);
 
+	centralLayout->addWidget(functionSelectorWidget);
+
 	alarmsWidget = new AlarmsWidget(centralWidget);
+	alarmsWidget->setContentsMargins(0, 0, 0, 0);
 
-	alarmsListLayout = new QVBoxLayout(alarmsWidget);
-	alarmsListLayout->setContentsMargins(0, 0, 0, 0);
+	verticalLayout = new QVBoxLayout(alarmsWidget);
+	verticalLayout->setContentsMargins(0, 0, 0, 0);
 
-	alarmsListWidget = new QListWidget(alarmsWidget);
-	alarmsListWidget->setSelectionMode(QAbstractItemView::NoSelection);
+	alarmsChildWidget = new QWidget(alarmsWidget);
+	alarmsChildWidget->setContentsMargins(0, 0, 0, 0);
 
-	alarmsListWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-	alarmsListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	alarmsListWidget->setStyleSheet(R"(
-		QListWidget {
-			
-		}
+	alarmsChildLayout = new QVBoxLayout(alarmsChildWidget);
+	alarmsChildLayout->setContentsMargins(0, 0, 0, 0);
+	
+	scrollArea = new QScrollArea(alarmsChildWidget);
+	scrollArea->setObjectName("scrollArea");
+	scrollArea->setWidgetResizable(true);
 
-		QListWidget::item { 
-			background-color: #323232; 
-			margin: 12px 48px 12px 48px;
-		}		
-		
-		QListWidget::item::hover { 
-			background-color: white; 
-			border-radius: 5px; 
-			margin: 12px 48px 12px 48px;
-		}
+	scrollAreaWidgetContents = new QWidget();
 
-	)");
+	alarmsListLayout = new QVBoxLayout(scrollAreaWidgetContents);
+	alarmsListLayout->setContentsMargins(48, 12, 48, 12);
 
-	alarmsListLayout->addWidget(alarmsListWidget);	
+	scrollArea->setWidget(scrollAreaWidgetContents);
+
+	alarmsChildLayout->addWidget(scrollArea);
+
+	verticalLayout->addWidget(alarmsChildWidget);
 
 	alarmsManagerWidget = new QWidget(alarmsWidget);
 	alarmsManagerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
@@ -78,11 +79,9 @@ void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindowClass)
 	confirmButton->hide();
 	alarmsManagerLayout->addWidget(addAlarmButton);
 
-	centralLayout->addWidget(functionSelectorWidget);
-	centralLayout->addWidget(alarmsWidget);
+	centralLayout->addWidget(alarmsWidget);	
 
-	MainWindowClass->setLayout(centralLayout);
-	MainWindowClass->setCentralWidget(centralWidget);
+	MainWindow->setCentralWidget(centralWidget);
 
-	QMetaObject::connectSlotsByName(MainWindowClass);
+	QMetaObject::connectSlotsByName(MainWindow);
 }

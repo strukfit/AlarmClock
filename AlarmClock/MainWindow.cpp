@@ -6,8 +6,6 @@ MainWindow::MainWindow(QWidget* parent) :
 {
 	ui->setupMainWindowUI(this);
 
-	resize(900, 550);
-
 	overlayWidget = new QWidget(this);
 	overlayWidget->setGeometry(geometry());
 	overlayWidget->setStyleSheet("background-color: rgba(0, 0, 0, 0.75);");
@@ -23,7 +21,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	dbManager->selectAll();
 
-	AlarmClockWidget::count = ui->alarmsListWidget->count();
+	AlarmClockWidget::lastId = dbManager->getLastId();
 
 	connect(this, &MainWindow::alarmClockAdded, dbManager, &DatabaseManager::insertData);
 	connect(this, &MainWindow::alarmClockUpdated, dbManager, &DatabaseManager::updateData);
@@ -31,18 +29,9 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	connect(ui->addAlarmButton, &QPushButton::clicked, this, &MainWindow::openAddAlarmWindow);
 
-
 	connect(this, &MainWindow::childWindowShowed, [&]() {
-		//overlayWidget->setGeometry(geometry());
+		overlayWidget->resize(size());
 		overlayWidget->show();
-	});
-
-	connect(ui->alarmsListWidget, &QListWidget::itemClicked, [&](QListWidgetItem* item){
-		int listId = ui->alarmsListWidget->row(item);
-
-		AlarmClockWidget* selectedAlarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListWidget->itemWidget(item));
-
-		openEditAlarmWindow(listId, selectedAlarm->getName(), selectedAlarm->getAlarmTime());
 	});
 
 	connect(ui->deleteAlarmsButton, &QPushButton::clicked, [&] {
@@ -71,9 +60,9 @@ void MainWindow::checkAlarm()
 {
 	QTime currentTime = QTime::currentTime();
 
-	for (int i = 0; i < ui->alarmsListWidget->count(); ++i)
+	for (int i = 0; i < ui->alarmsListLayout->count(); ++i)
 	{
-		AlarmClockWidget* alarmClock = dynamic_cast<AlarmClockWidget*>(ui->alarmsListWidget->itemWidget(ui->alarmsListWidget->item(i)));
+		AlarmClockWidget* alarmClock = dynamic_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(i)->widget());
 		if (alarmClock)
 		{
 			QTime alarmTime = alarmClock->getAlarmTime();
@@ -116,11 +105,11 @@ void MainWindow::openAddAlarmWindow()
 	delete addAlarmWindow;
 }
 
-void MainWindow::openEditAlarmWindow(const int& listId, const QString& name, const QTime& time)
+void MainWindow::openEditAlarmWindow(AlarmClockWidget* alarm)
 {
 	emit childWindowShowed();
 
-	EditAlarmWindow* editAlarmWindow = new EditAlarmWindow(this, listId, name, time);
+	EditAlarmWindow* editAlarmWindow = new EditAlarmWindow(this, alarm);
 	editAlarmWindow->setModal(true);
 
 	editAlarmWindow->setFocus();
@@ -140,56 +129,25 @@ void MainWindow::openEditAlarmWindow(const int& listId, const QString& name, con
 void MainWindow::setAlarm(const int& id, const QString& name, const QTime& time)
 {
 	AlarmClockWidget* alarm = new AlarmClockWidget(this, id, time, name);
-	
-	QListWidgetItem* item = new QListWidgetItem(ui->alarmsListWidget);
+	ui->alarmsListLayout->addWidget(alarm);
 
-	item->setSizeHint(QSize(733, 200));
+	QObject::connect(alarm, &AlarmClockWidget::clicked, this, &MainWindow::openEditAlarmWindow);
 
-	ui->alarmsListWidget->setItemWidget(item, alarm);
-	
 	QTimer::singleShot(1000, this, &MainWindow::checkAlarm);
 }
 
-void MainWindow::updateAlarm(const int& listId, const QString& name, const QTime& time)
+void MainWindow::updateAlarm(AlarmClockWidget* alarm, const QString& name, const QTime& time)
 {
-	QListWidgetItem* item = ui->alarmsListWidget->item(listId);
+	alarm->setName(name);
+	alarm->setAlarmTime(time);
+	alarm->updateUI();
 
-	if (item)
-	{
-		AlarmClockWidget* selectedAlarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListWidget->itemWidget(item));
-
-		if (selectedAlarm)
-		{
-			selectedAlarm->setName(name);
-			selectedAlarm->setAlarmTime(time);
-
-			ui->alarmsListWidget->setItemWidget(item, selectedAlarm);
-
-			selectedAlarm->updateUI();
-
-			emit alarmClockUpdated(selectedAlarm->getId(), name, time);
-		}
-	}
+	emit alarmClockUpdated(alarm->getId(), name, time);
 }
 
-void MainWindow::deleteAlarm(const int& listId)
+void MainWindow::deleteAlarm(AlarmClockWidget* alarm)
 {
-	QListWidgetItem* item = ui->alarmsListWidget->item(listId);
-
-	if (item)
-	{
-		AlarmClockWidget* selectedAlarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListWidget->itemWidget(item));
-
-		if (selectedAlarm)
-		{
-
-			ui->alarmsListWidget->removeItemWidget(item);
-
-			emit alarmClockDeleted(selectedAlarm->getId());
-		}
-
-		delete selectedAlarm;
-	}
-
-	delete item;
+	emit alarmClockDeleted(alarm->getId());
+	alarm->deleteLater();
+	AlarmClockWidget::lastId--;
 }

@@ -21,11 +21,11 @@ public:
 
 public slots:
     void setAlarm(const int& id, const QString& name, const QTime& time);
-    void updateAlarm(const int& listId, const QString& name, const QTime& time);
-    void deleteAlarm(const int& listId);
+    void updateAlarm(AlarmClockWidget* alarm, const QString& name, const QTime& time);
+    void deleteAlarm(AlarmClockWidget* alarm);
     void checkAlarm();
     void openAddAlarmWindow();
-    void openEditAlarmWindow(const int& listId, const QString& name, const QTime& time);
+    void openEditAlarmWindow(AlarmClockWidget* alarm);
 
 signals:
     void childWindowShowed();

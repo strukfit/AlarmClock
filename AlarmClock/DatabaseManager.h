@@ -21,6 +21,8 @@ public:
 
 	void selectAll();
 
+	int getLastId();
+
 public slots:
 	void insertData(const int& id, const QString& name, const QTime& time);
 	void updateData(const int& id, const QString& name, const QTime& time);

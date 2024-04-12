@@ -1,6 +1,13 @@
 #include "AlarmClockWidget.h"
 
-int AlarmClockWidget::count = 0;
+int AlarmClockWidget::lastId = 0;
+
+void AlarmClockWidget::mouseReleaseEvent(QMouseEvent* event)
+{
+	emit clicked(this);
+
+	QWidget::mouseReleaseEvent(event);
+}
 
 AlarmClockWidget::AlarmClockWidget(QWidget* parent, int id, QTime time, QString name) :
 	QWidget(parent), 
@@ -15,7 +22,7 @@ AlarmClockWidget::AlarmClockWidget(QWidget* parent, int id, QTime time, QString 
 	ui->time->setText(time.toString("hh:mm"));
 	ui->name->setText(name);
 
-	count++;
+	lastId++;
 }
 
 void AlarmClockWidget::setActive(bool flag)
@@ -39,6 +46,11 @@ void AlarmClockWidget::updateUI()
 	ui->time->setText(alarmTime.toString("hh:mm"));
 }
 
+void AlarmClockWidget::setModelIndex(const QModelIndex& modelIndex)
+{
+	this->modelIndex = modelIndex;
+}
+
 int AlarmClockWidget::getId()
 {
 	return this->id;
@@ -57,4 +69,9 @@ QString AlarmClockWidget::getName()
 bool AlarmClockWidget::isActive()
 {
 	return this->active;
+}
+
+QModelIndex AlarmClockWidget::getModelIndex()
+{
+	return this->modelIndex;
 }

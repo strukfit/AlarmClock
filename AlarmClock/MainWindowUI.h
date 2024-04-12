@@ -5,10 +5,15 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QGraphicsDropShadowEffect>
+#include <QTreeView>
+#include <QStandardItemModel>
+#include <QScrollArea>
+#include <QGroupBox>
 
 #include "AlarmsWidget.h"
 #include "IconPushButton.h"
 #include "AlarmsListWidget.h"
+#include "AlarmClockWidgetDelegate.h"
 
 class MainWindowUI
 {
@@ -19,14 +24,17 @@ public:
 	QHBoxLayout* centralLayout;
 	QWidget* functionSelectorWidget;
 	AlarmsWidget* alarmsWidget;
-	QListWidget* alarmsListWidget;
 	QVBoxLayout* alarmsListLayout;
 	QWidget* alarmsManagerWidget;
 	QHBoxLayout* alarmsManagerLayout;
 	IconPushButton* deleteAlarmsButton;
 	IconPushButton* confirmButton;
 	IconPushButton* addAlarmButton;
-
+	QVBoxLayout* verticalLayout;
+	QWidget* alarmsChildWidget;
+	QScrollArea* scrollArea;
+	QVBoxLayout* alarmsChildLayout;
+	QWidget* scrollAreaWidgetContents;
 };
 
 namespace Ui {

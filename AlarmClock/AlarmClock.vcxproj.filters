@@ -74,6 +74,9 @@
     <ClCompile Include="AlarmsListWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AlarmClockWidgetDelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -101,6 +104,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="AlarmsWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="AlarmClockWidgetDelegate.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

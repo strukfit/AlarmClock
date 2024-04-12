@@ -1,6 +1,8 @@
 #pragma once
 #include <QWidget>
 #include <QTime>
+#include <QModelIndex>
+#include <QMessageBox>
 #include "AlarmClockWidgetUI.h"
 
 class AlarmClockWidget : public QWidget
@@ -14,13 +16,21 @@ public:
 	void setName(const QString& name);
 	void setAlarmTime(const QTime& alarmTime);
 	void updateUI();
+	void setModelIndex(const QModelIndex& modelIndex);
 
 	int getId();
 	QTime getAlarmTime();
 	QString getName();
 	bool isActive();
+	QModelIndex getModelIndex();
 
-	static int count;
+	static int lastId;
+
+signals:
+	void clicked(AlarmClockWidget* alarm);
+
+protected:
+	void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
 	Ui::AlarmClockWidgetClass* ui;
@@ -30,4 +40,6 @@ private:
 	QString name;
 
 	bool active;
+
+	QModelIndex modelIndex;
 };

@@ -14,8 +14,7 @@ AlarmClockWidget::AlarmClockWidget(QWidget* parent, int id, QTime time, QString 
 	ui(new Ui::AlarmClockWidgetClass), 
 	id(id), 
 	alarmTime(time), 
-	name(name), 
-	active(true)
+	name(name)
 {
 	ui->setupAlarmClockWidgetUI(this);
 
@@ -23,11 +22,20 @@ AlarmClockWidget::AlarmClockWidget(QWidget* parent, int id, QTime time, QString 
 	ui->name->setText(name);
 
 	lastId++;
+
+	QObject::connect(ui->toggleSwitch, &ToggleSwitch::toggled, [&] {
+		if (ui->toggleSwitch->isChecked())
+			setActiveColors();
+		else
+			setInactiveColors();
+	});
+
+	QObject::connect(ui->deleteButton, &QPushButton::clicked, [&] { emit deleteButtonClicked(this); });
 }
 
 void AlarmClockWidget::setActive(bool flag)
 {
-	this->active = flag;
+	this->ui->toggleSwitch->setChecked(flag);
 }
 
 void AlarmClockWidget::setName(const QString& name)
@@ -51,6 +59,34 @@ void AlarmClockWidget::setModelIndex(const QModelIndex& modelIndex)
 	this->modelIndex = modelIndex;
 }
 
+void AlarmClockWidget::setInactiveColors()
+{
+	ui->time->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 50px; font-weight: bold;");
+	ui->name->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 20px;");
+}
+
+void AlarmClockWidget::setActiveColors()
+{
+	ui->time->setStyleSheet("background-color: transparent; color: white; font-size: 50px; font-weight: bold;");
+	ui->name->setStyleSheet("background-color: transparent; color: white; font-size: 20px;");
+}
+
+void AlarmClockWidget::deleteMode(bool flag)
+{
+	if (flag)
+	{
+		setInactiveColors();
+		ui->toggleSwitch->hide();
+		ui->deleteButton->show();
+	}
+	else
+	{
+		setActiveColors();
+		ui->deleteButton->hide();
+		ui->toggleSwitch->show();
+	}
+}
+
 int AlarmClockWidget::getId()
 {
 	return this->id;
@@ -68,7 +104,7 @@ QString AlarmClockWidget::getName()
 
 bool AlarmClockWidget::isActive()
 {
-	return this->active;
+	return this->ui->toggleSwitch->isChecked();
 }
 
 QModelIndex AlarmClockWidget::getModelIndex()

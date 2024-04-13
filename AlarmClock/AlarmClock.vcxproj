@@ -114,6 +114,7 @@
     <ClCompile Include="src\AlarmClock\AlarmClockWidgetUI.cpp" />
     <ClCompile Include="src\AlarmClock\AlarmsListWidget.cpp" />
     <ClCompile Include="src\AlarmClock\AlarmsWidget.cpp" />
+    <ClCompile Include="src\AlarmClock\ToggleSwitch.cpp" />
     <ClCompile Include="src\DatabaseManager.cpp" />
     <QtMoc Include="include\AlarmClock\EditAlarmWindow.h" />
     <ClCompile Include="src\AlarmClock\EditAlarmWindow.cpp" />
@@ -144,15 +145,12 @@
     <QtMoc Include="include\AlarmClock\TimeWrapperWidget.h" />
     <ClInclude Include="include\AlarmClock\ArrowPushButton.h" />
     <QtMoc Include="include\AlarmClock\NameLineEdit.h" />
+    <QtMoc Include="include\AlarmClock\ToggleSwitch.h" />
     <ClInclude Include="include\MainWindowUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="C:\Users\struk\Downloads\static\RobotoSlab-Medium.ttf" />
     <Font Include="C:\Users\struk\Downloads\static\RobotoSlab-Regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="C:\Users\struk\Downloads\edit-2.svg" />
-    <None Include="C:\Users\struk\Downloads\edit.svg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

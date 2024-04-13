@@ -8,8 +8,6 @@ AlarmWindowUI::AlarmWindowUI()
 
 AlarmWindowUI::~AlarmWindowUI()
 {
-	QSettings settings(settingsFile, QSettings::IniFormat);
-	settings.setValue("defaultNameCounter", defaultNameCounter);
 }
 
 void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
@@ -188,7 +186,11 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 
 	QObject::connect(setAlarmButton, &QPushButton::pressed, [&] {
 		if (nameLineEdit->text() == (defaultName + " (" + QString::number(defaultNameCounter + 1) + ")"))
+		{
 			defaultNameCounter++;
+			QSettings settings(settingsFile, QSettings::IniFormat);
+			settings.setValue("defaultNameCounter", defaultNameCounter);
+		}
 	});
 
 	cancelButton = new IconPushButton(AlarmWindowClass, "Cancel", "white", "#a09c9c", "Resources/x-white.svg", "Resources/x-grey.svg", "#292929", "#2F2F2F", "#232323");;
@@ -226,11 +228,6 @@ void AlarmWindowUI::setupEditAlarmWindowUI(QDialog* AlarmWindowClass)
 	deleteButton->setFixedSize(32, 32);
 
 	deleteButton->move(290, 10);
-
-	QObject::connect(deleteButton, &QPushButton::clicked, [&] {
-		if (initialName == (defaultName + " (" + QString::number(defaultNameCounter) + ")"))
-			defaultNameCounter--;
-	});
 }
 
 void AlarmWindowUI::setDefaultTime()
@@ -249,6 +246,5 @@ void AlarmWindowUI::setValues(const QString& name, const QTime& time)
 	hoursSpinBox->setValue(time.hour());
 	minutesSpinBox->setValue(time.minute());
 
-	initialName = name;
 	nameLineEdit->setText(name);
 }

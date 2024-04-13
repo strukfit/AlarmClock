@@ -58,7 +58,6 @@ private:
 	const QString inactiveAccentColor = "#9c9c9c";
 
 	QString defaultName = "Alarm clock";
-	QString initialName = "";
 	QString settingsFile = QApplication::applicationDirPath() + "/settings.ini";
 };
 

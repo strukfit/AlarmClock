@@ -37,11 +37,24 @@ MainWindow::MainWindow(QWidget* parent) :
 	connect(ui->deleteAlarmsButton, &QPushButton::clicked, [&] {
 		ui->deleteAlarmsButton->hide();
 		ui->confirmButton->show();
+		
+		for (int i = 0; i < ui->alarmsListLayout->count(); i++)
+		{
+			AlarmClockWidget* alarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(i)->widget());
+			alarm->deleteMode(true);
+		}
+
 	});
 
 	connect(ui->confirmButton, &QPushButton::clicked, [&] {
 		ui->confirmButton->hide();
 		ui->deleteAlarmsButton->show();
+
+		for (int i = 0; i < ui->alarmsListLayout->count(); i++)
+		{
+			AlarmClockWidget* alarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(i)->widget());
+			alarm->deleteMode(false);
+		}
 	});
 }
 
@@ -92,7 +105,8 @@ void MainWindow::openAddAlarmWindow()
 	addAlarmWindow->setFocus();
 
 	connect(addAlarmWindow, &AddAlarmWindow::setAlarm, this, [&](const int& id, const QString& name, const QTime& time) {
-		setAlarm(id, name, time);
+		AlarmClockWidget* alarm = setAlarm(id, name, time);
+		alarm->setActive(true);
 		emit alarmClockAdded(id, name, time);
 	});
 
@@ -126,14 +140,17 @@ void MainWindow::openEditAlarmWindow(AlarmClockWidget* alarm)
 	delete editAlarmWindow;
 }
 
-void MainWindow::setAlarm(const int& id, const QString& name, const QTime& time)
+AlarmClockWidget* MainWindow::setAlarm(const int& id, const QString& name, const QTime& time)
 {
 	AlarmClockWidget* alarm = new AlarmClockWidget(this, id, time, name);
 	ui->alarmsListLayout->addWidget(alarm);
 
 	QObject::connect(alarm, &AlarmClockWidget::clicked, this, &MainWindow::openEditAlarmWindow);
+	QObject::connect(alarm, &AlarmClockWidget::deleteButtonClicked, this, &MainWindow::deleteAlarm);
 
 	QTimer::singleShot(1000, this, &MainWindow::checkAlarm);
+
+	return alarm;
 }
 
 void MainWindow::updateAlarm(AlarmClockWidget* alarm, const QString& name, const QTime& time)
@@ -148,6 +165,18 @@ void MainWindow::updateAlarm(AlarmClockWidget* alarm, const QString& name, const
 void MainWindow::deleteAlarm(AlarmClockWidget* alarm)
 {
 	emit alarmClockDeleted(alarm->getId());
+
+	QSettings settings(settingsFile, QSettings::IniFormat);
+	int defaultNameCounter = settings.value("defaultNameCounter", 0).toInt();
+
+	if (alarm->getName() == (defaultName + " (" + QString::number(defaultNameCounter) + ")"))
+	{
+		defaultNameCounter--;
+
+		settings.setValue("defaultNameCounter", defaultNameCounter);
+	}
+
 	alarm->deleteLater();
+	
 	AlarmClockWidget::lastId--;
 }

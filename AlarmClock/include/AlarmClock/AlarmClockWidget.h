@@ -17,6 +17,9 @@ public:
 	void setAlarmTime(const QTime& alarmTime);
 	void updateUI();
 	void setModelIndex(const QModelIndex& modelIndex);
+	void setInactiveColors();
+	void setActiveColors();
+	void deleteMode(bool flag);
 
 	int getId();
 	QTime getAlarmTime();
@@ -28,6 +31,7 @@ public:
 
 signals:
 	void clicked(AlarmClockWidget* alarm);
+	void deleteButtonClicked(AlarmClockWidget* alarm);
 
 protected:
 	void mouseReleaseEvent(QMouseEvent* event) override;
@@ -38,8 +42,6 @@ private:
 	int id;
 	QTime alarmTime;
 	QString name;
-
-	bool active;
 
 	QModelIndex modelIndex;
 };

@@ -20,7 +20,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void setAlarm(const int& id, const QString& name, const QTime& time);
+    AlarmClockWidget* setAlarm(const int& id, const QString& name, const QTime& time);
     void updateAlarm(AlarmClockWidget* alarm, const QString& name, const QTime& time);
     void deleteAlarm(AlarmClockWidget* alarm);
     void checkAlarm();
@@ -39,4 +39,7 @@ private:
     DatabaseManager* dbManager;
 
     QWidget* overlayWidget;
+
+    QString defaultName = "Alarm clock";
+    QString settingsFile = QApplication::applicationDirPath() + "/settings.ini";
 };

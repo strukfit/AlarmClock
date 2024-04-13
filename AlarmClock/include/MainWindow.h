@@ -6,9 +6,9 @@
 #include <QSettings>
 
 #include "MainWindowUI.h"
-#include "AddAlarmWindow.h"
-#include "EditAlarmWindow.h"
-#include "AlarmClockWidget.h"
+#include "AlarmClock/AddAlarmWindow.h"
+#include "AlarmClock/EditAlarmWindow.h"
+#include "AlarmClock/AlarmClockWidget.h"
 #include "DatabaseManager.h"
 
 class MainWindow : public QMainWindow

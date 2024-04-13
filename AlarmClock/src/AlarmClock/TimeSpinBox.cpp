@@ -1,4 +1,4 @@
-#include "TimeSpinBox.h"
+#include "AlarmClock/TimeSpinBox.h"
 
 TimeSpinBox::TimeSpinBox(QWidget* parent, int min, int max) :
     QSpinBox(parent)

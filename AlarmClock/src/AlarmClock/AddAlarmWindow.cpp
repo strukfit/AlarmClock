@@ -1,4 +1,4 @@
-#include "AddAlarmWindow.h"
+#include "AlarmClock/AddAlarmWindow.h"
 
 AddAlarmWindow::AddAlarmWindow(QWidget* parent) :
 	QDialog(parent), 

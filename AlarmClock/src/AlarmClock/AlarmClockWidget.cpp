@@ -1,4 +1,4 @@
-#include "AlarmClockWidget.h"
+#include "AlarmClock/AlarmClockWidget.h"
 
 int AlarmClockWidget::lastId = 0;
 

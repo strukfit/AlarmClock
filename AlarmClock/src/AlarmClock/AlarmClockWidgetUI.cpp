@@ -1,4 +1,4 @@
-#include "AlarmClockWidgetUI.h"
+#include "AlarmClock/AlarmClockWidgetUI.h"
 
 void AlarmClockWidgetUI::setupAlarmClockWidgetUI(QWidget* AlarmClockWidget)
 {

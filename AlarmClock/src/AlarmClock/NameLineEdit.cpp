@@ -1,4 +1,4 @@
-#include "NameLineEdit.h"
+#include "AlarmClock/NameLineEdit.h"
 
 NameLineEdit::NameLineEdit(QWidget* parent):
 	QLineEdit(parent)

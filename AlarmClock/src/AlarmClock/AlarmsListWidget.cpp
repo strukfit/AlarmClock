@@ -1,4 +1,4 @@
-#include "AlarmsListWidget.h"
+#include "AlarmClock/AlarmsListWidget.h"
 
 AlarmsListWidget::AlarmsListWidget(QWidget* parent) :
     QListWidget(parent)

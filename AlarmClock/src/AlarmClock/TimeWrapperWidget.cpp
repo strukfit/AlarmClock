@@ -1,4 +1,4 @@
-#include "TimeWrapperWidget.h"
+#include "AlarmClock/TimeWrapperWidget.h"
 
 TimeWrapperWidget::TimeWrapperWidget(QWidget* parent, QString backgroundColor, QString accentColor, bool isTimeSelector) :
 	QWidget(parent),

@@ -10,9 +10,9 @@
 #include <QScrollArea>
 #include <QGroupBox>
 
-#include "AlarmsWidget.h"
-#include "IconPushButton.h"
-#include "AlarmsListWidget.h"
+#include "AlarmClock/AlarmsWidget.h"
+#include "AlarmClock/AlarmsListWidget.h"
+#include "AlarmClock/IconPushButton.h"
 
 class MainWindowUI
 {

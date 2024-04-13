@@ -39,13 +39,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.7.0_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets;svgwidgets;sql</QtModules>
-    <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.7.0_msvc2019_64</QtInstall>
-    <QtModules>
-    </QtModules>
-    <QtBuildConfig>release</QtBuildConfig>
+    <QtModules />
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -62,13 +59,26 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PublicIncludeDirectories>$(ProjectDir)include;$(ProjectDir)src;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PublicIncludeDirectories>$(ProjectDir)include;$(ProjectDir)src;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile />
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -95,46 +105,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AlarmClockWidget.cpp">
+    <ClCompile Include="src\AlarmClock\AlarmClockWidget.cpp">
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
     </ClCompile>
-    <ClCompile Include="AlarmClockWidgetUI.cpp" />
-    <ClCompile Include="AlarmsListWidget.cpp" />
-    <ClCompile Include="AlarmsWidget.cpp" />
-    <ClCompile Include="DatabaseManager.cpp" />
-    <QtMoc Include="EditAlarmWindow.h" />
-    <ClCompile Include="EditAlarmWindow.cpp" />
-    <ClCompile Include="IconPushButton.cpp" />
-    <ClCompile Include="AlarmWindowUI.cpp" />
-    <QtMoc Include="AlarmsWidget.h" />
-    <ClInclude Include="AlarmsListWidget.h" />
-    <ClInclude Include="AlarmWindowUI.h" />
-    <QtMoc Include="AlarmClockWidget.h" />
-    <ClCompile Include="ArrowPushButton.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainWindow.cpp" />
-    <ClCompile Include="NameLineEdit.cpp" />
-    <ClCompile Include="AddAlarmWindow.cpp" />
-    <QtMoc Include="TimeSpinBox.h" />
-    <ClCompile Include="TimeSpinBox.cpp" />
-    <ClCompile Include="TimeWrapperWidget.cpp" />
-    <ClCompile Include="MainWindowUI.cpp" />
+    <ClCompile Include="src\AlarmClock\AlarmClockWidgetUI.cpp" />
+    <ClCompile Include="src\AlarmClock\AlarmsListWidget.cpp" />
+    <ClCompile Include="src\AlarmClock\AlarmsWidget.cpp" />
+    <ClCompile Include="src\DatabaseManager.cpp" />
+    <QtMoc Include="include\AlarmClock\EditAlarmWindow.h" />
+    <ClCompile Include="src\AlarmClock\EditAlarmWindow.cpp" />
+    <ClCompile Include="src\AlarmClock\IconPushButton.cpp" />
+    <ClCompile Include="src\AlarmClock\AlarmWindowUI.cpp" />
+    <QtMoc Include="include\AlarmClock\AlarmsWidget.h" />
+    <ClInclude Include="include\AlarmClock\AlarmsListWidget.h" />
+    <ClInclude Include="include\AlarmClock\AlarmWindowUI.h" />
+    <QtMoc Include="include\AlarmClock\AlarmClockWidget.h" />
+    <ClCompile Include="src\AlarmClock\ArrowPushButton.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MainWindow.cpp" />
+    <ClCompile Include="src\AlarmClock\NameLineEdit.cpp" />
+    <ClCompile Include="src\AlarmClock\AddAlarmWindow.cpp" />
+    <QtMoc Include="include\AlarmClock\TimeSpinBox.h" />
+    <ClCompile Include="src\AlarmClock\TimeSpinBox.cpp" />
+    <ClCompile Include="src\AlarmClock\TimeWrapperWidget.cpp" />
+    <ClCompile Include="src\MainWindowUI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="MainWindow.h" />
+    <QtMoc Include="include\MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AlarmClockWidgetUI.h" />
-    <QtMoc Include="DatabaseManager.h" />
-    <ClInclude Include="IconPushButton.h" />
-    <QtMoc Include="AddAlarmWindow.h" />
-    <QtMoc Include="TimeWrapperWidget.h" />
-    <ClInclude Include="ArrowPushButton.h" />
-    <QtMoc Include="NameLineEdit.h" />
-    <ClInclude Include="MainWindowUI.h" />
+    <ClInclude Include="include\AlarmClock\AlarmClockWidgetUI.h" />
+    <QtMoc Include="include\DatabaseManager.h" />
+    <ClInclude Include="include\AlarmClock\IconPushButton.h" />
+    <QtMoc Include="include\AlarmClock\AddAlarmWindow.h" />
+    <QtMoc Include="include\AlarmClock\TimeWrapperWidget.h" />
+    <ClInclude Include="include\AlarmClock\ArrowPushButton.h" />
+    <QtMoc Include="include\AlarmClock\NameLineEdit.h" />
+    <ClInclude Include="include\MainWindowUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="C:\Users\struk\Downloads\static\RobotoSlab-Medium.ttf" />

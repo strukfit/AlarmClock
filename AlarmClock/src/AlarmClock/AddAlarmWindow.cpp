@@ -29,12 +29,6 @@ AddAlarmWindow::~AddAlarmWindow()
 	delete ui;
 }
 
-void AddAlarmWindow::setDefaultValues()
-{
-	ui->setDefaultTime();
-	ui->setDefaultName();
-}
-
 void AddAlarmWindow::setFocus()
 {
 	ui->hoursSpinBox->setFocus();

@@ -100,7 +100,7 @@ void MainWindow::openAddAlarmWindow()
 	AddAlarmWindow* addAlarmWindow = new AddAlarmWindow(this);
 	addAlarmWindow->setModal(true);
 
-	addAlarmWindow->setDefaultValues();
+	//addAlarmWindow->setDefaultValues();
 
 	addAlarmWindow->setFocus();
 
@@ -166,17 +166,9 @@ void MainWindow::deleteAlarm(AlarmClockWidget* alarm)
 {
 	emit alarmClockDeleted(alarm->getId());
 
-	QSettings settings(settingsFile, QSettings::IniFormat);
+	/*QSettings settings(settingsFile, QSettings::IniFormat);
 	int defaultNameCounter = settings.value("defaultNameCounter", 0).toInt();
-
-	if (alarm->getName() == (defaultName + " (" + QString::number(defaultNameCounter) + ")"))
-	{
-		defaultNameCounter--;
-
-		settings.setValue("defaultNameCounter", defaultNameCounter);
-	}
+	settings.setValue("defaultNameCounter", --defaultNameCounter);*/
 
 	alarm->deleteLater();
-	
-	AlarmClockWidget::lastId--;
 }

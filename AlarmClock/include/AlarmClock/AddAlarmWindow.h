@@ -17,7 +17,6 @@ public:
 	AddAlarmWindow(QWidget* parent = nullptr);
 	~AddAlarmWindow();
 
-	void setDefaultValues();
 	void setFocus();
 
 private:

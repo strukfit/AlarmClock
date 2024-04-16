@@ -67,8 +67,11 @@ void AlarmClockWidget::setInactiveColors()
 
 void AlarmClockWidget::setActiveColors()
 {
-	ui->time->setStyleSheet("background-color: transparent; color: white; font-size: 50px; font-weight: bold;");
-	ui->name->setStyleSheet("background-color: transparent; color: white; font-size: 20px;");
+	if (isActive())
+	{
+		ui->time->setStyleSheet("background-color: transparent; color: white; font-size: 50px; font-weight: bold;");
+		ui->name->setStyleSheet("background-color: transparent; color: white; font-size: 20px;");
+	}
 }
 
 void AlarmClockWidget::deleteMode(bool flag)

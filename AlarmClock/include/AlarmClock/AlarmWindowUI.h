@@ -17,13 +17,8 @@
 class AlarmWindowUI
 {
 public:
-	AlarmWindowUI();
-	~AlarmWindowUI();
-
 	void setupAddAlarmWindowUI(QDialog* AlarmWindowClass);
 	void setupEditAlarmWindowUI(QDialog* AlarmWindowClass);
-	void setDefaultTime();
-	void setDefaultName();
 	void setValues(const QString& name, const QTime& time);
 
 	QLabel* title;
@@ -51,14 +46,11 @@ public:
 
 	IconPushButton* deleteButton;
 
-	unsigned int defaultNameCounter = 0;
-
 private:
 	const QString activeAccentColor = "#78bcec";
 	const QString inactiveAccentColor = "#9c9c9c";
 
 	QString defaultName = "Alarm clock";
-	QString settingsFile = QApplication::applicationDirPath() + "/settings.ini";
 };
 
 namespace Ui {

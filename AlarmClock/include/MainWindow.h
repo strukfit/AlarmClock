@@ -40,6 +40,5 @@ private:
 
     QWidget* overlayWidget;
 
-    QString defaultName = "Alarm clock";
-    QString settingsFile = QApplication::applicationDirPath() + "/settings.ini";
+    //QString settingsFile = QApplication::applicationDirPath() + "/settings.ini";
 };

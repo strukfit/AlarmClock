@@ -1,15 +1,5 @@
 #include "AlarmClock/AlarmWindowUI.h"
 
-AlarmWindowUI::AlarmWindowUI()
-{
-	QSettings settings(settingsFile, QSettings::IniFormat);
-	defaultNameCounter = settings.value("defaultNameCounter", 0).toInt();
-}
-
-AlarmWindowUI::~AlarmWindowUI()
-{
-}
-
 void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 {
 	AlarmWindowClass->setStyleSheet("background-color: #201c1c; border: none;");
@@ -37,6 +27,9 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 	hoursSpinBox->setFixedSize(70, 70);
 	minutesSpinBox = new TimeSpinBox(timeSelectorWidget, 0, 59);
 	minutesSpinBox->setFixedSize(70, 70);
+
+	hoursSpinBox->setValue(7);
+	minutesSpinBox->setValue(0);
 
 	timeSelectorHBoxLayout->addWidget(hoursSpinBox);
 
@@ -128,6 +121,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 	nameLineEditLayout->setContentsMargins(0, 1, 2, 0);
 
 	nameLineEdit = new NameLineEdit(editNameWidget);
+	nameLineEdit->setText(defaultName);
 	nameLineEdit->setFixedSize(243, 28);
 
 	nameLineEdit->setStyleSheet(R"(
@@ -184,15 +178,6 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 	setAlarmButton->setFixedHeight(32);
 	setAlarmButton->setIconSize(QSize(18, 18));
 
-	QObject::connect(setAlarmButton, &QPushButton::pressed, [&] {
-		if (nameLineEdit->text() == (defaultName + " (" + QString::number(defaultNameCounter + 1) + ")"))
-		{
-			defaultNameCounter++;
-			QSettings settings(settingsFile, QSettings::IniFormat);
-			settings.setValue("defaultNameCounter", defaultNameCounter);
-		}
-	});
-
 	cancelButton = new IconPushButton(AlarmWindowClass, "Cancel", "white", "#a09c9c", "Resources/x-white.svg", "Resources/x-grey.svg", "#292929", "#2F2F2F", "#232323");;
 	cancelButton->setFixedHeight(32);
 	cancelButton->setIconSize(QSize(18, 18));
@@ -228,17 +213,6 @@ void AlarmWindowUI::setupEditAlarmWindowUI(QDialog* AlarmWindowClass)
 	deleteButton->setFixedSize(32, 32);
 
 	deleteButton->move(290, 10);
-}
-
-void AlarmWindowUI::setDefaultTime()
-{
-	hoursSpinBox->setValue(7);
-	minutesSpinBox->setValue(0);
-}
-
-void AlarmWindowUI::setDefaultName()
-{
-	nameLineEdit->setText(defaultName + " (" + QString::number(defaultNameCounter + 1) + ")");
 }
 
 void AlarmWindowUI::setValues(const QString& name, const QTime& time)

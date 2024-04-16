@@ -57,16 +57,13 @@ MainWindow::MainWindow(QWidget* parent) :
 		}
 	});
 
-	QTimer* timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, [&] {
+	auto updateTimer = [&]() {
 		QTime currentTime = QTime::currentTime();
-		
+
 		for (int i = 0; i < ui->alarmsListLayout->count(); i++)
 		{
 			AlarmClockWidget* alarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(i)->widget());
 			QTime remainingTime = QTime(0, 0).addSecs(currentTime.secsTo(alarm->getAlarmTime()) + 60);
-			//QString remainingTimeString = remainingTime.toString("hh:mm");
-
 			QString remainingTimeString = "in ";
 
 			if (remainingTime.hour() == 0 && remainingTime.minute() == 0)
@@ -94,7 +91,12 @@ MainWindow::MainWindow(QWidget* parent) :
 
 			alarm->setRemainingTime(remainingTimeString);
 		}
-	});
+	};
+
+	updateTimer();
+
+	QTimer* timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, this, updateTimer);
 	timer->start(1000);
 }
 

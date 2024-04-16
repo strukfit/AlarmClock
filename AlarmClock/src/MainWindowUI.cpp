@@ -32,6 +32,27 @@ void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindow)
 	scrollArea = new QScrollArea(alarmsChildWidget);
 	scrollArea->setObjectName("scrollArea");
 	scrollArea->setWidgetResizable(true);
+	scrollArea->setStyleSheet(R"(
+		QScrollBar::vertical {
+			background-color: #2C2C2C;
+			width: 10px;
+			border-radius: 5px;
+		}
+		
+		QScrollBar::sub-line:vertical {
+			border-image: url('Resources/arrow-up-grey.png');
+		}
+		
+		QScrollBar::add-line:vertical {
+			border-image: url('Resources/arrow-down-grey.png');
+		}
+		
+		QScrollBar::handle::vertical {
+			background-color: #9F9F9F;
+			border-radius: 3px;
+			margin: 10px 2px 10px 2px;
+		}
+	)");
 
 	scrollAreaWidgetContents = new QWidget();
 

@@ -23,101 +23,107 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\AlarmClock\AlarmClockWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainWindow.cpp">
+    <ClCompile Include="src\AlarmClock\AlarmClockWidgetUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainWindowUI.cpp">
+    <ClCompile Include="src\AlarmClock\AlarmsListWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AddAlarmWindow.cpp">
+    <ClCompile Include="src\AlarmClock\AlarmsWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AlarmClockWidget.cpp">
+    <ClCompile Include="src\AlarmClock\ToggleSwitch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TimeSpinBox.cpp">
+    <ClCompile Include="src\DatabaseManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TimeWrapperWidget.cpp">
+    <ClCompile Include="src\AlarmClock\EditAlarmWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ArrowPushButton.cpp">
+    <ClCompile Include="src\AlarmClock\IconPushButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NameLineEdit.cpp">
+    <ClCompile Include="src\AlarmClock\AlarmWindowUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IconPushButton.cpp">
+    <ClCompile Include="src\AlarmClock\ArrowPushButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AlarmWindowUI.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AlarmClockWidgetUI.cpp">
+    <ClCompile Include="src\MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DatabaseManager.cpp">
+    <ClCompile Include="src\AlarmClock\NameLineEdit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EditAlarmWindow.cpp">
+    <ClCompile Include="src\AlarmClock\AddAlarmWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AlarmsWidget.cpp">
+    <ClCompile Include="src\AlarmClock\TimeSpinBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AlarmsListWidget.cpp">
+    <ClCompile Include="src\AlarmClock\TimeWrapperWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MainWindowUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="MainWindow.h">
+    <QtMoc Include="include\AlarmClock\EditAlarmWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="AddAlarmWindow.h">
+    <QtMoc Include="include\AlarmClock\AlarmsWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="AlarmClockWidget.h">
+    <QtMoc Include="include\AlarmClock\AlarmClockWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="TimeWrapperWidget.h">
+    <QtMoc Include="include\AlarmClock\TimeSpinBox.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="TimeSpinBox.h">
+    <QtMoc Include="include\MainWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="NameLineEdit.h">
+    <QtMoc Include="include\DatabaseManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="DatabaseManager.h">
+    <QtMoc Include="include\AlarmClock\AddAlarmWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="EditAlarmWindow.h">
+    <QtMoc Include="include\AlarmClock\TimeWrapperWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="AlarmsWidget.h">
+    <QtMoc Include="include\AlarmClock\NameLineEdit.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\AlarmClock\ToggleSwitch.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArrowPushButton.h">
+    <ClInclude Include="include\AlarmClock\AlarmsListWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IconPushButton.h">
+    <ClInclude Include="include\AlarmClock\AlarmWindowUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AlarmClockWidgetUI.h">
+    <ClInclude Include="include\AlarmClock\AlarmClockWidgetUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AlarmWindowUI.h">
+    <ClInclude Include="include\AlarmClock\IconPushButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MainWindowUI.h">
+    <ClInclude Include="include\AlarmClock\ArrowPushButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AlarmsListWidget.h">
+    <ClInclude Include="include\MainWindowUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -130,11 +136,6 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Users\struk\Downloads\edit.svg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="C:\Users\struk\Downloads\edit-2.svg">
-      <Filter>Resource Files</Filter>
-    </None>
+    <None Include="C:\Users\struk\Downloads\alarm-white.svg" />
   </ItemGroup>
 </Project>

@@ -152,6 +152,9 @@
     <Font Include="C:\Users\struk\Downloads\static\RobotoSlab-Medium.ttf" />
     <Font Include="C:\Users\struk\Downloads\static\RobotoSlab-Regular.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\struk\Downloads\alarm-white.svg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

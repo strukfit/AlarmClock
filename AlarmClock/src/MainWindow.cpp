@@ -56,6 +56,46 @@ MainWindow::MainWindow(QWidget* parent) :
 			alarm->deleteMode(false);
 		}
 	});
+
+	QTimer* timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, this, [&] {
+		QTime currentTime = QTime::currentTime();
+		
+		for (int i = 0; i < ui->alarmsListLayout->count(); i++)
+		{
+			AlarmClockWidget* alarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(i)->widget());
+			QTime remainingTime = QTime(0, 0).addSecs(currentTime.secsTo(alarm->getAlarmTime()) + 60);
+			//QString remainingTimeString = remainingTime.toString("hh:mm");
+
+			QString remainingTimeString = "in ";
+
+			if (remainingTime.hour() == 0 && remainingTime.minute() == 0)
+			{
+				remainingTimeString += "1 day";
+			}
+			else if (remainingTime.hour() == 0)
+			{
+				if (remainingTime.minute() == 1)
+					remainingTimeString += "1 minute";
+				else
+					remainingTimeString += QString("%1 minutes").arg(remainingTime.minute());
+			}
+			else if (remainingTime.minute() == 0)
+			{
+				if (remainingTime.hour() == 1)
+					remainingTimeString += "1 hour";
+				else
+					remainingTimeString += QString("%1 hours").arg(remainingTime.hour());
+			}
+			else
+			{
+				remainingTimeString += QString("%1 h, %2 min.").arg(remainingTime.hour()).arg(remainingTime.minute());
+			}
+
+			alarm->setRemainingTime(remainingTimeString);
+		}
+	});
+	timer->start(1000);
 }
 
 MainWindow::~MainWindow()

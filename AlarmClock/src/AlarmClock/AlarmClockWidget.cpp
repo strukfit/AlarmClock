@@ -16,7 +16,7 @@ AlarmClockWidget::AlarmClockWidget(QWidget* parent, int id, QTime time, QString 
 	alarmTime(time), 
 	name(name)
 {
-	ui->setupAlarmClockWidgetUI(this);
+	ui->setupUI(this);
 
 	ui->time->setText(time.toString("hh:mm"));
 	ui->name->setText(name);
@@ -61,16 +61,16 @@ void AlarmClockWidget::setModelIndex(const QModelIndex& modelIndex)
 
 void AlarmClockWidget::setInactiveColors()
 {
-	ui->time->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 50px; font-weight: bold;");
-	ui->name->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 20px;");
+	ui->time->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 60px; font-weight: bold;");
+	ui->name->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 20px; font-weight: bold;");
 }
 
 void AlarmClockWidget::setActiveColors()
 {
 	if (isActive())
 	{
-		ui->time->setStyleSheet("background-color: transparent; color: white; font-size: 50px; font-weight: bold;");
-		ui->name->setStyleSheet("background-color: transparent; color: white; font-size: 20px;");
+		ui->time->setStyleSheet("background-color: transparent; color: white; font-size: 60px; font-weight: bold;");
+		ui->name->setStyleSheet("background-color: transparent; color: white; font-size: 20px; font-weight: bold;");
 	}
 }
 
@@ -88,6 +88,11 @@ void AlarmClockWidget::deleteMode(bool flag)
 		ui->deleteButton->hide();
 		ui->toggleSwitch->show();
 	}
+}
+
+void AlarmClockWidget::setRemainingTime(QString time)
+{
+	ui->remainingTime->setText(time);
 }
 
 int AlarmClockWidget::getId()

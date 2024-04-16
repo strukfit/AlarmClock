@@ -4,6 +4,7 @@
 #include <QBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QSvgWidget>
 
 #include "IconPushButton.h"
 #include "ToggleSwitch.h"
@@ -11,11 +12,14 @@
 class AlarmClockWidgetUI
 {
 public:
-	void setupAlarmClockWidgetUI(QWidget* AlarmClockWidgetClass);
+	void setupUI(QWidget* AlarmClockWidgetClass);
 
 	QWidget* centralWidget;
 	QGridLayout* gBoxLayout;
 	QLabel* time;
+	QHBoxLayout* ramainingTimeLayout;
+	QSvgWidget* alarmIcon;
+	QLabel* remainingTime;
 	QLabel* name;
 	ToggleSwitch* toggleSwitch;
 	IconPushButton* deleteButton;

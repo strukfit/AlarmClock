@@ -20,6 +20,7 @@ public:
 	void setInactiveColors();
 	void setActiveColors();
 	void deleteMode(bool flag);
+	void setRemainingTime(QString time);
 
 	int getId();
 	QTime getAlarmTime();

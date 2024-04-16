@@ -102,7 +102,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 	setAlarmWindowVLayout->addLayout(arrowsUpLayout);
 	setAlarmWindowVLayout->addWidget(timeWrapperWidget);
 	setAlarmWindowVLayout->addLayout(arrowsDownLayout);
-
+	
 	editSvgWidget = new QSvgWidget(AlarmWindowClass);
 	editSvgWidget->load(QString("Resources/edit-white.svg"));
 	editSvgWidget->setFixedSize(16, 16);

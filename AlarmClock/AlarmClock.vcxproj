@@ -112,6 +112,9 @@
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
     </ClCompile>
     <ClCompile Include="src\AlarmClock\AlarmClockWidgetUI.cpp" />
+    <ClCompile Include="src\AlarmClock\AlarmNotificationWindow.cpp" />
+    <ClCompile Include="src\AlarmClock\AlarmNotificationWindowUI.cpp" />
+    <ClCompile Include="src\AlarmClock\AlarmScrollBar.cpp" />
     <ClCompile Include="src\AlarmClock\AlarmsListWidget.cpp" />
     <ClCompile Include="src\AlarmClock\AlarmsWidget.cpp" />
     <ClCompile Include="src\AlarmClock\ToggleSwitch.cpp" />
@@ -121,6 +124,9 @@
     <ClCompile Include="src\AlarmClock\IconPushButton.cpp" />
     <ClCompile Include="src\AlarmClock\AlarmWindowUI.cpp" />
     <QtMoc Include="include\AlarmClock\AlarmsWidget.h" />
+    <ClInclude Include="include\AlarmClock\AlarmNotificationWindow.h" />
+    <ClInclude Include="include\AlarmClock\AlarmNotificationWindowUI.h" />
+    <ClInclude Include="include\AlarmClock\AlarmScrollBar.h" />
     <ClInclude Include="include\AlarmClock\AlarmsListWidget.h" />
     <ClInclude Include="include\AlarmClock\AlarmWindowUI.h" />
     <QtMoc Include="include\AlarmClock\AlarmClockWidget.h" />

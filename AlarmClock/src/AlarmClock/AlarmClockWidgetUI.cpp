@@ -5,13 +5,12 @@ void AlarmClockWidgetUI::setupUI(QWidget* AlarmClockWidget)
 	AlarmClockWidget->setContentsMargins(0, 0, 0, 0);
 	AlarmClockWidget->setFixedHeight(150);
 	AlarmClockWidget->setAttribute(Qt::WA_StyledBackground, true);
-	AlarmClockWidget->setStyleSheet("background-color: #323232; border-radius: 10px;");
 
 	gBoxLayout = new QGridLayout(AlarmClockWidget);
-	gBoxLayout->setContentsMargins(16, 7, 20, 32);
+	gBoxLayout->setContentsMargins(16, 8, 20, 32);
 
 	time = new QLabel(AlarmClockWidget);
-	time->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 60px; font-weight: bold;");
+	time->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 60px; font-weight: bold; border: 0;");
 
 	ramainingTimeLayout = new QHBoxLayout(AlarmClockWidget);
 	ramainingTimeLayout->setSpacing(10);
@@ -20,15 +19,16 @@ void AlarmClockWidgetUI::setupUI(QWidget* AlarmClockWidget)
 	alarmIcon = new QSvgWidget(AlarmClockWidget);
 	alarmIcon->load(QString("Resources/alarm-grey.svg"));
 	alarmIcon->setFixedSize(16, 17);
+	alarmIcon->setStyleSheet("border: 0;");
 
 	remainingTime = new QLabel(AlarmClockWidget);
-	remainingTime->setStyleSheet("background-color: transparent; color: #C3C3C3; font-size: 12px;");
+	remainingTime->setStyleSheet("background-color: transparent; color: #C3C3C3; font-size: 12px; border: 0;");
 
 	ramainingTimeLayout->addWidget(alarmIcon);
 	ramainingTimeLayout->addWidget(remainingTime);
 
 	name = new QLabel(AlarmClockWidget);
-	name->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 20px; font-weight: bold;");
+	name->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 20px; font-weight: bold; border: 0;");
 
 	toggleSwitch = new ToggleSwitch(AlarmClockWidget, "#76B9ED");
 

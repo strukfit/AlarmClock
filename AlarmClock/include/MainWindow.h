@@ -10,6 +10,7 @@
 #include "AlarmClock/EditAlarmWindow.h"
 #include "AlarmClock/AlarmClockWidget.h"
 #include "DatabaseManager.h"
+#include "AlarmClock/AlarmNotificationWindow.h"
 
 class MainWindow : public QMainWindow
 {
@@ -39,6 +40,6 @@ private:
     DatabaseManager* dbManager;
 
     QWidget* overlayWidget;
-
+    AlarmNotificationWindow* notificationWindow;
     //QString settingsFile = QApplication::applicationDirPath() + "/settings.ini";
 };

@@ -2,7 +2,8 @@
 #include <QWidget>
 #include <QTime>
 #include <QModelIndex>
-#include <QMessageBox>
+#include <QEvent>
+#include <QGraphicsDropShadowEffect>
 #include "AlarmClockWidgetUI.h"
 
 class AlarmClockWidget : public QWidget
@@ -16,7 +17,6 @@ public:
 	void setName(const QString& name);
 	void setAlarmTime(const QTime& alarmTime);
 	void updateUI();
-	void setModelIndex(const QModelIndex& modelIndex);
 	void setInactiveColors();
 	void setActiveColors();
 	void deleteMode(bool flag);
@@ -26,7 +26,6 @@ public:
 	QTime getAlarmTime();
 	QString getName();
 	bool isActive();
-	QModelIndex getModelIndex();
 
 	static int lastId;
 
@@ -36,8 +35,11 @@ signals:
 
 protected:
 	void mouseReleaseEvent(QMouseEvent* event) override;
+	bool event(QEvent* event) override;
 
 private:
+	void setDefaultStyle();
+
 	Ui::AlarmClockWidgetClass* ui;
 
 	int id;

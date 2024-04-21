@@ -4,7 +4,7 @@ MainWindow::MainWindow(QWidget* parent) :
 	QMainWindow(parent), 
 	ui(new Ui::MainWindowClass)
 {
-	ui->setupMainWindowUI(this);
+	ui->setupUI(this);
 
 	overlayWidget = new QWidget(this);
 	overlayWidget->setGeometry(geometry());
@@ -98,6 +98,11 @@ MainWindow::MainWindow(QWidget* parent) :
 	QTimer* timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, updateTimer);
 	timer->start(1000);
+
+	AlarmClockWidget* alarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(0)->widget());
+
+	notificationWindow = new AlarmNotificationWindow(this, alarm);
+	notificationWindow->show();
 }
 
 MainWindow::~MainWindow()
@@ -126,8 +131,8 @@ void MainWindow::checkAlarm()
 				currentTime < alarmTime.addSecs(5) &&
 				alarmClock->isActive())
 			{
-				alarmClock->setActive(false);
-				QMessageBox::information(nullptr, "Alarm", "The alarm went off!");
+				//alarmClock->setActive(false);
+				// Alarm went off
 			}
 		}
 	}

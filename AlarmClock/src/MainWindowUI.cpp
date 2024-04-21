@@ -1,8 +1,8 @@
 #include "MainWindowUI.h"
 
-void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindow)
+void MainWindowUI::setupUI(QMainWindow* MainWindow)
 {
-	MainWindow->resize(900, 550);
+	MainWindow->resize(600, 500);
 
 	centralWidget = new QWidget(MainWindow);
 	centralWidget->setStyleSheet("background-color: #272727;");
@@ -17,6 +17,15 @@ void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindow)
 
 	centralLayout->addWidget(functionSelectorWidget);
 
+	setupAlarmClockUI();
+
+	MainWindow->setCentralWidget(centralWidget);
+
+	QMetaObject::connectSlotsByName(MainWindow);
+}
+
+void MainWindowUI::setupAlarmClockUI()
+{
 	alarmsWidget = new AlarmsWidget(centralWidget);
 	alarmsWidget->setContentsMargins(0, 0, 0, 0);
 
@@ -28,36 +37,17 @@ void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindow)
 
 	alarmsChildLayout = new QVBoxLayout(alarmsChildWidget);
 	alarmsChildLayout->setContentsMargins(0, 0, 0, 0);
-	
+
 	scrollArea = new QScrollArea(alarmsChildWidget);
-	scrollArea->setObjectName("scrollArea");
+	AlarmScrollBar* scrollBar = new AlarmScrollBar(alarmsChildWidget);
+	scrollArea->setVerticalScrollBar(scrollBar);
 	scrollArea->setWidgetResizable(true);
-	scrollArea->setStyleSheet(R"(
-		QScrollBar::vertical {
-			background-color: #2C2C2C;
-			width: 10px;
-			border-radius: 5px;
-		}
-		
-		QScrollBar::sub-line:vertical {
-			border-image: url('Resources/arrow-up-grey.png');
-		}
-		
-		QScrollBar::add-line:vertical {
-			border-image: url('Resources/arrow-down-grey.png');
-		}
-		
-		QScrollBar::handle::vertical {
-			background-color: #9F9F9F;
-			border-radius: 3px;
-			margin: 10px 2px 10px 2px;
-		}
-	)");
 
 	scrollAreaWidgetContents = new QWidget();
 
 	alarmsListLayout = new QVBoxLayout(scrollAreaWidgetContents);
-	alarmsListLayout->setContentsMargins(48, 12, 48, 12);
+	alarmsListLayout->setContentsMargins(48, 22, 48, 22);
+	alarmsListLayout->setSpacing(14);
 
 	scrollArea->setWidget(scrollAreaWidgetContents);
 
@@ -70,15 +60,15 @@ void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindow)
 
 	QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
 	shadowEffect->setBlurRadius(20);
-	shadowEffect->setColor(QColor(0, 0, 0, 30)); 
-	shadowEffect->setOffset(3, 7); 
+	shadowEffect->setColor(QColor(0, 0, 0, 30));
+	shadowEffect->setOffset(3, 7);
 
 	alarmsManagerWidget->setGraphicsEffect(shadowEffect);
 	alarmsManagerWidget->setFixedSize(QSize(88, 48));
 
 	QObject::connect(alarmsWidget, &AlarmsWidget::resized, [&] {
 		alarmsManagerWidget->move(alarmsWidget->geometry().width() - alarmsManagerWidget->width() - 24, alarmsWidget->geometry().height() - alarmsManagerWidget->height() - 20);
-	});
+		});
 
 	alarmsManagerLayout = new QHBoxLayout(alarmsManagerWidget);
 	alarmsManagerLayout->setContentsMargins(6, 0, 6, 0);
@@ -100,9 +90,5 @@ void MainWindowUI::setupMainWindowUI(QMainWindow* MainWindow)
 	confirmButton->hide();
 	alarmsManagerLayout->addWidget(addAlarmButton);
 
-	centralLayout->addWidget(alarmsWidget);	
-
-	MainWindow->setCentralWidget(centralWidget);
-
-	QMetaObject::connectSlotsByName(MainWindow);
+	centralLayout->addWidget(alarmsWidget);
 }

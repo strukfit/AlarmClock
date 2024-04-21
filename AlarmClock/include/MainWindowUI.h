@@ -13,11 +13,12 @@
 #include "AlarmClock/AlarmsWidget.h"
 #include "AlarmClock/AlarmsListWidget.h"
 #include "AlarmClock/IconPushButton.h"
+#include "AlarmClock/AlarmScrollBar.h"
 
 class MainWindowUI
 {
 public:
-	void setupMainWindowUI(QMainWindow* MainWindowClass);
+	void setupUI(QMainWindow* MainWindowClass);
 
 	QWidget* centralWidget;
 	QHBoxLayout* centralLayout;
@@ -34,6 +35,9 @@ public:
 	QScrollArea* scrollArea;
 	QVBoxLayout* alarmsChildLayout;
 	QWidget* scrollAreaWidgetContents;
+
+private:
+	void setupAlarmClockUI();
 };
 
 namespace Ui {

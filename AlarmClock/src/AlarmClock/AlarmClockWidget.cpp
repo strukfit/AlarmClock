@@ -9,6 +9,38 @@ void AlarmClockWidget::mouseReleaseEvent(QMouseEvent* event)
 	QWidget::mouseReleaseEvent(event);
 }
 
+bool AlarmClockWidget::event(QEvent* event)
+{
+	if (event->type() == QEvent::Enter)
+	{
+		setStyleSheet("background-color: #2E2E2E; border-radius: 10px; border: 1px solid #363636;");
+		
+		QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
+		shadowEffect->setBlurRadius(20);
+		shadowEffect->setColor(QColor(0, 0, 0, 40));
+		shadowEffect->setOffset(0, 7);
+
+		this->setGraphicsEffect(shadowEffect);
+
+		return true;
+	}
+
+	if (event->type() == QEvent::Leave)
+	{
+		setDefaultStyle();
+		
+		this->setGraphicsEffect(nullptr);
+		
+		return true;
+	}
+	return QWidget::event(event);
+}
+
+void AlarmClockWidget::setDefaultStyle()
+{
+	this->setStyleSheet("background-color: #323232; border-radius: 10px;");
+}
+
 AlarmClockWidget::AlarmClockWidget(QWidget* parent, int id, QTime time, QString name) :
 	QWidget(parent), 
 	ui(new Ui::AlarmClockWidgetClass), 
@@ -17,6 +49,7 @@ AlarmClockWidget::AlarmClockWidget(QWidget* parent, int id, QTime time, QString 
 	name(name)
 {
 	ui->setupUI(this);
+	setDefaultStyle();
 
 	ui->time->setText(time.toString("hh:mm"));
 	ui->name->setText(name);
@@ -54,23 +87,18 @@ void AlarmClockWidget::updateUI()
 	ui->time->setText(alarmTime.toString("hh:mm"));
 }
 
-void AlarmClockWidget::setModelIndex(const QModelIndex& modelIndex)
-{
-	this->modelIndex = modelIndex;
-}
-
 void AlarmClockWidget::setInactiveColors()
 {
-	ui->time->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 60px; font-weight: bold;");
-	ui->name->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 20px; font-weight: bold;");
+	ui->time->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 60px; font-weight: bold; border: 0;");
+	ui->name->setStyleSheet("background-color: transparent; color: #7D7D7D; font-size: 20px; font-weight: bold; border: 0;");
 }
 
 void AlarmClockWidget::setActiveColors()
 {
 	if (isActive())
 	{
-		ui->time->setStyleSheet("background-color: transparent; color: white; font-size: 60px; font-weight: bold;");
-		ui->name->setStyleSheet("background-color: transparent; color: white; font-size: 20px; font-weight: bold;");
+		ui->time->setStyleSheet("background-color: transparent; color: white; font-size: 60px; font-weight: bold; border: 0;");
+		ui->name->setStyleSheet("background-color: transparent; color: white; font-size: 20px; font-weight: bold; border: 0;");
 	}
 }
 
@@ -113,9 +141,4 @@ QString AlarmClockWidget::getName()
 bool AlarmClockWidget::isActive()
 {
 	return this->ui->toggleSwitch->isChecked();
-}
-
-QModelIndex AlarmClockWidget::getModelIndex()
-{
-	return this->modelIndex;
 }

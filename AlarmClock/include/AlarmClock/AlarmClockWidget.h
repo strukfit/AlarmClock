@@ -45,6 +45,4 @@ private:
 	int id;
 	QTime alarmTime;
 	QString name;
-
-	QModelIndex modelIndex;
 };

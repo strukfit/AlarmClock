@@ -8,9 +8,13 @@
 #include "AlarmClock/AlarmClockWidget.h"
 
 class AlarmNotificationWindow : public QDialog{
+	Q_OBJECT
+
 public:
 	AlarmNotificationWindow(QMainWindow* parent = nullptr, AlarmClockWidget* alarm = nullptr);
 	~AlarmNotificationWindow();
+
+	Q_SIGNAL void alarmSnoozed(const int& id, const QString& name, const QTime& time);
 
 private:
 	Ui::AlarmNotificationWindowClass* ui;

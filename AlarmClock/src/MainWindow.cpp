@@ -57,6 +57,10 @@ MainWindow::MainWindow(QWidget* parent) :
 		}
 	});
 
+	QTimer* mainTimer = new QTimer(this);
+	connect(mainTimer, &QTimer::timeout, this, &MainWindow::checkAlarm);
+	mainTimer->start(1000);
+
 	auto updateTimer = [&]() {
 		QTime currentTime = QTime::currentTime();
 
@@ -97,12 +101,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	QTimer* timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, updateTimer);
-	timer->start(1000);
-
-	AlarmClockWidget* alarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(0)->widget());
-
-	notificationWindow = new AlarmNotificationWindow(this, alarm);
-	notificationWindow->show();
+	timer->start(1000);	
 }
 
 MainWindow::~MainWindow()
@@ -122,22 +121,26 @@ void MainWindow::checkAlarm()
 
 	for (int i = 0; i < ui->alarmsListLayout->count(); ++i)
 	{
-		AlarmClockWidget* alarmClock = dynamic_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(i)->widget());
-		if (alarmClock)
+		AlarmClockWidget* alarm = dynamic_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(i)->widget());
+		if (alarm)
 		{
-			QTime alarmTime = alarmClock->getAlarmTime();
+			QTime alarmTime = alarm->getAlarmTime();
 
 			if (currentTime >= alarmTime &&
 				currentTime < alarmTime.addSecs(5) &&
-				alarmClock->isActive())
+				alarm->isActive())
 			{
-				//alarmClock->setActive(false);
 				// Alarm went off
+				auto notificationWindow = new AlarmNotificationWindow(this, alarm);
+
+				connect(notificationWindow, &AlarmNotificationWindow::alarmSnoozed, this->dbManager, &DatabaseManager::updateData);
+
+				notificationWindow->show();
 			}
 		}
 	}
 
-	QTimer::singleShot(1000, this, &MainWindow::checkAlarm);
+	//QTimer::singleShot(1000, this, &MainWindow::checkAlarm);
 }
 
 void MainWindow::openAddAlarmWindow()

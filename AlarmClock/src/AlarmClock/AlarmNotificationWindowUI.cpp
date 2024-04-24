@@ -37,9 +37,13 @@ void AlarmNotificationWindowUI::setupUI(QDialog* AlarmNotificationWindow)
 	
 	snoozeComboBox = new QComboBox(AlarmNotificationWindow);
 	snoozeComboBox->setFixedSize(245, 32);
+	//snoozeComboBox->view()->window()->setWindowFlags(Qt::Popup | Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint);
+	//snoozeComboBox->view()->window()->setAttribute(Qt::WA_TranslucentBackground);
+	QStyledItemDelegate* itemDelegate = new QStyledItemDelegate();
+	snoozeComboBox->setItemDelegate(itemDelegate);
 	snoozeComboBox->setStyleSheet(R"(
 		QComboBox {
-			background-color: #292929; 
+			background-color: #292929;
 			color: white; 
 			font-size: 14px;
 			border: 1px solid #313131; 
@@ -64,6 +68,20 @@ void AlarmNotificationWindowUI::setupUI(QDialog* AlarmNotificationWindow)
 			width: 14px;
 			height: 9px;
 			margin-right: 26px;
+		}
+
+		QComboBox QAbstractItemView {
+			background-color: #2C2C2C;
+			selection-background-color: #383838;
+			outline: 0px;
+			border: 0;
+			/*border-radius: 10px;*/
+			/*padding: 12px;*/
+			
+		}
+
+		QComboBox QAbstractItemView::item {
+			min-height: 32px;
 		}
 	)");
 

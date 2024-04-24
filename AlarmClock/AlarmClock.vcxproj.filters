@@ -29,9 +29,6 @@
     <ClCompile Include="src\AlarmClock\AlarmClockWidgetUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AlarmClock\AlarmsListWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\AlarmClock\AlarmsWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -115,11 +112,11 @@
     <QtMoc Include="include\AlarmClock\ToggleSwitch.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="include\AlarmClock\AlarmNotificationWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\AlarmClock\AlarmsListWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\AlarmClock\AlarmWindowUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -136,9 +133,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\AlarmClock\AlarmScrollBar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\AlarmClock\AlarmNotificationWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\AlarmClock\AlarmNotificationWindowUI.h">

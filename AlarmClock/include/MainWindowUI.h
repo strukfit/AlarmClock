@@ -11,7 +11,6 @@
 #include <QGroupBox>
 
 #include "AlarmClock/AlarmsWidget.h"
-#include "AlarmClock/AlarmsListWidget.h"
 #include "AlarmClock/IconPushButton.h"
 #include "AlarmClock/AlarmScrollBar.h"
 

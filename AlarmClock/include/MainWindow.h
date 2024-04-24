@@ -40,6 +40,5 @@ private:
     DatabaseManager* dbManager;
 
     QWidget* overlayWidget;
-    AlarmNotificationWindow* notificationWindow;
     //QString settingsFile = QApplication::applicationDirPath() + "/settings.ini";
 };

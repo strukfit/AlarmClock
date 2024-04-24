@@ -19,8 +19,14 @@ AlarmNotificationWindow::AlarmNotificationWindow(QMainWindow* parent, AlarmClock
 	ui->snoozeComboBox->setCurrentIndex(1);
 
 	connect(ui->snoozeButton, &QPushButton::clicked, this, [&] {
-		QMessageBox::information(this, "", (this->alarm->getAlarmTime().addSecs(ui->snoozeComboBox->currentData().toInt())).toString("hh:mm"));
+		//QMessageBox::information(this, "", (this->alarm->getAlarmTime().addSecs(ui->snoozeComboBox->currentData().toInt())).toString("hh:mm"));
+		this->alarm->setAlarmTime(this->alarm->getAlarmTime().addSecs(this->ui->snoozeComboBox->currentData().toInt()));
+		this->alarm->updateUI();
+		emit alarmSnoozed(this->alarm->getId(), this->alarm->getName(), this->alarm->getAlarmTime());
+		close();
 	});
+
+	connect(ui->closeButton, &QPushButton::clicked, this, &QDialog::close);
 }
 
 AlarmNotificationWindow::~AlarmNotificationWindow()

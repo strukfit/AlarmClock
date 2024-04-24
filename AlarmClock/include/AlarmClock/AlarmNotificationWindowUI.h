@@ -6,6 +6,8 @@
 #include <QComboBox>
 #include <QPushButton>
 #include <QSvgWidget>
+#include <QAbstractItemView>
+#include <QStyledItemDelegate>
 
 class AlarmNotificationWindowUI {
 public:

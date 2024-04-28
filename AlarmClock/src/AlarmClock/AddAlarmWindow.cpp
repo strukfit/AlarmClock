@@ -8,6 +8,8 @@ AddAlarmWindow::AddAlarmWindow(QWidget* parent) :
 
 	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint | Qt::FramelessWindowHint);
 
+	this->setAttribute(Qt::WA_DeleteOnClose);
+
 	connect(ui->setAlarmButton, &QPushButton::clicked, this, [&] {
 		int h = ui->hoursSpinBox->value();
 		int m = ui->minutesSpinBox->value();

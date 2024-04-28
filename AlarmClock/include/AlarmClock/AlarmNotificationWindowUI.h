@@ -9,6 +9,8 @@
 #include <QAbstractItemView>
 #include <QStyledItemDelegate>
 
+#include <AlarmClock/IconPushButton.h>
+
 class AlarmNotificationWindowUI {
 public:
 	void setupUI(QDialog* AlarmNotificationWindow);
@@ -23,6 +25,8 @@ public:
 	QHBoxLayout* buttonsLayout;
 	QPushButton* snoozeButton;
 	QPushButton* closeButton;
+	IconPushButton* muteButton;
+	IconPushButton* unmuteButton;
 };
 
 namespace Ui {

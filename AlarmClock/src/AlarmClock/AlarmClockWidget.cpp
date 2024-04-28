@@ -2,51 +2,13 @@
 
 int AlarmClockWidget::lastId = 0;
 
-void AlarmClockWidget::mouseReleaseEvent(QMouseEvent* event)
-{
-	emit clicked(this);
-
-	QWidget::mouseReleaseEvent(event);
-}
-
-bool AlarmClockWidget::event(QEvent* event)
-{
-	if (event->type() == QEvent::Enter)
-	{
-		setStyleSheet("background-color: #2E2E2E; border-radius: 10px; border: 1px solid #363636;");
-		
-		QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
-		shadowEffect->setBlurRadius(20);
-		shadowEffect->setColor(QColor(0, 0, 0, 40));
-		shadowEffect->setOffset(0, 7);
-
-		this->setGraphicsEffect(shadowEffect);
-
-		return true;
-	}
-
-	if (event->type() == QEvent::Leave)
-	{
-		setDefaultStyle();
-		
-		this->setGraphicsEffect(nullptr);
-		
-		return true;
-	}
-	return QWidget::event(event);
-}
-
-void AlarmClockWidget::setDefaultStyle()
-{
-	this->setStyleSheet("background-color: #323232; border-radius: 10px;");
-}
-
 AlarmClockWidget::AlarmClockWidget(QWidget* parent, int id, QTime time, QString name) :
 	QWidget(parent), 
 	ui(new Ui::AlarmClockWidgetClass), 
 	id(id), 
 	alarmTime(time), 
-	name(name)
+	name(name),
+	notifficationOpen(false)
 {
 	ui->setupUI(this);
 	setDefaultStyle();
@@ -64,6 +26,45 @@ AlarmClockWidget::AlarmClockWidget(QWidget* parent, int id, QTime time, QString 
 	});
 
 	QObject::connect(ui->deleteButton, &QPushButton::clicked, [&] { emit deleteButtonClicked(this); });
+}
+
+void AlarmClockWidget::mouseReleaseEvent(QMouseEvent* event)
+{
+	emit clicked(this);
+
+	QWidget::mouseReleaseEvent(event);
+}
+
+bool AlarmClockWidget::event(QEvent* event)
+{
+	if (event->type() == QEvent::Enter)
+	{
+		setStyleSheet("background-color: #2E2E2E; border-radius: 10px; border: 1px solid #363636;");
+
+		QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
+		shadowEffect->setBlurRadius(20);
+		shadowEffect->setColor(QColor(0, 0, 0, 40));
+		shadowEffect->setOffset(0, 7);
+
+		this->setGraphicsEffect(shadowEffect);
+
+		return true;
+	}
+
+	if (event->type() == QEvent::Leave)
+	{
+		setDefaultStyle();
+
+		this->setGraphicsEffect(nullptr);
+
+		return true;
+	}
+	return QWidget::event(event);
+}
+
+void AlarmClockWidget::setDefaultStyle()
+{
+	this->setStyleSheet("background-color: #323232; border-radius: 10px;");
 }
 
 void AlarmClockWidget::setActive(bool flag)
@@ -123,6 +124,11 @@ void AlarmClockWidget::setRemainingTime(QString time)
 	ui->remainingTime->setText(time);
 }
 
+void AlarmClockWidget::setNotificationOpen(bool flag)
+{
+	this->notifficationOpen = flag;
+}
+
 int AlarmClockWidget::getId()
 {
 	return this->id;
@@ -141,4 +147,9 @@ QString AlarmClockWidget::getName()
 bool AlarmClockWidget::isActive()
 {
 	return this->ui->toggleSwitch->isChecked();
+}
+
+bool AlarmClockWidget::isNotifficationOpen()
+{
+	return this->notifficationOpen;
 }

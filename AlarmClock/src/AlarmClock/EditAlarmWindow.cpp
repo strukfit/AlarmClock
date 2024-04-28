@@ -10,6 +10,8 @@ EditAlarmWindow::EditAlarmWindow(QWidget* parent, AlarmClockWidget* alarm) :
 
 	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint | Qt::FramelessWindowHint);
 
+	this->setAttribute(Qt::WA_DeleteOnClose);
+
 	connect(ui->setAlarmButton, &QPushButton::clicked, this, [&] {
 		int h = ui->hoursSpinBox->value();
 		int m = ui->minutesSpinBox->value();
@@ -17,6 +19,8 @@ EditAlarmWindow::EditAlarmWindow(QWidget* parent, AlarmClockWidget* alarm) :
 		QString name = ui->nameLineEdit->text();
 
 		emit updateAlarm(this->alarm, name, QTime(h, m));
+
+		this->alarm->setActive(true);
 
 		close();
 	});

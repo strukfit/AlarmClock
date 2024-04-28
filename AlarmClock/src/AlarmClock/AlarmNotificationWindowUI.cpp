@@ -2,7 +2,6 @@
 
 void AlarmNotificationWindowUI::setupUI(QDialog* AlarmNotificationWindow)
 {
-	//AlarmNotificationWindow->resize(360, 240);
 	AlarmNotificationWindow->setStyleSheet("background-color: #1F1F1F");
 
 	centralLayout = new QVBoxLayout(AlarmNotificationWindow);
@@ -151,6 +150,14 @@ void AlarmNotificationWindowUI::setupUI(QDialog* AlarmNotificationWindow)
 
 	buttonsLayout->addWidget(snoozeButton);
 	buttonsLayout->addWidget(closeButton);
+
+	muteButton = new IconPushButton(AlarmNotificationWindow, "", "transparent", "transparent", "Resources/unmuted-white.svg", "Resources/unmuted-grey.svg", "transparent", "#383838", "#343434");
+	muteButton->setFixedSize(32, 32);
+
+	unmuteButton = new IconPushButton(AlarmNotificationWindow, "", "transparent", "transparent", "Resources/muted-white.svg", "Resources/muted-grey.svg", "transparent", "#383838", "#343434");
+	unmuteButton->setFixedSize(32, 32);
+
+	unmuteButton->hide();
 
 	centralLayout->addLayout(buttonsLayout);
 }

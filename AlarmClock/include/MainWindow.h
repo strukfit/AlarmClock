@@ -33,6 +33,10 @@ signals:
     void alarmClockAdded(const int& id, const QString& name, const QTime& time);
     void alarmClockUpdated(const int& id, const QString& name, const QTime& time);
     void alarmClockDeleted(const int& id);
+    void closed();
+
+protected:
+    void closeEvent(QCloseEvent* event) override;
 
 private:
     Ui::MainWindowClass* ui;

@@ -40,6 +40,7 @@ void MainWindowUI::setupAlarmClockUI()
 
 	scrollArea = new QScrollArea(alarmsChildWidget);
 	AlarmScrollBar* scrollBar = new AlarmScrollBar(alarmsChildWidget);
+	scrollBar->setSingleStep(5);
 	scrollArea->setVerticalScrollBar(scrollBar);
 	scrollArea->setWidgetResizable(true);
 

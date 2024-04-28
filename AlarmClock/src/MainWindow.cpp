@@ -57,10 +57,6 @@ MainWindow::MainWindow(QWidget* parent) :
 		}
 	});
 
-	QTimer* mainTimer = new QTimer(this);
-	connect(mainTimer, &QTimer::timeout, this, &MainWindow::checkAlarm);
-	mainTimer->start(1000);
-
 	auto updateTimer = [&]() {
 		QTime currentTime = QTime::currentTime();
 
@@ -101,6 +97,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	QTimer* timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, updateTimer);
+	connect(timer, &QTimer::timeout, this, &MainWindow::checkAlarm);
 	timer->start(1000);	
 }
 
@@ -115,6 +112,12 @@ MainWindow::~MainWindow()
 	delete dbManager;
 }
 
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+	emit closed();
+	QMainWindow::closeEvent(event);
+}
+
 void MainWindow::checkAlarm()
 {
 	QTime currentTime = QTime::currentTime();
@@ -127,15 +130,25 @@ void MainWindow::checkAlarm()
 			QTime alarmTime = alarm->getAlarmTime();
 
 			if (currentTime >= alarmTime &&
-				currentTime < alarmTime.addSecs(5) &&
-				alarm->isActive())
+				currentTime < alarmTime.addSecs(2) &&
+				alarm->isActive() &&
+				!alarm->isNotifficationOpen())
 			{
 				// Alarm went off
-				auto notificationWindow = new AlarmNotificationWindow(this, alarm);
+				auto notificationWindow = new AlarmNotificationWindow(nullptr, alarm);
 
 				connect(notificationWindow, &AlarmNotificationWindow::alarmSnoozed, this->dbManager, &DatabaseManager::updateData);
 
+				connect(this, &MainWindow::closed, notificationWindow, &QDialog::close);
+
+				QRect scr = QGuiApplication::primaryScreen()->geometry();
+
 				notificationWindow->show();
+				notificationWindow->activateWindow();
+				notificationWindow->raise();
+
+
+				notificationWindow->move((scr.right() - notificationWindow->frameSize().width()), (scr.bottom() - notificationWindow->frameSize().height()));
 			}
 		}
 	}
@@ -165,8 +178,6 @@ void MainWindow::openAddAlarmWindow()
 	});
 
 	addAlarmWindow->exec();
-
-	delete addAlarmWindow;
 }
 
 void MainWindow::openEditAlarmWindow(AlarmClockWidget* alarm)
@@ -186,8 +197,6 @@ void MainWindow::openEditAlarmWindow(AlarmClockWidget* alarm)
 	});
 
 	editAlarmWindow->exec();
-
-	delete editAlarmWindow;
 }
 
 AlarmClockWidget* MainWindow::setAlarm(const int& id, const QString& name, const QTime& time)

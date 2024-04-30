@@ -105,6 +105,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <QtMoc Include="include\Timer\CircularProgressBar.h" />
     <ClCompile Include="src\AlarmClock\AlarmClockWidget.cpp">
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
@@ -114,19 +115,23 @@
     <ClCompile Include="src\AlarmClock\AlarmClockWidgetUI.cpp" />
     <ClCompile Include="src\AlarmClock\AlarmNotificationWindow.cpp" />
     <ClCompile Include="src\AlarmClock\AlarmNotificationWindowUI.cpp" />
-    <ClCompile Include="src\AlarmClock\AlarmScrollBar.cpp" />
-    <ClCompile Include="src\AlarmClock\AlarmsWidget.cpp" />
+    <ClCompile Include="src\CustomScrollBar.cpp" />
+    <ClCompile Include="src\ResizableWidget.cpp" />
     <ClCompile Include="src\AlarmClock\ToggleSwitch.cpp" />
     <ClCompile Include="src\CheckableButton.cpp" />
     <ClCompile Include="src\DatabaseManager.cpp" />
+    <ClCompile Include="src\Timer\TimerWidget.cpp" />
+    <ClCompile Include="src\Timer\TimerWidgetUI.cpp" />
+    <ClInclude Include="include\Timer\TimerWidgetUI.h" />
+    <QtMoc Include="include\Timer\TimerWidget.h" />
     <QtMoc Include="include\AlarmClock\EditAlarmWindow.h" />
     <ClCompile Include="src\AlarmClock\EditAlarmWindow.cpp" />
     <ClCompile Include="src\AlarmClock\IconPushButton.cpp" />
     <ClCompile Include="src\AlarmClock\AlarmWindowUI.cpp" />
-    <QtMoc Include="include\AlarmClock\AlarmsWidget.h" />
+    <QtMoc Include="include\ResizableWidget.h" />
     <QtMoc Include="include\AlarmClock\AlarmNotificationWindow.h" />
     <ClInclude Include="include\AlarmClock\AlarmNotificationWindowUI.h" />
-    <ClInclude Include="include\AlarmClock\AlarmScrollBar.h" />
+    <ClInclude Include="include\CustomScrollBar.h" />
     <ClInclude Include="include\AlarmClock\AlarmWindowUI.h" />
     <QtMoc Include="include\AlarmClock\AlarmClockWidget.h" />
     <ClCompile Include="src\AlarmClock\ArrowPushButton.cpp" />
@@ -145,7 +150,7 @@
   <ItemGroup>
     <ClInclude Include="include\AlarmClock\AlarmClockWidgetUI.h" />
     <QtMoc Include="include\DatabaseManager.h" />
-    <ClInclude Include="include\AlarmClock\IconPushButton.h" />
+    <ClInclude Include="include\IconPushButton.h" />
     <QtMoc Include="include\AlarmClock\AddAlarmWindow.h" />
     <QtMoc Include="include\AlarmClock\TimeWrapperWidget.h" />
     <ClInclude Include="include\AlarmClock\ArrowPushButton.h" />

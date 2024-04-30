@@ -6,11 +6,15 @@
 #include <QSettings>
 
 #include "MainWindowUI.h"
+#include "DatabaseManager.h"
+
 #include "AlarmClock/AddAlarmWindow.h"
 #include "AlarmClock/EditAlarmWindow.h"
 #include "AlarmClock/AlarmClockWidget.h"
-#include "DatabaseManager.h"
 #include "AlarmClock/AlarmNotificationWindow.h"
+
+#include "Timer/TimerWidget.h"
+#include "Timer/CircularProgressBar.h"
 
 class MainWindow : public QMainWindow
 {
@@ -41,7 +45,9 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
+    void setSideMenuConections();
     void setAlarmClockConnections();
+    void setTimerConnections();
 
     void increaseMenu();
 

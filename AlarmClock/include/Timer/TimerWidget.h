@@ -4,27 +4,26 @@
 #include <QEvent>
 #include <QGraphicsDropShadowEffect>
 
-#include "AlarmClockWidgetUI.h"
+#include "TimerWidgetUI.h"
 
-class AlarmClockWidget : public QWidget
+class TimerWidget : public QWidget
 {
 	Q_OBJECT
 
 public:
-	AlarmClockWidget(QWidget* parent = nullptr, int id = NULL, QTime time = QTime(0, 0), QString name = NULL);
+	TimerWidget(QWidget* parent = nullptr, int id = NULL, QTime time = QTime(0, 0, 0), QString name = NULL);
 
 	void setActive(bool flag);
 	void setName(const QString& name);
-	void setAlarmTime(const QTime& alarmTime);
+	void setTime(const QTime& alarmTime);
 	void updateUI();
 	void setInactiveColors();
 	void setActiveColors();
 	void deleteMode(bool flag);
-	void setRemainingTime(QString time);
 	void setNotificationOpen(bool flag);
 
 	int getId();
-	QTime getAlarmTime();
+	QTime getTime();
 	QString getName();
 	bool isActive();
 	bool isNotifficationOpen();
@@ -32,8 +31,8 @@ public:
 	static int lastId;
 
 signals:
-	void clicked(AlarmClockWidget* alarm);
-	void deleteButtonClicked(AlarmClockWidget* alarm);
+	void clicked(TimerWidget* alarm);
+	void deleteButtonClicked(TimerWidget* alarm);
 
 protected:
 	void mouseReleaseEvent(QMouseEvent* event) override;
@@ -42,10 +41,10 @@ protected:
 private:
 	void setDefaultStyle();
 
-	Ui::AlarmClockWidgetClass* ui;
+	Ui::TimerWidgetClass* ui;
 
 	int id;
-	QTime alarmTime;
+	QTime time;
 	QString name;
 
 	bool notifficationOpen;

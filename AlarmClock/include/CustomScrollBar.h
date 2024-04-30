@@ -5,10 +5,10 @@
 #include <QTimer>
 #include <QPropertyAnimation>
 
-class AlarmScrollBar : public QScrollBar
+class CustomScrollBar : public QScrollBar
 {
 public:
-	AlarmScrollBar(QWidget* parent = nullptr);
+	CustomScrollBar(QWidget* parent = nullptr);
 
 protected:
 	bool event(QEvent* event) override;

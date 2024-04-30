@@ -1,4 +1,4 @@
-#include "AlarmClock/IconPushButton.h"
+#include "IconPushButton.h"
 
 IconPushButton::IconPushButton(QWidget* parent, QString text, QString textColor, QString textPressedColor, QString iconPath, QString pressedIconPath, QString backgroundColor, QString hoverColor, QString pressedColor) :
 	QPushButton(parent),

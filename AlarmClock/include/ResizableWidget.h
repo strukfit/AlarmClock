@@ -2,7 +2,7 @@
 
 #include <QWidget>
 
-class AlarmsWidget : public QWidget
+class ResizableWidget : public QWidget
 {
 	Q_OBJECT
 
@@ -10,7 +10,7 @@ signals:
 	void resized();
 
 public:
-	AlarmsWidget(QWidget* parent = nullptr);
+	ResizableWidget(QWidget* parent = nullptr);
 
 protected:
 	void resizeEvent(QResizeEvent* event) override;

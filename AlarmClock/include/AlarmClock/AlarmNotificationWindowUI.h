@@ -9,7 +9,7 @@
 #include <QAbstractItemView>
 #include <QStyledItemDelegate>
 
-#include <AlarmClock/IconPushButton.h>
+#include <IconPushButton.h>
 
 class AlarmNotificationWindowUI {
 public:

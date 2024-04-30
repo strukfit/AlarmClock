@@ -10,9 +10,9 @@
 #include <QScrollArea>
 #include <QLabel>
 
-#include "AlarmClock/AlarmsWidget.h"
-#include "AlarmClock/IconPushButton.h"
-#include "AlarmClock/AlarmScrollBar.h"
+#include "ResizableWidget.h"
+#include "IconPushButton.h"
+#include "CustomScrollBar.h"
 #include "CheckableButton.h"
 
 class MainWindowUI
@@ -31,23 +31,29 @@ public:
 	CheckableButton* worldClockButton;
 
 	// Alarm clock ui variables
-	AlarmsWidget* alarmsWidget;
+	ResizableWidget* alarmsWidget;
 	QVBoxLayout* alarmsListLayout;
 	QWidget* alarmsManagerWidget;
 	QHBoxLayout* alarmsManagerLayout;
 	IconPushButton* deleteAlarmsButton;
 	IconPushButton* confirmButton;
 	IconPushButton* addAlarmButton;
-	QVBoxLayout* verticalLayout;
+	QVBoxLayout* alarmVLayout;
 	QWidget* alarmsChildWidget;
-	QScrollArea* scrollArea;
 	QVBoxLayout* alarmsChildLayout;
-	QWidget* scrollAreaWidgetContents;
 
 	// Timer ui variables
-	QWidget* timerWidget;
+	ResizableWidget* timerWidget;
 	QVBoxLayout* timerLayout;
-	QLabel* timerLabel;
+	QWidget* timerChildWidget;
+	QVBoxLayout* timerChildLayout;
+	QScrollArea* timerScrollArea;
+	QVBoxLayout* timerListLayout;
+	QWidget* timerManagerWidget;
+	QHBoxLayout* timerManagerLayout;
+	IconPushButton* deleteTimerButton;
+	IconPushButton* timerConfirmButton;
+	IconPushButton* timerAddButton;
 
 	// Stopwatch ui variables
 	QWidget* stopwatchWidget;

@@ -73,11 +73,11 @@ void MainWindowUI::setupUI(QMainWindow* MainWindow)
 
 void MainWindowUI::setupAlarmClockUI()
 {
-	alarmsWidget = new AlarmsWidget(centralWidget);
+	alarmsWidget = new ResizableWidget(centralWidget);
 	alarmsWidget->setContentsMargins(0, 0, 0, 0);
 
-	verticalLayout = new QVBoxLayout(alarmsWidget);
-	verticalLayout->setContentsMargins(0, 0, 0, 0);
+	alarmVLayout = new QVBoxLayout(alarmsWidget);
+	alarmVLayout->setContentsMargins(0, 0, 0, 0);
 
 	alarmsChildWidget = new QWidget(alarmsWidget);
 	alarmsChildWidget->setContentsMargins(0, 0, 0, 0);
@@ -85,14 +85,14 @@ void MainWindowUI::setupAlarmClockUI()
 	alarmsChildLayout = new QVBoxLayout(alarmsChildWidget);
 	alarmsChildLayout->setContentsMargins(0, 0, 0, 0);
 
-	scrollArea = new QScrollArea(alarmsChildWidget);
-	AlarmScrollBar* scrollBar = new AlarmScrollBar(alarmsChildWidget);
+	QScrollArea* scrollArea = new QScrollArea(alarmsChildWidget);
+	CustomScrollBar* scrollBar = new CustomScrollBar(alarmsChildWidget);
 	scrollBar->setSingleStep(5);
 	scrollArea->setVerticalScrollBar(scrollBar);
 	scrollArea->setWidgetResizable(true);
 	scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-	scrollAreaWidgetContents = new QWidget();
+	QWidget* scrollAreaWidgetContents = new QWidget();
 
 	alarmsListLayout = new QVBoxLayout(scrollAreaWidgetContents);
 	alarmsListLayout->setContentsMargins(48, 22, 48, 22);
@@ -102,7 +102,7 @@ void MainWindowUI::setupAlarmClockUI()
 
 	alarmsChildLayout->addWidget(scrollArea);
 
-	verticalLayout->addWidget(alarmsChildWidget);
+	alarmVLayout->addWidget(alarmsChildWidget);
 
 	alarmsManagerWidget = new QWidget(alarmsWidget);
 	alarmsManagerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
@@ -115,7 +115,7 @@ void MainWindowUI::setupAlarmClockUI()
 	alarmsManagerWidget->setGraphicsEffect(shadowEffect);
 	alarmsManagerWidget->setFixedSize(QSize(88, 48));
 
-	QObject::connect(alarmsWidget, &AlarmsWidget::resized, [&] {
+	QObject::connect(alarmsWidget, &ResizableWidget::resized, [&] {
 		alarmsManagerWidget->move(alarmsWidget->geometry().width() - alarmsManagerWidget->width() - 24, alarmsWidget->geometry().height() - alarmsManagerWidget->height() - 20);
 		});
 
@@ -144,15 +144,71 @@ void MainWindowUI::setupAlarmClockUI()
 
 void MainWindowUI::setupTimerUI()
 {
-	timerWidget = new QWidget(centralWidget);
+	timerWidget = new ResizableWidget(centralWidget);
+	timerWidget->setContentsMargins(0, 0, 0, 0);
 
 	timerLayout = new QVBoxLayout(timerWidget);
-	timerLayout->setAlignment(Qt::AlignCenter);
+	timerLayout->setContentsMargins(0, 0, 0, 0);
 
-	timerLabel = new QLabel("Timer", timerWidget);
-	timerLabel->setAlignment(Qt::AlignCenter);
+	timerChildWidget = new QWidget(timerWidget);
+	timerChildWidget->setContentsMargins(0, 0, 0, 0);
 
-	timerLayout->addWidget(timerLabel);
+	timerChildLayout = new QVBoxLayout(timerChildWidget);
+	timerChildLayout->setContentsMargins(0, 0, 0, 0);
+
+	QScrollArea* scrollArea = new QScrollArea(timerChildWidget);
+	CustomScrollBar* scrollBar = new CustomScrollBar(timerChildWidget);
+	scrollBar->setSingleStep(5);
+	scrollArea->setVerticalScrollBar(scrollBar);
+	scrollArea->setWidgetResizable(true);
+	scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+	QWidget* scrollAreaWidgetContents = new QWidget();
+
+	timerListLayout = new QVBoxLayout(scrollAreaWidgetContents);
+	timerListLayout->setContentsMargins(48, 22, 48, 22);
+	timerListLayout->setSpacing(14);
+
+	scrollArea->setWidget(scrollAreaWidgetContents);
+
+	timerChildLayout->addWidget(scrollArea);
+
+	timerLayout->addWidget(timerChildWidget);
+
+	timerManagerWidget = new QWidget(timerWidget);
+	timerManagerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
+
+	QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
+	shadowEffect->setBlurRadius(20);
+	shadowEffect->setColor(QColor(0, 0, 0, 30));
+	shadowEffect->setOffset(3, 7);
+
+	timerManagerWidget->setGraphicsEffect(shadowEffect);
+	timerManagerWidget->setFixedSize(QSize(88, 48));
+
+	QObject::connect(timerWidget, &ResizableWidget::resized, [&] {
+		timerManagerWidget->move(timerWidget->geometry().width() - timerManagerWidget->width() - 24, timerWidget->geometry().height() - timerManagerWidget->height() - 20);
+	});
+
+	timerManagerLayout = new QHBoxLayout(timerManagerWidget);
+	timerManagerLayout->setContentsMargins(6, 0, 6, 0);
+
+	deleteTimerButton = new IconPushButton(timerManagerWidget, "", "transparent", "transparent", "Resources/pen-white.svg", "Resources/pen-grey.svg", "transparent", "#383838", "#343434");
+	deleteTimerButton->setFixedSize(QSize(36, 36));
+	deleteTimerButton->setIconSize(QSize(20, 20));
+
+	timerConfirmButton = new IconPushButton(timerManagerWidget, "", "transparent", "transparent", "Resources/confirm-white.svg", "Resources/confirm-grey.svg", "transparent", "#383838", "#343434");
+	timerConfirmButton->setFixedSize(QSize(36, 36));
+	timerConfirmButton->setIconSize(QSize(16, 16));
+
+	timerAddButton = new IconPushButton(timerManagerWidget, "", "transparent", "transparent", "Resources/add-white.svg", "Resources/add-grey.svg", "transparent", "#383838", "#343434");
+	timerAddButton->setFixedSize(QSize(36, 36));
+	timerAddButton->setIconSize(QSize(20, 20));
+
+	timerManagerLayout->addWidget(deleteTimerButton);
+	timerManagerLayout->addWidget(timerConfirmButton);
+	timerConfirmButton->hide();
+	timerManagerLayout->addWidget(timerAddButton);
 
 	centralLayout->addWidget(timerWidget);
 

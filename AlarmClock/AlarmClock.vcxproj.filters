@@ -29,7 +29,7 @@
     <ClCompile Include="src\AlarmClock\AlarmClockWidgetUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AlarmClock\AlarmsWidget.cpp">
+    <ClCompile Include="src\ResizableWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AlarmClock\ToggleSwitch.cpp">
@@ -71,7 +71,7 @@
     <ClCompile Include="src\MainWindowUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AlarmClock\AlarmScrollBar.cpp">
+    <ClCompile Include="src\CustomScrollBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AlarmClock\AlarmNotificationWindow.cpp">
@@ -83,12 +83,18 @@
     <ClCompile Include="src\CheckableButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Timer\TimerWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Timer\TimerWidgetUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\AlarmClock\EditAlarmWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="include\AlarmClock\AlarmsWidget.h">
+    <QtMoc Include="include\ResizableWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="include\AlarmClock\AlarmClockWidget.h">
@@ -121,6 +127,12 @@
     <QtMoc Include="include\CheckableButton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="include\Timer\TimerWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\Timer\CircularProgressBar.h">
+      <Filter>Source Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AlarmClock\AlarmWindowUI.h">
@@ -129,7 +141,7 @@
     <ClInclude Include="include\AlarmClock\AlarmClockWidgetUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\AlarmClock\IconPushButton.h">
+    <ClInclude Include="include\IconPushButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\AlarmClock\ArrowPushButton.h">
@@ -138,10 +150,13 @@
     <ClInclude Include="include\MainWindowUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\AlarmClock\AlarmScrollBar.h">
+    <ClInclude Include="include\CustomScrollBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\AlarmClock\AlarmNotificationWindowUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Timer\TimerWidgetUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,12 +1,12 @@
-#include "AlarmClock/AlarmScrollBar.h"
+#include "CustomScrollBar.h"
 
-AlarmScrollBar::AlarmScrollBar(QWidget* parent) :
+CustomScrollBar::CustomScrollBar(QWidget* parent) :
 	QScrollBar(Qt::Orientation::Vertical, parent)
 {
 	setDefaultStyle();
 }
 
-bool AlarmScrollBar::event(QEvent* event)
+bool CustomScrollBar::event(QEvent* event)
 { 
 	if (event->type() == QEvent::Enter)
 	{
@@ -68,7 +68,7 @@ bool AlarmScrollBar::event(QEvent* event)
 	return QWidget::event(event);
 }
 
-void AlarmScrollBar::setDefaultStyle()
+void CustomScrollBar::setDefaultStyle()
 {
 	this->setStyleSheet(R"(
 		QScrollBar::vertical {

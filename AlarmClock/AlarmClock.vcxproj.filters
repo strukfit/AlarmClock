@@ -80,6 +80,9 @@
     <ClCompile Include="src\AlarmClock\AlarmNotificationWindowUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CheckableButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\AlarmClock\EditAlarmWindow.h">
@@ -113,6 +116,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="include\AlarmClock\AlarmNotificationWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\CheckableButton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

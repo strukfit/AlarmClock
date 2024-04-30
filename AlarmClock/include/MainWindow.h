@@ -27,6 +27,7 @@ public slots:
     void checkAlarm();
     void openAddAlarmWindow();
     void openEditAlarmWindow(AlarmClockWidget* alarm);
+    void decreaseMenu();
 
 signals:
     void childWindowShowed();
@@ -37,12 +38,20 @@ signals:
 
 protected:
     void closeEvent(QCloseEvent* event) override;
+    void resizeEvent(QResizeEvent* event) override;
 
 private:
+    void setAlarmClockConnections();
+
+    void increaseMenu();
+
     Ui::MainWindowClass* ui;
 
     DatabaseManager* dbManager;
 
     QWidget* overlayWidget;
+    QTimer* timer;
+
+    bool menuExpanded;
     //QString settingsFile = QApplication::applicationDirPath() + "/settings.ini";
 };

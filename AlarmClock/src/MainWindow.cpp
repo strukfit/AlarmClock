@@ -2,7 +2,8 @@
 
 MainWindow::MainWindow(QWidget* parent) :
 	QMainWindow(parent), 
-	ui(new Ui::MainWindowClass)
+	ui(new Ui::MainWindowClass),
+	menuExpanded(false)
 {
 	ui->setupUI(this);
 
@@ -23,13 +24,60 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	AlarmClockWidget::lastId = dbManager->getLastId();
 
-	connect(this, &MainWindow::alarmClockAdded, dbManager, &DatabaseManager::insertData);
-	connect(this, &MainWindow::alarmClockUpdated, dbManager, &DatabaseManager::updateData);
-	connect(this, &MainWindow::alarmClockDeleted, dbManager, &DatabaseManager::deleteData);
+	connect(ui->menuButton, &QPushButton::clicked, [&] {
+		if (menuExpanded)
+		{
+			decreaseMenu();
+		}
+		else
+		{
+			increaseMenu();
+		}
+	});
+
+	connect(ui->alarmClockButton, &QPushButton::toggled, [&](bool checked) {
+		if (checked)
+			ui->alarmsWidget->show();
+		else
+			ui->alarmsWidget->hide();
+		decreaseMenu();
+	});
+	
+	connect(ui->alarmClockButton, &QPushButton::clicked, this, &MainWindow::decreaseMenu);
+
+	connect(ui->timerButton, &QPushButton::toggled, [&](bool checked) {
+		if (checked)
+			ui->timerWidget->show();
+		else
+			ui->timerWidget->hide();
+		decreaseMenu();
+	});
+
+	connect(ui->timerButton, &QPushButton::clicked, this, &MainWindow::decreaseMenu);
+
+	connect(ui->stopwatchButton, &QPushButton::toggled, [&](bool checked) {
+		if (checked)
+			ui->stopwatchWidget->show();
+		else
+			ui->stopwatchWidget->hide();
+		decreaseMenu();
+	});
+
+	connect(ui->stopwatchButton, &QPushButton::clicked, this, &MainWindow::decreaseMenu);
+
+	connect(ui->worldClockButton, &QPushButton::toggled, [&](bool checked) {
+		if (checked)
+			ui->worldClockWidget->show();
+		else
+			ui->worldClockWidget->hide();
+		decreaseMenu();
+	});
+
+	connect(ui->worldClockButton, &QPushButton::clicked, this, &MainWindow::decreaseMenu);
 
 	connect(ui->addAlarmButton, &QPushButton::clicked, this, &MainWindow::openAddAlarmWindow);
 
-	connect(this, &MainWindow::childWindowShowed, [&]() {
+	connect(this, &MainWindow::childWindowShowed, [&] {
 		overlayWidget->resize(size());
 		overlayWidget->show();
 	});
@@ -50,12 +98,84 @@ MainWindow::MainWindow(QWidget* parent) :
 		ui->confirmButton->hide();
 		ui->deleteAlarmsButton->show();
 
-		for (int i = 0; i < ui->alarmsListLayout->count(); i++)
+		for (int i = 0; i < ui->alarmsListLayout->count(); i++) 
 		{
 			AlarmClockWidget* alarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(i)->widget());
 			alarm->deleteMode(false);
 		}
 	});
+
+	timer = new QTimer(this);
+
+	setAlarmClockConnections();
+
+	connect(timer, &QTimer::timeout, this, &MainWindow::checkAlarm);
+	timer->start(1000);	
+}
+
+MainWindow::~MainWindow()
+{
+	delete ui;
+
+	delete overlayWidget;
+
+	dbManager->close();
+
+	delete dbManager;
+}
+
+void MainWindow::increaseMenu()
+{
+	ui->functionSelectorWidget->setStyleSheet(R"(
+		background-color: #202020; 
+		border-top-right-radius: 4px;
+		border-bottom-right-radius: 4px;
+		border-top: 1px solid #434343;
+		border-right: 1px solid #434343;
+		border-bottom: 1px solid #434343;
+	)");
+	//qlineargradient(x1:0, y1:0, x2:1, y2:0.274, stop:0 #202020, stop:1 #434343)
+	ui->alarmClockButton->setText("    Alarm clock");
+	ui->timerButton->setText("    Timer");
+	ui->stopwatchButton->setText("    Stopwatch");
+	ui->worldClockButton->setText("    World clock");
+
+	ui->functionSelectorWidget->setFixedWidth(280);
+
+	menuExpanded = true;
+}
+
+void MainWindow::decreaseMenu()
+{
+	ui->functionSelectorWidget->setStyleSheet("background-color: #202020; border: 0; border-radius: 0;");
+
+	ui->alarmClockButton->setText("");
+	ui->timerButton->setText("");
+	ui->stopwatchButton->setText("");
+	ui->worldClockButton->setText("");
+
+	ui->functionSelectorWidget->setFixedWidth(48);
+	
+	menuExpanded = false;
+}
+
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+	emit closed();
+	QMainWindow::closeEvent(event);
+}
+
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+	ui->functionSelectorWidget->setFixedHeight(this->height());
+	QMainWindow::resizeEvent(event);
+}
+
+void MainWindow::setAlarmClockConnections()
+{
+	connect(this, &MainWindow::alarmClockAdded, dbManager, &DatabaseManager::insertData);
+	connect(this, &MainWindow::alarmClockUpdated, dbManager, &DatabaseManager::updateData);
+	connect(this, &MainWindow::alarmClockDeleted, dbManager, &DatabaseManager::deleteData);
 
 	auto updateTimer = [&]() {
 		QTime currentTime = QTime::currentTime();
@@ -91,31 +211,11 @@ MainWindow::MainWindow(QWidget* parent) :
 
 			alarm->setRemainingTime(remainingTimeString);
 		}
-	};
+		};
 
 	updateTimer();
 
-	QTimer* timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, updateTimer);
-	connect(timer, &QTimer::timeout, this, &MainWindow::checkAlarm);
-	timer->start(1000);	
-}
-
-MainWindow::~MainWindow()
-{
-	delete ui;
-
-	delete overlayWidget;
-
-	dbManager->close();
-
-	delete dbManager;
-}
-
-void MainWindow::closeEvent(QCloseEvent* event)
-{
-	emit closed();
-	QMainWindow::closeEvent(event);
+	connect(this->timer, &QTimer::timeout, this, updateTimer);
 }
 
 void MainWindow::checkAlarm()

@@ -18,7 +18,7 @@ void AlarmClockWidgetUI::setupUI(QWidget* AlarmClockWidget)
 
 	alarmIcon = new QSvgWidget(AlarmClockWidget);
 	alarmIcon->load(QString("Resources/alarm-grey.svg"));
-	alarmIcon->setFixedSize(16, 17);
+	alarmIcon->setFixedSize(12, 12);
 	alarmIcon->setStyleSheet("border: 0;");
 
 	remainingTime = new QLabel(AlarmClockWidget);

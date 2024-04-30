@@ -117,6 +117,7 @@
     <ClCompile Include="src\AlarmClock\AlarmScrollBar.cpp" />
     <ClCompile Include="src\AlarmClock\AlarmsWidget.cpp" />
     <ClCompile Include="src\AlarmClock\ToggleSwitch.cpp" />
+    <ClCompile Include="src\CheckableButton.cpp" />
     <ClCompile Include="src\DatabaseManager.cpp" />
     <QtMoc Include="include\AlarmClock\EditAlarmWindow.h" />
     <ClCompile Include="src\AlarmClock\EditAlarmWindow.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="include\AlarmClock\ArrowPushButton.h" />
     <QtMoc Include="include\AlarmClock\NameLineEdit.h" />
     <QtMoc Include="include\AlarmClock\ToggleSwitch.h" />
+    <QtMoc Include="include\CheckableButton.h" />
     <ClInclude Include="include\MainWindowUI.h" />
   </ItemGroup>
   <ItemGroup>

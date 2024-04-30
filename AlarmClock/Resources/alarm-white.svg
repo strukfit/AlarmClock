@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" width="1080" height="1080" viewBox="0 0 15 16" xmlns="http://www.w3.org/2000/svg">
+  <defs/>
+  <desc fill="#c3c3c3">Created with Fabric.js 5.2.4</desc>
+  <g transform="matrix(1 0 0 1 540 540)" id="614e5d18-7a08-4692-9bfb-c592949b8292">
+    <rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill:#c3c3c3; fill-rule: nonzero; opacity: 1; visibility: hidden;" vector-effect="non-scaling-stroke" x="-540" y="-540" rx="0" ry="0" width="1080" height="1080"/>
+  </g>
+  <g transform="matrix(1 0 0 1 540 540)" id="58fde276-e3ae-4919-bca9-020573a5ffb2"/>
+  <g transform="matrix(1 0 0 1 540 540)">
+    <g style="" vector-effect="non-scaling-stroke">
+      <g transform="matrix(1 0 0 1 0 0)">
+        <rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill:#c3c3c3; fill-rule: nonzero; opacity: 1; visibility: hidden;" vector-effect="non-scaling-stroke" x="-540" y="-540" rx="0" ry="0" width="1080" height="1080"/>
+      </g>
+      <g transform="matrix(1.31 0 0 1.31 0.77 0.86)">
+        <path style="stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill-rule: nonzero; opacity: 1; fill: rgb(255, 255, 255);" vector-effect="non-scaling-stroke" d="M -401.564 -403.101 C -402.921 -403.743 -402.973 -406.501 -402.974 -406.57 L -402.974 -408.42 C -403.082 -414.477 -411.282 -414.229 -411.18 -408.42 L -411.18 -406.57 C -411.18 -406.501 -411.232 -403.743 -412.59 -403.101 C -412.744 -403.028 -412.83 -402.851 -412.793 -402.677 C -412.758 -402.504 -412.611 -402.379 -412.442 -402.379 L -409 -402.379 C -408.93 -401.973 -408.746 -401.594 -408.465 -401.288 C -408.092 -400.881 -407.599 -400.657 -407.077 -400.657 C -406.555 -400.657 -406.062 -400.881 -405.689 -401.288 C -405.408 -401.594 -405.225 -401.973 -405.154 -402.379 L -401.712 -402.379 C -401.543 -402.379 -401.396 -402.503 -401.359 -402.677 C -401.324 -402.851 -401.409 -403.028 -401.564 -403.101 Z M -403.352 -404.421 C -403.21 -403.969 -403.007 -403.513 -402.72 -403.134 L -411.433 -403.134 C -411.147 -403.513 -410.944 -403.968 -410.802 -404.421 L -403.352 -404.421 Z M -410.46 -406.568 L -410.46 -408.42 C -410.46 -410.374 -408.942 -411.964 -407.077 -411.964 C -405.212 -411.964 -403.695 -410.374 -403.695 -408.42 L -403.695 -406.565 C -403.694 -406.508 -403.685 -405.911 -403.542 -405.177 L -410.612 -405.177 C -410.467 -405.912 -410.46 -406.509 -410.46 -406.568 Z M -407.077 -401.412 C -407.627 -401.412 -408.106 -401.827 -408.26 -402.379 L -405.892 -402.379 C -406.047 -401.827 -406.527 -401.412 -407.077 -401.412 Z" stroke-linecap="round"/>
+      </g>
+    </g>
+  </g>
+</svg>

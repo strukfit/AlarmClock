@@ -14,7 +14,8 @@
 #include "AlarmClock/AlarmNotificationWindow.h"
 
 #include "Timer/TimerWidget.h"
-#include "Timer/CircularProgressBar.h"
+#include "Timer/AddTimerWindow.h"
+#include "Timer/EditTimerWindow.h"
 
 class MainWindow : public QMainWindow
 {
@@ -26,11 +27,16 @@ public:
 
 public slots:
     AlarmClockWidget* setAlarm(const int& id, const QString& name, const QTime& time);
+    TimerWidget* setTimer(const int& id, const QString& name, const QTime& time);
     void updateAlarm(AlarmClockWidget* alarm, const QString& name, const QTime& time);
+    void updateTimer(TimerWidget* timer, const QString& name, const QTime& time);
     void deleteAlarm(AlarmClockWidget* alarm);
+    void deleteTimer(TimerWidget* timer);
     void checkAlarm();
     void openAddAlarmWindow();
+    void openAddTimerWindow();
     void openEditAlarmWindow(AlarmClockWidget* alarm);
+    void openEditTimerWindow(TimerWidget* timer);
     void decreaseMenu();
 
 signals:

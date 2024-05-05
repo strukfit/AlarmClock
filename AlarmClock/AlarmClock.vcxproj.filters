@@ -41,7 +41,7 @@
     <ClCompile Include="src\AlarmClock\EditAlarmWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AlarmClock\IconPushButton.cpp">
+    <ClCompile Include="src\IconPushButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AlarmClock\AlarmWindowUI.cpp">
@@ -89,6 +89,18 @@
     <ClCompile Include="src\Timer\TimerWidgetUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Timer\CircularProgressBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Timer\AddTimerWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Timer\TimerWindowUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Timer\EditTimerWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\AlarmClock\EditAlarmWindow.h">
@@ -133,6 +145,12 @@
     <QtMoc Include="include\Timer\CircularProgressBar.h">
       <Filter>Source Files</Filter>
     </QtMoc>
+    <QtMoc Include="include\Timer\AddTimerWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\Timer\EditTimerWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AlarmClock\AlarmWindowUI.h">
@@ -157,6 +175,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Timer\TimerWidgetUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Timer\TimerWindowUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

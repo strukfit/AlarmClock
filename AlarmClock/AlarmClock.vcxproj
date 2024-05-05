@@ -39,6 +39,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.7.0_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets;sql;svgwidgets;multimedia</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.7.0_msvc2019_64</QtInstall>
@@ -120,13 +121,20 @@
     <ClCompile Include="src\AlarmClock\ToggleSwitch.cpp" />
     <ClCompile Include="src\CheckableButton.cpp" />
     <ClCompile Include="src\DatabaseManager.cpp" />
+    <ClCompile Include="src\Timer\AddTimerWindow.cpp" />
+    <ClCompile Include="src\Timer\EditTimerWindow.cpp" />
+    <ClCompile Include="src\Timer\TimerWindowUI.cpp" />
+    <ClCompile Include="src\Timer\CircularProgressBar.cpp" />
     <ClCompile Include="src\Timer\TimerWidget.cpp" />
     <ClCompile Include="src\Timer\TimerWidgetUI.cpp" />
+    <QtMoc Include="include\Timer\AddTimerWindow.h" />
+    <QtMoc Include="include\Timer\EditTimerWindow.h" />
+    <ClInclude Include="include\Timer\TimerWindowUI.h" />
     <ClInclude Include="include\Timer\TimerWidgetUI.h" />
     <QtMoc Include="include\Timer\TimerWidget.h" />
     <QtMoc Include="include\AlarmClock\EditAlarmWindow.h" />
     <ClCompile Include="src\AlarmClock\EditAlarmWindow.cpp" />
-    <ClCompile Include="src\AlarmClock\IconPushButton.cpp" />
+    <ClCompile Include="src\IconPushButton.cpp" />
     <ClCompile Include="src\AlarmClock\AlarmWindowUI.cpp" />
     <QtMoc Include="include\ResizableWidget.h" />
     <QtMoc Include="include\AlarmClock\AlarmNotificationWindow.h" />

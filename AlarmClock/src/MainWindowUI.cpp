@@ -107,7 +107,7 @@ void MainWindowUI::setupAlarmClockUI()
 	alarmsManagerWidget = new QWidget(alarmsWidget);
 	alarmsManagerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
 
-	QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
+	auto shadowEffect = new QGraphicsDropShadowEffect;
 	shadowEffect->setBlurRadius(20);
 	shadowEffect->setColor(QColor(0, 0, 0, 30));
 	shadowEffect->setOffset(3, 7);
@@ -178,7 +178,7 @@ void MainWindowUI::setupTimerUI()
 	timerManagerWidget = new QWidget(timerWidget);
 	timerManagerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
 
-	QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
+	auto shadowEffect = new QGraphicsDropShadowEffect;
 	shadowEffect->setBlurRadius(20);
 	shadowEffect->setColor(QColor(0, 0, 0, 30));
 	shadowEffect->setOffset(3, 7);

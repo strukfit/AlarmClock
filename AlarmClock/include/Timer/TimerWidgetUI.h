@@ -7,6 +7,7 @@
 #include <QSvgWidget>
 
 #include "IconPushButton.h"
+#include "Timer/CircularProgressBar.h"
 
 class TimerWidgetUI
 {
@@ -14,10 +15,13 @@ public:
 	void setupUI(QWidget* TimerWidget);
 
 	QWidget* centralWidget;
-	QGridLayout* gBoxLayout;
-	QLabel* time;
+	QVBoxLayout* layout;
 	QLabel* name;
 	IconPushButton* deleteButton;
+	CircularProgressBar* progressBar;
+	IconPushButton* playButton;
+	IconPushButton* pauseButton;
+	IconPushButton* restartButton;
 };
 
 namespace Ui {

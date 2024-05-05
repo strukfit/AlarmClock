@@ -37,55 +37,11 @@ MainWindow::MainWindow(QWidget* parent) :
 	connect(timer, &QTimer::timeout, this, &MainWindow::checkAlarm);
 	setTimerConnections();
 
-	auto t = new TimerWidget(this, 0, QTime(0, 0, 30), "timer");
+	auto t = new TimerWidget(this, 0, QTime(0, 0, 10), "timer");
 	auto t2 = new TimerWidget(this, 0, QTime(0, 1, 0), "timer");
-	t->hide();
-	t2->hide();
 
-	//ui->timerListLayout->addWidget(t);
-	//ui->timerListLayout->addWidget(t2);
-
-	
-	int total = QTime(0, 0, 0).msecsTo(t->getTime());
-	QTime endTime = QTime::currentTime().addSecs(total);
-	QSlider* s = new QSlider(Qt::Horizontal, this);
-	s->setMinimum(0);
-	s->setMaximum(total);
-	auto p = new CircularProgressBar(this, total);
-	auto l = new QLabel();
-	
-	//connect(s, &QSlider::valueChanged, [=]() { p->upd((qreal)s->value() / s->maximum()); l->setText(QString::number(s->value())); });
-
-	ui->timerListLayout->addWidget(p);
-	//ui->timerListLayout->addWidget(s);
-	//ui->timerListLayout->addWidget(l);
-
-	//auto b = new QPushButton(this);
-
-	//connect(timer, &QTimer::timeout, this, [=] {
-	//	int remainingSeconds = QTime::currentTime().secsTo(endTime);
-	//	int progress = qMax(0, total - remainingSeconds);
-	//	//p->upd((qreal)progress / total);
-	//	//p->setProcess((qreal)progress / total);
-	//});
-
-	/*connect(timer, &QTimer::timeout, this, [=] {
-		p->upd(0.0);
-		for (double i = 0.0; i <= total; i+=0.0001)
-		{
-			p->upd((qreal)i / total);
-		}
-	});*/
-
-	//connect(b, &QPushButton::clicked, [=] {
-	//	//p->upd(qreal(0));
-	//	/*for (int i = 100; i > 0; i--)
-	//	{
-	//		p->upd((qreal)i / 100);
-	//	}*/
-	//});
-	
-	//ui->timerListLayout->addWidget(b);
+	ui->timerListLayout->addWidget(t);
+	ui->timerListLayout->addWidget(t2);
 
 	timer->start(1000);	
 }
@@ -283,11 +239,11 @@ void MainWindow::setTimerConnections()
 		ui->timerConfirmButton->show();
 
 		// Delete mode on
-		/*for (int i = 0; i < ui->alarmsListLayout->count(); i++)
+		for (int i = 0; i < ui->timerListLayout->count(); i++)
 		{
-			AlarmClockWidget* alarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(i)->widget());
-			alarm->deleteMode(true);
-		}*/
+			TimerWidget* timer = qobject_cast<TimerWidget*>(ui->timerListLayout->itemAt(i)->widget());
+			timer->deleteMode(true);
+		}
 
 	});
 
@@ -296,12 +252,14 @@ void MainWindow::setTimerConnections()
 		ui->deleteTimerButton->show();
 
 		// Delete mode off
-		/*for (int i = 0; i < ui->alarmsListLayout->count(); i++)
+		for (int i = 0; i < ui->timerListLayout->count(); i++)
 		{
-			AlarmClockWidget* alarm = qobject_cast<AlarmClockWidget*>(ui->alarmsListLayout->itemAt(i)->widget());
-			alarm->deleteMode(false);
-		}*/
+			TimerWidget* timer = qobject_cast<TimerWidget*>(ui->timerListLayout->itemAt(i)->widget());
+			timer->deleteMode(false);
+		}
 	});
+
+	connect(ui->timerAddButton, &QPushButton::clicked, this, &MainWindow::openAddTimerWindow);
 }
 
 void MainWindow::checkAlarm()
@@ -362,6 +320,27 @@ void MainWindow::openAddAlarmWindow()
 	addAlarmWindow->exec();
 }
 
+void MainWindow::openAddTimerWindow()
+{
+	emit childWindowShowed();
+
+	auto addTimerWindow = new AddTimerWindow(this);
+	addTimerWindow->setModal(true);
+
+	addTimerWindow->setFocus();
+
+	connect(addTimerWindow, &AddTimerWindow::setTimer, this, [&](const int& id, const QString& name, const QTime& time) {
+		TimerWidget* timer = setTimer(id, name, time);
+		//emit timerAdded(id, name, time);
+	});
+
+	connect(addTimerWindow, &QDialog::finished, [&]() {
+		overlayWidget->hide();
+		});
+
+	addTimerWindow->exec();
+}
+
 void MainWindow::openEditAlarmWindow(AlarmClockWidget* alarm)
 {
 	emit childWindowShowed();
@@ -381,6 +360,25 @@ void MainWindow::openEditAlarmWindow(AlarmClockWidget* alarm)
 	editAlarmWindow->exec();
 }
 
+void MainWindow::openEditTimerWindow(TimerWidget* timer)
+{
+	emit childWindowShowed();
+
+	auto editTimerWindow = new EditTimerWindow(this, timer);
+	editTimerWindow->setModal(true);
+
+	editTimerWindow->setFocus();
+
+	connect(editTimerWindow, &EditTimerWindow::updateTimer, this, &MainWindow::updateTimer);
+	connect(editTimerWindow, &EditTimerWindow::deleteTimer, this, &MainWindow::deleteTimer);
+
+	connect(editTimerWindow, &QDialog::finished, [&]() {
+		overlayWidget->hide();
+	});
+
+	editTimerWindow->exec();
+}
+
 AlarmClockWidget* MainWindow::setAlarm(const int& id, const QString& name, const QTime& time)
 {
 	AlarmClockWidget* alarm = new AlarmClockWidget(this, id, time, name);
@@ -394,6 +392,19 @@ AlarmClockWidget* MainWindow::setAlarm(const int& id, const QString& name, const
 	return alarm;
 }
 
+TimerWidget* MainWindow::setTimer(const int& id, const QString& name, const QTime& time)
+{
+	auto timer = new TimerWidget(this, id, time, name);
+	ui->timerListLayout->addWidget(timer);
+
+	QObject::connect(timer, &TimerWidget::clicked, this, &MainWindow::openEditTimerWindow);
+	QObject::connect(timer, &TimerWidget::deleteButtonClicked, this, &MainWindow::deleteTimer);
+
+	//QTimer::singleShot(1000, this, &MainWindow::checkAlarm);
+
+	return timer;
+}
+
 void MainWindow::updateAlarm(AlarmClockWidget* alarm, const QString& name, const QTime& time)
 {
 	alarm->setName(name);
@@ -401,6 +412,15 @@ void MainWindow::updateAlarm(AlarmClockWidget* alarm, const QString& name, const
 	alarm->updateUI();
 
 	emit alarmClockUpdated(alarm->getId(), name, time);
+}
+
+void MainWindow::updateTimer(TimerWidget* timer, const QString& name, const QTime& time)
+{
+	timer->setName(name);
+	timer->setTime(time);
+	timer->updateUI();
+
+	//emit timerUpdated(timer->getId(), name, time);
 }
 
 void MainWindow::deleteAlarm(AlarmClockWidget* alarm)
@@ -412,4 +432,11 @@ void MainWindow::deleteAlarm(AlarmClockWidget* alarm)
 	settings.setValue("defaultNameCounter", --defaultNameCounter);*/
 
 	alarm->deleteLater();
+}
+
+void MainWindow::deleteTimer(TimerWidget* timer)
+{
+	//emit timerDeleted(timer->getId());
+
+	timer->deleteLater();
 }

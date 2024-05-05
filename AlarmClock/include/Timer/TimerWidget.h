@@ -13,7 +13,6 @@ class TimerWidget : public QWidget
 public:
 	TimerWidget(QWidget* parent = nullptr, int id = NULL, QTime time = QTime(0, 0, 0), QString name = NULL);
 
-	void setActive(bool flag);
 	void setName(const QString& name);
 	void setTime(const QTime& alarmTime);
 	void updateUI();
@@ -25,14 +24,15 @@ public:
 	int getId();
 	QTime getTime();
 	QString getName();
-	bool isActive();
+	bool isRunning();
 	bool isNotifficationOpen();
 
 	static int lastId;
 
 signals:
-	void clicked(TimerWidget* alarm);
-	void deleteButtonClicked(TimerWidget* alarm);
+	void clicked(TimerWidget* timer);
+	void deleteButtonClicked(TimerWidget* timer);
+	void expired(TimerWidget* timer);
 
 protected:
 	void mouseReleaseEvent(QMouseEvent* event) override;

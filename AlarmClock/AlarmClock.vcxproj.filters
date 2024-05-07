@@ -101,6 +101,12 @@
     <ClCompile Include="src\Timer\EditTimerWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Timer\TimerNotificationWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Timer\TimerNotificationWindowUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\AlarmClock\EditAlarmWindow.h">
@@ -151,6 +157,9 @@
     <QtMoc Include="include\Timer\EditTimerWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="include\Timer\TimerNotificationWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AlarmClock\AlarmWindowUI.h">
@@ -178,6 +187,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Timer\TimerWindowUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Timer\TimerNotificationWindowUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

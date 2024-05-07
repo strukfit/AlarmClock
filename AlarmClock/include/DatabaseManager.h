@@ -19,17 +19,24 @@ public:
 
 	bool tableInit();
 
-	void selectAll();
+	void selectAllAlarms();
+	void selectAllTimers();
 
-	int getLastId();
+	int getLastAlarmId();
+	int getLastTimerId();
 
 public slots:
-	void insertData(const int& id, const QString& name, const QTime& time);
-	void updateData(const int& id, const QString& name, const QTime& time);
-	void deleteData(const int& id);
+	void insertAlarmData(const int& id, const QString& name, const QTime& time);
+	void updateAlarmData(const int& id, const QString& name, const QTime& time);
+	void deleteAlarmData(const int& id);
+	
+	void insertTimerData(const int& id, const QString& name, const QTime& time);
+	void updateTimerData(const int& id, const QString& name, const QTime& time);
+	void deleteTimerData(const int& id);
 
 signals:
-	void dataReceived(const int& id, const QString& name, const QTime& time);
+	void alarmDataReceived(const int& id, const QString& name, const QTime& time);
+	void timerDataReceived(const int& id, const QString& name, const QTime& time);
 
 private:
 	QSqlDatabase db;

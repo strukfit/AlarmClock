@@ -14,17 +14,20 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	dbManager = new DatabaseManager(this);
 
-	connect(dbManager, &DatabaseManager::dataReceived, this, &MainWindow::setAlarm);
+	connect(dbManager, &DatabaseManager::alarmDataReceived, this, &MainWindow::setAlarm);
+	connect(dbManager, &DatabaseManager::timerDataReceived, this, &MainWindow::setTimer);
 
 	dbManager->open();
 
 	dbManager->tableInit();
 
-	dbManager->selectAll();
+	dbManager->selectAllAlarms();
+	dbManager->selectAllTimers();
 
-	AlarmClockWidget::lastId = dbManager->getLastId();
-
-	setSideMenuConections();
+	AlarmClockWidget::lastId = dbManager->getLastAlarmId();
+	TimerWidget::lastId = dbManager->getLastTimerId();
+	
+	setSideMenuConnections();
 
 	connect(this, &MainWindow::childWindowShowed, [&] {
 		overlayWidget->resize(size());
@@ -36,13 +39,6 @@ MainWindow::MainWindow(QWidget* parent) :
 	setAlarmClockConnections();
 	connect(timer, &QTimer::timeout, this, &MainWindow::checkAlarm);
 	setTimerConnections();
-
-	auto t = new TimerWidget(this, 0, QTime(0, 0, 10), "timer");
-	auto t2 = new TimerWidget(this, 0, QTime(0, 1, 0), "timer");
-
-	ui->timerListLayout->addWidget(t);
-	ui->timerListLayout->addWidget(t2);
-
 	timer->start(1000);	
 }
 
@@ -67,7 +63,7 @@ void MainWindow::increaseMenu()
 		border-right: 1px solid #434343;
 		border-bottom: 1px solid #434343;
 	)");
-	//qlineargradient(x1:0, y1:0, x2:1, y2:0.274, stop:0 #202020, stop:1 #434343)
+
 	ui->alarmClockButton->setText("    Alarm clock");
 	ui->timerButton->setText("    Timer");
 	ui->stopwatchButton->setText("    Stopwatch");
@@ -104,7 +100,7 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 	QMainWindow::resizeEvent(event);
 }
 
-void MainWindow::setSideMenuConections()
+void MainWindow::setSideMenuConnections()
 {
 	connect(ui->menuButton, &QPushButton::clicked, [&] {
 		if (menuExpanded)
@@ -160,9 +156,9 @@ void MainWindow::setSideMenuConections()
 
 void MainWindow::setAlarmClockConnections()
 {
-	connect(this, &MainWindow::alarmClockAdded, dbManager, &DatabaseManager::insertData);
-	connect(this, &MainWindow::alarmClockUpdated, dbManager, &DatabaseManager::updateData);
-	connect(this, &MainWindow::alarmClockDeleted, dbManager, &DatabaseManager::deleteData);
+	connect(this, &MainWindow::alarmClockAdded, dbManager, &DatabaseManager::insertAlarmData);
+	connect(this, &MainWindow::alarmClockUpdated, dbManager, &DatabaseManager::updateAlarmData);
+	connect(this, &MainWindow::alarmClockDeleted, dbManager, &DatabaseManager::deleteAlarmData);
 
 	connect(ui->addAlarmButton, &QPushButton::clicked, this, &MainWindow::openAddAlarmWindow);
 
@@ -234,6 +230,10 @@ void MainWindow::setTimerConnections()
 {
 	//connect(ui->timerAddButton, &QPushButton::clicked, this, );
 
+	connect(this, &MainWindow::timerAdded, dbManager, &DatabaseManager::insertTimerData);
+	connect(this, &MainWindow::timerUpdated, dbManager, &DatabaseManager::updateTimerData);
+	connect(this, &MainWindow::timerDeleted, dbManager, &DatabaseManager::deleteTimerData);
+
 	connect(ui->deleteTimerButton, &QPushButton::clicked, [&] {
 		ui->deleteTimerButton->hide();
 		ui->timerConfirmButton->show();
@@ -281,7 +281,7 @@ void MainWindow::checkAlarm()
 				// Alarm went off
 				auto notificationWindow = new AlarmNotificationWindow(nullptr, alarm);
 
-				connect(notificationWindow, &AlarmNotificationWindow::alarmSnoozed, this->dbManager, &DatabaseManager::updateData);
+				connect(notificationWindow, &AlarmNotificationWindow::alarmSnoozed, this->dbManager, &DatabaseManager::updateAlarmData);
 
 				connect(this, &MainWindow::closed, notificationWindow, &QDialog::close);
 
@@ -331,7 +331,7 @@ void MainWindow::openAddTimerWindow()
 
 	connect(addTimerWindow, &AddTimerWindow::setTimer, this, [&](const int& id, const QString& name, const QTime& time) {
 		TimerWidget* timer = setTimer(id, name, time);
-		//emit timerAdded(id, name, time);
+		emit timerAdded(id, name, time);
 	});
 
 	connect(addTimerWindow, &QDialog::finished, [&]() {
@@ -400,9 +400,27 @@ TimerWidget* MainWindow::setTimer(const int& id, const QString& name, const QTim
 	QObject::connect(timer, &TimerWidget::clicked, this, &MainWindow::openEditTimerWindow);
 	QObject::connect(timer, &TimerWidget::deleteButtonClicked, this, &MainWindow::deleteTimer);
 
+	QObject::connect(timer, &TimerWidget::expired, this, [&](TimerWidget* timer) {
+		MainWindow::openTimerNotificationWindow(timer);
+		timer->showPlayButton();
+	});
+
 	//QTimer::singleShot(1000, this, &MainWindow::checkAlarm);
 
 	return timer;
+}
+
+void MainWindow::openTimerNotificationWindow(TimerWidget* timer)
+{
+	auto notificationWindow = new TimerNotificationWindow(this, timer);
+
+	QRect scr = QGuiApplication::primaryScreen()->geometry();
+
+	notificationWindow->show();
+	notificationWindow->activateWindow();
+	notificationWindow->raise();
+
+	notificationWindow->move((scr.right() - notificationWindow->frameSize().width()), (scr.bottom() - notificationWindow->frameSize().height()));
 }
 
 void MainWindow::updateAlarm(AlarmClockWidget* alarm, const QString& name, const QTime& time)
@@ -420,7 +438,7 @@ void MainWindow::updateTimer(TimerWidget* timer, const QString& name, const QTim
 	timer->setTime(time);
 	timer->updateUI();
 
-	//emit timerUpdated(timer->getId(), name, time);
+	emit timerUpdated(timer->getId(), name, time);
 }
 
 void MainWindow::deleteAlarm(AlarmClockWidget* alarm)
@@ -436,7 +454,7 @@ void MainWindow::deleteAlarm(AlarmClockWidget* alarm)
 
 void MainWindow::deleteTimer(TimerWidget* timer)
 {
-	//emit timerDeleted(timer->getId());
+	emit timerDeleted(timer->getId());
 
 	timer->deleteLater();
 }

@@ -123,12 +123,16 @@
     <ClCompile Include="src\DatabaseManager.cpp" />
     <ClCompile Include="src\Timer\AddTimerWindow.cpp" />
     <ClCompile Include="src\Timer\EditTimerWindow.cpp" />
+    <ClCompile Include="src\Timer\TimerNotificationWindow.cpp" />
+    <ClCompile Include="src\Timer\TimerNotificationWindowUI.cpp" />
     <ClCompile Include="src\Timer\TimerWindowUI.cpp" />
     <ClCompile Include="src\Timer\CircularProgressBar.cpp" />
     <ClCompile Include="src\Timer\TimerWidget.cpp" />
     <ClCompile Include="src\Timer\TimerWidgetUI.cpp" />
     <QtMoc Include="include\Timer\AddTimerWindow.h" />
     <QtMoc Include="include\Timer\EditTimerWindow.h" />
+    <QtMoc Include="include\Timer\TimerNotificationWindow.h" />
+    <ClInclude Include="include\Timer\TimerNotificationWindowUI.h" />
     <ClInclude Include="include\Timer\TimerWindowUI.h" />
     <ClInclude Include="include\Timer\TimerWidgetUI.h" />
     <QtMoc Include="include\Timer\TimerWidget.h" />

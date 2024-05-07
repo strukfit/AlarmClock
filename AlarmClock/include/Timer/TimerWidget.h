@@ -16,16 +16,12 @@ public:
 	void setName(const QString& name);
 	void setTime(const QTime& alarmTime);
 	void updateUI();
-	void setInactiveColors();
-	void setActiveColors();
 	void deleteMode(bool flag);
-	void setNotificationOpen(bool flag);
+	void showPlayButton();
 
 	int getId();
 	QTime getTime();
 	QString getName();
-	bool isRunning();
-	bool isNotifficationOpen();
 
 	static int lastId;
 
@@ -39,6 +35,8 @@ protected:
 	bool event(QEvent* event) override;
 
 private:
+	void setInactiveColors();
+	void setActiveColors();
 	void setDefaultStyle();
 
 	Ui::TimerWidgetClass* ui;
@@ -46,6 +44,4 @@ private:
 	int id;
 	QTime time;
 	QString name;
-
-	bool notifficationOpen;
 };

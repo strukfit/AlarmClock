@@ -16,6 +16,7 @@
 #include "Timer/TimerWidget.h"
 #include "Timer/AddTimerWindow.h"
 #include "Timer/EditTimerWindow.h"
+#include "Timer/TimerNotificationWindow.h"
 
 class MainWindow : public QMainWindow
 {
@@ -37,6 +38,7 @@ public slots:
     void openAddTimerWindow();
     void openEditAlarmWindow(AlarmClockWidget* alarm);
     void openEditTimerWindow(TimerWidget* timer);
+    void openTimerNotificationWindow(TimerWidget* timer);
     void decreaseMenu();
 
 signals:
@@ -44,6 +46,9 @@ signals:
     void alarmClockAdded(const int& id, const QString& name, const QTime& time);
     void alarmClockUpdated(const int& id, const QString& name, const QTime& time);
     void alarmClockDeleted(const int& id);
+    void timerAdded(const int& id, const QString& name, const QTime& time);
+    void timerUpdated(const int& id, const QString& name, const QTime& time);
+    void timerDeleted(const int& id);
     void closed();
 
 protected:
@@ -51,7 +56,7 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
-    void setSideMenuConections();
+    void setSideMenuConnections();
     void setAlarmClockConnections();
     void setTimerConnections();
 

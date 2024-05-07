@@ -7,8 +7,7 @@ TimerWidget::TimerWidget(QWidget* parent, int id, QTime time, QString name) :
 	ui(new Ui::TimerWidgetClass),
 	id(id),
 	time(time),
-	name(name),
-	notifficationOpen(false)
+	name(name)
 {
 	ui->setupUI(this);
 	setDefaultStyle();
@@ -161,9 +160,10 @@ void TimerWidget::deleteMode(bool flag)
 	}
 }
 
-void TimerWidget::setNotificationOpen(bool flag)
+void TimerWidget::showPlayButton()
 {
-	this->notifficationOpen = flag;
+	ui->pauseButton->hide();
+	ui->playButton->show();
 }
 
 int TimerWidget::getId()
@@ -181,12 +181,3 @@ QString TimerWidget::getName()
 	return this->name;
 }
 
-bool TimerWidget::isRunning()
-{
-	return ui->progressBar->isRunning();
-}
-
-bool TimerWidget::isNotifficationOpen()
-{
-	return this->notifficationOpen;
-}

@@ -3,7 +3,9 @@
 MainWindow::MainWindow(QWidget* parent) :
 	QMainWindow(parent), 
 	ui(new Ui::MainWindowClass),
-	menuExpanded(false)
+	menuExpanded(false),
+	stopwatchTime(0),
+	cutoffTime(0)
 {
 	ui->setupUI(this);
 
@@ -40,6 +42,147 @@ MainWindow::MainWindow(QWidget* parent) :
 	connect(timer, &QTimer::timeout, this, &MainWindow::checkAlarm);
 	setTimerConnections();
 	timer->start(1000);	
+
+	stopwatchTimer = new QTimer(this);
+	stopwatchTimer->setInterval(10);
+	connect(stopwatchTimer, &QTimer::timeout, this, &MainWindow::stopwatchUpdateTime);
+	
+	connect(ui->startButton, &QPushButton::clicked, this, [&] { 
+		this->stopwatchTimer->start(); 
+		//ui->cutoffTable->show();
+	});
+	
+	connect(ui->pauseButton, &QPushButton::clicked, this, [&] { 
+		this->stopwatchTimer->stop();
+	});
+	
+	connect(ui->resetButton, &QPushButton::clicked, this, [&] { 
+		this->stopwatchTimer->stop();
+		
+		stopwatchTime = 0;
+		cutoffTime = 0;
+
+		ui->cutoffTable->setRowCount(0);
+
+		//ui->cutoffTable->hide();
+
+		stopwatchUpdateTime();
+	});
+	
+	connect(ui->cutoffButton, &QPushButton::clicked, this, &MainWindow::cutoffTableCalculations);
+
+	connect(ui->cutoffTable->model(), &QAbstractItemModel::rowsInserted, [&] { ui->cutoffTable->show(); });
+	connect(ui->cutoffTable->model(), &QAbstractItemModel::rowsRemoved, [&] { 
+		if(ui->cutoffTable->rowCount() < 1)
+			ui->cutoffTable->hide(); 
+	});
+}
+
+void MainWindow::stopwatchUpdateTime()
+{
+	QString timeString = QString("<span style=\"font-size: 80pt; \">00:00:00,</span><span style=\"font-size: 60pt;\">00</span>");
+
+	if (this->stopwatchTimer->isActive()) {
+		stopwatchTime += 10;
+		cutoffTime += 10;
+		int ms = stopwatchTime % 1000;
+		int s = (stopwatchTime / 1000) % 60;
+		int m = (stopwatchTime / (1000 * 60)) % 60;
+		int h = (stopwatchTime / (1000 * 60 * 60)) % 24;
+		timeString = QString("<span style=\"font-size: 80pt; \">%1:%2:%3,</span><span style=\"font-size: 60pt;\">%4</span>")
+			.arg(h, 2, 10, QLatin1Char('0'))
+			.arg(m, 2, 10, QLatin1Char('0'))
+			.arg(s, 2, 10, QLatin1Char('0'))
+			.arg(ms / 10, 2, 10, QLatin1Char('0'));
+	}
+	
+	ui->stopwatchLabel->setText(timeString); 
+}
+
+void MainWindow::cutoffTableCalculations()
+{
+	if (!this->stopwatchTimer->isActive())
+		return;
+
+	int sMs = stopwatchTime % 1000;
+	int sS = (stopwatchTime / 1000) % 60;
+	int sM = (stopwatchTime / (1000 * 60)) % 60;
+	int sH = (stopwatchTime / (1000 * 60 * 60)) % 24;
+
+	int cMs = cutoffTime % 1000;
+	int cS = (cutoffTime / 1000) % 60;
+	int cM = (cutoffTime / (1000 * 60)) % 60;
+	int cH = (cutoffTime / (1000 * 60 * 60)) % 24;
+
+	auto total = QString("%1:%2:%3,%4")
+		.arg(sH, 2, 10, QLatin1Char('0'))
+		.arg(sM, 2, 10, QLatin1Char('0'))
+		.arg(sS, 2, 10, QLatin1Char('0'))
+		.arg(sMs / 10, 2, 10, QLatin1Char('0'));
+
+	auto cutoff = QString("%1:%2:%3,%4")
+		.arg(cH, 2, 10, QLatin1Char('0'))
+		.arg(cM, 2, 10, QLatin1Char('0'))
+		.arg(cS, 2, 10, QLatin1Char('0'))
+		.arg(cMs / 10, 2, 10, QLatin1Char('0'));
+
+	auto totalItem = new QTableWidgetItem(total);
+	totalItem->setTextAlignment(Qt::AlignCenter);
+
+	auto cutoffItem = new QTableWidgetItem(cutoff);
+	cutoffItem->setTextAlignment(Qt::AlignCenter);
+	auto cutoffVariant = QVariant(cutoffTime);
+	cutoffItem->setData(Qt::UserRole, cutoffVariant);
+
+	ui->cutoffTable->insertRow(0);
+
+	ui->cutoffTable->setItem(0, 1, cutoffItem);
+	ui->cutoffTable->setItem(0, 2, totalItem);
+
+	cutoffTime = 0;
+
+	int rowCount = ui->cutoffTable->rowCount();
+
+	QStringList headers;
+	for (int i = 0; i < rowCount; ++i)
+	{
+		headers << QString::number(rowCount - i);
+	}
+	ui->cutoffTable->setVerticalHeaderLabels(headers);
+
+	if (rowCount <= 1)
+		return;
+
+	int fastestRow = 0;
+	int slowestRow = 0;
+
+	for (int row = 0; row < rowCount; row++)
+	{
+		auto currentItem = ui->cutoffTable->item(row, 1);
+		auto fastestItem = ui->cutoffTable->item(fastestRow, 1);
+		auto slowestItem = ui->cutoffTable->item(slowestRow, 1);
+
+		if (currentItem)
+		{
+			int current = currentItem->data(Qt::UserRole).toInt();
+			int fastest = fastestItem->data(Qt::UserRole).toInt();
+			int slowest = slowestItem->data(Qt::UserRole).toInt();
+
+			if (current > slowest)
+				slowestRow = row;
+
+			if (current < fastest)
+				fastestRow = row;
+		}
+
+		ui->cutoffTable->setItem(row, 0, nullptr);
+	}
+
+	auto fastestItem = new QTableWidgetItem("The fastest");
+	auto slowestItem = new QTableWidgetItem("The slowest");
+
+	ui->cutoffTable->setItem(fastestRow, 0, fastestItem);
+	ui->cutoffTable->setItem(slowestRow, 0, slowestItem);
 }
 
 MainWindow::~MainWindow()
@@ -412,7 +555,9 @@ TimerWidget* MainWindow::setTimer(const int& id, const QString& name, const QTim
 
 void MainWindow::openTimerNotificationWindow(TimerWidget* timer)
 {
-	auto notificationWindow = new TimerNotificationWindow(this, timer);
+	auto notificationWindow = new TimerNotificationWindow(nullptr, timer);
+
+	connect(this, &MainWindow::closed, notificationWindow, &QDialog::close);
 
 	QRect scr = QGuiApplication::primaryScreen()->geometry();
 

@@ -12,8 +12,6 @@ void MainWindowUI::setupUI(QMainWindow* MainWindow)
 	centralLayout->setContentsMargins(48, 0, 0, 0);
 	centralLayout->setSpacing(0);
 
-	//centralLayout->addWidget(functionSelectorWidget);
-
 	setupAlarmClockUI();
 	setupTimerUI();
 	setupStopwatchUI();
@@ -222,10 +220,57 @@ void MainWindowUI::setupStopwatchUI()
 	stopwatchLayout = new QVBoxLayout(stopwatchWidget);
 	stopwatchLayout->setAlignment(Qt::AlignCenter);
 
-	stopwatchLabel = new QLabel("Stopwatch", stopwatchWidget);
+	stopwatchLabel = new QLabel(QString("<span style=\"font-size: 80pt; \">00:00:00,</span><span style=\"font-size: 60pt;\">00</span>"), stopwatchWidget);
 	stopwatchLabel->setAlignment(Qt::AlignCenter);
 
 	stopwatchLayout->addWidget(stopwatchLabel);
+
+	startButton = new IconPushButton(stopwatchWidget, "", "", "", "Resources/play-black.svg", "Resources/play-light.svg", "#76B9ED", "#6FABDA", "#679DC6", 15, "Resources/play-inactive.svg");
+	startButton->setFixedSize(QSize(30, 30));
+	startButton->setIconSize(QSize(13, 13));
+	startButton->setStyleSheet(startButton->styleSheet().append(R"(
+		QPushButton:disabled {
+			background-color: #525252;
+		}
+	)"));
+
+	pauseButton = new IconPushButton(stopwatchWidget, "", "", "", "Resources/pause-black.svg", "Resources/pause-light.svg", "#76B9ED", "#6FABDA", "#679DC6", 15, "Resources/pause-inactive.svg");
+	pauseButton->setFixedSize(QSize(30, 30));
+	pauseButton->setIconSize(QSize(13, 13));
+	pauseButton->setStyleSheet(pauseButton->styleSheet().append(R"(
+		QPushButton:disabled {
+			background-color: #525252;
+		}
+	)"));
+
+	resetButton = new IconPushButton(stopwatchWidget, "", "", "", "Resources/restart-white.svg", "Resources/restart-grey.svg", "#3B3B3B", "#3b3b3b", "#363636", 15, "Resources/restart-inactive.svg");
+	resetButton->setFixedSize(QSize(30, 30));
+	resetButton->setIconSize(QSize(20, 20));
+	resetButton->setStyleSheet(resetButton->styleSheet().append("QPushButton { border: 1px solid #474747; }"));
+
+	cutoffButton = new IconPushButton(stopwatchWidget, "", "", "", "Resources/flag-white.svg", "Resources/flag-grey.svg", "#3B3B3B", "#3b3b3b", "#363636", 15, "Resources/flag-inactive.svg");
+	cutoffButton->setFixedSize(QSize(30, 30));
+	cutoffButton->setIconSize(QSize(20, 20));
+	cutoffButton->setStyleSheet(cutoffButton->styleSheet().append("QPushButton { border: 1px solid #474747; }"));
+
+	auto buttonsLayout = new QHBoxLayout(stopwatchWidget);
+
+	buttonsLayout->addWidget(startButton);
+	buttonsLayout->addWidget(pauseButton);
+	buttonsLayout->addWidget(cutoffButton);
+	buttonsLayout->addWidget(resetButton);
+
+	stopwatchLayout->addLayout(buttonsLayout);
+	stopwatchLayout->addStretch();
+
+	cutoffTable = new QTableWidget(stopwatchWidget);
+	cutoffTable->setColumnCount(3);
+	QStringList columns = {"Circle time", "Time", "Total"};
+	cutoffTable->setHorizontalHeaderLabels(columns);
+	cutoffTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+	cutoffTable->hide();
+	
+	stopwatchLayout->addWidget(cutoffTable);
 
 	centralLayout->addWidget(stopwatchWidget);
 

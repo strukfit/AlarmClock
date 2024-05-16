@@ -9,6 +9,8 @@
 #include <QStandardItemModel>
 #include <QScrollArea>
 #include <QLabel>
+#include <QTableWidget>
+#include <QHeaderView>
 
 #include "ResizableWidget.h"
 #include "IconPushButton.h"
@@ -59,6 +61,11 @@ public:
 	QWidget* stopwatchWidget;
 	QVBoxLayout* stopwatchLayout;
 	QLabel* stopwatchLabel;
+	QPushButton* startButton;
+	QPushButton* pauseButton;
+	QPushButton* resetButton;
+	QPushButton* cutoffButton;
+	QTableWidget* cutoffTable;
 
 	// World clock ui variables
 	QWidget* worldClockWidget;

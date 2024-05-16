@@ -40,6 +40,8 @@ public slots:
     void openEditTimerWindow(TimerWidget* timer);
     void openTimerNotificationWindow(TimerWidget* timer);
     void decreaseMenu();
+    void stopwatchUpdateTime();
+    void cutoffTableCalculations();
 
 signals:
     void childWindowShowed();
@@ -68,7 +70,11 @@ private:
 
     QWidget* overlayWidget;
     QTimer* timer;
+    QTimer* stopwatchTimer;
+    QElapsedTimer* stopwatchElapsedTimer;
 
     bool menuExpanded;
+    qint64 stopwatchTime;
+    qint64 cutoffTime;
     //QString settingsFile = QApplication::applicationDirPath() + "/settings.ini";
 };

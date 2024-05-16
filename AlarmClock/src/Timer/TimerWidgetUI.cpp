@@ -56,7 +56,7 @@ void TimerWidgetUI::setupUI(QWidget* TimerWidget)
 	pauseButton = new IconPushButton(TimerWidget, "", "", "", "Resources/pause-black.svg", "Resources/pause-light.svg", "#76B9ED", "#6FABDA", "#679DC6", 15, "Resources/pause-inactive.svg");
 	pauseButton->setFixedSize(QSize(30, 30));
 	pauseButton->setIconSize(QSize(13, 13));
-	pauseButton->setStyleSheet(playButton->styleSheet().append(R"(
+	pauseButton->setStyleSheet(pauseButton->styleSheet().append(R"(
 		QPushButton:disabled {
 			background-color: #525252;
 		}

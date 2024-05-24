@@ -49,33 +49,66 @@ MainWindow::MainWindow(QWidget* parent) :
 	
 	connect(ui->startButton, &QPushButton::clicked, this, [&] { 
 		this->stopwatchTimer->start(); 
-		//ui->cutoffTable->show();
+		ui->startButton->hide();
+		ui->pauseButton->show();
+		ui->cutoffButton->setDisabled(false);
+		ui->cutoffButton->setInactiveIcon(false);
+		ui->stopwatchLabel->setStyleSheet("color: white");
 	});
 	
 	connect(ui->pauseButton, &QPushButton::clicked, this, [&] { 
 		this->stopwatchTimer->stop();
+		ui->pauseButton->hide();
+		ui->startButton->show();
+		ui->cutoffButton->setDisabled(true);
+		ui->cutoffButton->setInactiveIcon(true);
+		ui->stopwatchLabel->setStyleSheet("color: #CECECE");
 	});
 	
 	connect(ui->resetButton, &QPushButton::clicked, this, [&] { 
 		this->stopwatchTimer->stop();
-		
+		ui->pauseButton->hide();
+		ui->startButton->show();
+		ui->cutoffButton->setDisabled(true);
+		ui->cutoffButton->setInactiveIcon(true);
+		ui->stopwatchLabel->setStyleSheet("color: #CECECE");
+
 		stopwatchTime = 0;
 		cutoffTime = 0;
 
 		ui->cutoffTable->setRowCount(0);
-
-		//ui->cutoffTable->hide();
 
 		stopwatchUpdateTime();
 	});
 	
 	connect(ui->cutoffButton, &QPushButton::clicked, this, &MainWindow::cutoffTableCalculations);
 
-	connect(ui->cutoffTable->model(), &QAbstractItemModel::rowsInserted, [&] { ui->cutoffTable->show(); });
+	connect(ui->cutoffTable->model(), &QAbstractItemModel::rowsInserted, [&] { 
+		ui->cutoffTable->show(); 
+		ui->cutoffTable->verticalScrollBar()->setFixedHeight(ui->cutoffTable->height());
+	});
+
 	connect(ui->cutoffTable->model(), &QAbstractItemModel::rowsRemoved, [&] { 
 		if(ui->cutoffTable->rowCount() < 1)
 			ui->cutoffTable->hide(); 
 	});
+
+	/*auto layout = new QVBoxLayout(this);
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->setSpacing(1);
+
+	auto label1 = new QLabel("Label1", this);
+	label1->setStyleSheet("background-color: black; font-size: 50px; padding: 0; margin: 0;");
+
+	auto label2 = new QLabel("Label2", this);
+	label2->setStyleSheet("background-color: black; font-size: 50px; padding: 0; margin: 0;");
+
+	layout->addStretch();
+	layout->addWidget(label1);
+	layout->addWidget(label2);
+	layout->addStretch();
+
+	ui->centralLayout->addLayout(layout);*/
 }
 
 void MainWindow::stopwatchUpdateTime()
@@ -127,10 +160,8 @@ void MainWindow::cutoffTableCalculations()
 		.arg(cMs / 10, 2, 10, QLatin1Char('0'));
 
 	auto totalItem = new QTableWidgetItem(total);
-	totalItem->setTextAlignment(Qt::AlignCenter);
 
 	auto cutoffItem = new QTableWidgetItem(cutoff);
-	cutoffItem->setTextAlignment(Qt::AlignCenter);
 	auto cutoffVariant = QVariant(cutoffTime);
 	cutoffItem->setData(Qt::UserRole, cutoffVariant);
 
@@ -143,12 +174,7 @@ void MainWindow::cutoffTableCalculations()
 
 	int rowCount = ui->cutoffTable->rowCount();
 
-	QStringList headers;
-	for (int i = 0; i < rowCount; ++i)
-	{
-		headers << QString::number(rowCount - i);
-	}
-	ui->cutoffTable->setVerticalHeaderLabels(headers);
+	ui->cutoffTable->setItem(0, 0, new QTableWidgetItem("1"));
 
 	if (rowCount <= 1)
 		return;
@@ -175,11 +201,12 @@ void MainWindow::cutoffTableCalculations()
 				fastestRow = row;
 		}
 
-		ui->cutoffTable->setItem(row, 0, nullptr);
+		ui->cutoffTable->setItem(row, 0, new QTableWidgetItem(tr("%1").arg(rowCount - row)));
 	}
 
-	auto fastestItem = new QTableWidgetItem("The fastest");
-	auto slowestItem = new QTableWidgetItem("The slowest");
+	auto spaces = QString(11, ' ');
+	auto fastestItem = new QTableWidgetItem(tr("%1%2%3").arg(rowCount-fastestRow).arg(spaces).arg("The fastest"));
+	auto slowestItem = new QTableWidgetItem(tr("%1%2%3").arg(rowCount-slowestRow).arg(spaces).arg("The slowest"));
 
 	ui->cutoffTable->setItem(fastestRow, 0, fastestItem);
 	ui->cutoffTable->setItem(slowestRow, 0, slowestItem);

@@ -21,7 +21,6 @@ void IconPushButton::setInactiveIcon(bool flag)
 		setIcon(QIcon(iconPath));	
 }
 
-
 void IconPushButton::mousePressEvent(QMouseEvent* event)
 {
 	QPushButton::mousePressEvent(event);

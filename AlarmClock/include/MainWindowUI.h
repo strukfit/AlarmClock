@@ -61,10 +61,13 @@ public:
 	QWidget* stopwatchWidget;
 	QVBoxLayout* stopwatchLayout;
 	QLabel* stopwatchLabel;
-	QPushButton* startButton;
-	QPushButton* pauseButton;
-	QPushButton* resetButton;
-	QPushButton* cutoffButton;
+	QLabel* hLabel;
+	QLabel* mLabel;
+	QLabel* sLabel;
+	IconPushButton* startButton;
+	IconPushButton* pauseButton;
+	IconPushButton* resetButton;
+	IconPushButton* cutoffButton;
 	QTableWidget* cutoffTable;
 
 	// World clock ui variables

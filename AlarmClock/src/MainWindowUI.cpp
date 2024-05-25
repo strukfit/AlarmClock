@@ -224,7 +224,8 @@ void MainWindowUI::setupStopwatchUI()
 	stopwatchLayout->setSpacing(0);
 
 	stopwatchLabel = new QLabel(QString("<span style=\"font-size: 80pt; \">00:00:00,</span><span style=\"font-size: 60pt;\">00</span>"), stopwatchWidget);
-	stopwatchLabel->setStyleSheet("color: #CECECE; background-color: black; ");
+	stopwatchLabel->setStyleSheet("color: #CECECE;");
+	stopwatchLabel->setFixedHeight(125);
 	stopwatchLabel->setAlignment(Qt::AlignCenter);
 
 	stopwatchLayout->addWidget(stopwatchLabel);
@@ -291,6 +292,7 @@ void MainWindowUI::setupStopwatchUI()
 	buttonsLayout->addWidget(resetButton);
 	buttonsLayout->addStretch();
 
+	stopwatchLayout->addSpacing(48);
 	stopwatchLayout->addLayout(buttonsLayout);
 	//stopwatchLayout->addStretch();
 

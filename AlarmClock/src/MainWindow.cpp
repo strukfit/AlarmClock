@@ -92,23 +92,6 @@ MainWindow::MainWindow(QWidget* parent) :
 		if(ui->cutoffTable->rowCount() < 1)
 			ui->cutoffTable->hide(); 
 	});
-
-	/*auto layout = new QVBoxLayout(this);
-	layout->setContentsMargins(0, 0, 0, 0);
-	layout->setSpacing(1);
-
-	auto label1 = new QLabel("Label1", this);
-	label1->setStyleSheet("background-color: black; font-size: 50px; padding: 0; margin: 0;");
-
-	auto label2 = new QLabel("Label2", this);
-	label2->setStyleSheet("background-color: black; font-size: 50px; padding: 0; margin: 0;");
-
-	layout->addStretch();
-	layout->addWidget(label1);
-	layout->addWidget(label2);
-	layout->addStretch();
-
-	ui->centralLayout->addLayout(layout);*/
 }
 
 void MainWindow::stopwatchUpdateTime()

@@ -107,6 +107,24 @@
     <ClCompile Include="src\Timer\TimerNotificationWindowUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\Worldclock\LocationSearchBar.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Worldclock\LocationSearchBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Worldclock\ClockWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Worldclock\ClockWidgetUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Worldclock\AddClockWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Worldclock\AddClockWindowUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\AlarmClock\EditAlarmWindow.h">
@@ -160,6 +178,12 @@
     <QtMoc Include="include\Timer\TimerNotificationWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="include\Worldclock\ClockWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\Worldclock\AddClockWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AlarmClock\AlarmWindowUI.h">
@@ -190,6 +214,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Timer\TimerNotificationWindowUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Worldclock\ClockWidgetUI.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Worldclock\AddClockWindowUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,7 +14,6 @@ class TimerWidgetUI
 public:
 	void setupUI(QWidget* TimerWidget);
 
-	QWidget* centralWidget;
 	QVBoxLayout* layout;
 	QLabel* name;
 	IconPushButton* deleteButton;

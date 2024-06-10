@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	connect(dbManager, &DatabaseManager::alarmDataReceived, this, &MainWindow::setAlarm);
 	connect(dbManager, &DatabaseManager::timerDataReceived, this, &MainWindow::setTimer);
+	connect(dbManager, &DatabaseManager::clockDataReceived, this, &MainWindow::addClock);
 
 	dbManager->open();
 
@@ -25,9 +26,11 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	dbManager->selectAllAlarms();
 	dbManager->selectAllTimers();
+	dbManager->selectAllClocks();
 
 	AlarmClockWidget::lastId = dbManager->getLastAlarmId();
 	TimerWidget::lastId = dbManager->getLastTimerId();
+	ClockWidget::lastId = dbManager->getLastClockId();
 	
 	setSideMenuConnections();
 
@@ -37,61 +40,12 @@ MainWindow::MainWindow(QWidget* parent) :
 	});
 
 	timer = new QTimer(this);
-
 	setAlarmClockConnections();
 	connect(timer, &QTimer::timeout, this, &MainWindow::checkAlarm);
 	setTimerConnections();
+	setStopwatchConnections();
+	setWorldClockConnections();
 	timer->start(1000);	
-
-	stopwatchTimer = new QTimer(this);
-	stopwatchTimer->setInterval(10);
-	connect(stopwatchTimer, &QTimer::timeout, this, &MainWindow::stopwatchUpdateTime);
-	
-	connect(ui->startButton, &QPushButton::clicked, this, [&] { 
-		this->stopwatchTimer->start(); 
-		ui->startButton->hide();
-		ui->pauseButton->show();
-		ui->cutoffButton->setDisabled(false);
-		ui->cutoffButton->setInactiveIcon(false);
-		ui->stopwatchLabel->setStyleSheet("color: white");
-	});
-	
-	connect(ui->pauseButton, &QPushButton::clicked, this, [&] { 
-		this->stopwatchTimer->stop();
-		ui->pauseButton->hide();
-		ui->startButton->show();
-		ui->cutoffButton->setDisabled(true);
-		ui->cutoffButton->setInactiveIcon(true);
-		ui->stopwatchLabel->setStyleSheet("color: #CECECE");
-	});
-	
-	connect(ui->resetButton, &QPushButton::clicked, this, [&] { 
-		this->stopwatchTimer->stop();
-		ui->pauseButton->hide();
-		ui->startButton->show();
-		ui->cutoffButton->setDisabled(true);
-		ui->cutoffButton->setInactiveIcon(true);
-		ui->stopwatchLabel->setStyleSheet("color: #CECECE");
-
-		stopwatchTime = 0;
-		cutoffTime = 0;
-
-		ui->cutoffTable->setRowCount(0);
-
-		stopwatchUpdateTime();
-	});
-	
-	connect(ui->cutoffButton, &QPushButton::clicked, this, &MainWindow::cutoffTableCalculations);
-
-	connect(ui->cutoffTable->model(), &QAbstractItemModel::rowsInserted, [&] { 
-		ui->cutoffTable->show(); 
-		ui->cutoffTable->verticalScrollBar()->setFixedHeight(ui->cutoffTable->height());
-	});
-
-	connect(ui->cutoffTable->model(), &QAbstractItemModel::rowsRemoved, [&] { 
-		if(ui->cutoffTable->rowCount() < 1)
-			ui->cutoffTable->hide(); 
-	});
 }
 
 void MainWindow::stopwatchUpdateTime()
@@ -415,6 +369,99 @@ void MainWindow::setTimerConnections()
 	connect(ui->timerAddButton, &QPushButton::clicked, this, &MainWindow::openAddTimerWindow);
 }
 
+void MainWindow::setStopwatchConnections()
+{
+	stopwatchTimer = new QTimer(this);
+	stopwatchTimer->setInterval(10);
+	connect(stopwatchTimer, &QTimer::timeout, this, &MainWindow::stopwatchUpdateTime);
+
+	connect(ui->startButton, &QPushButton::clicked, this, [&] {
+		this->stopwatchTimer->start();
+		ui->startButton->hide();
+		ui->pauseButton->show();
+		ui->cutoffButton->setDisabled(false);
+		ui->cutoffButton->setInactiveIcon(false);
+		ui->stopwatchLabel->setStyleSheet("color: white");
+		});
+
+	connect(ui->pauseButton, &QPushButton::clicked, this, [&] {
+		this->stopwatchTimer->stop();
+		ui->pauseButton->hide();
+		ui->startButton->show();
+		ui->cutoffButton->setDisabled(true);
+		ui->cutoffButton->setInactiveIcon(true);
+		ui->stopwatchLabel->setStyleSheet("color: #CECECE");
+		});
+
+	connect(ui->resetButton, &QPushButton::clicked, this, [&] {
+		this->stopwatchTimer->stop();
+		ui->pauseButton->hide();
+		ui->startButton->show();
+		ui->cutoffButton->setDisabled(true);
+		ui->cutoffButton->setInactiveIcon(true);
+		ui->stopwatchLabel->setStyleSheet("color: #CECECE");
+
+		stopwatchTime = 0;
+		cutoffTime = 0;
+
+		ui->cutoffTable->setRowCount(0);
+
+		stopwatchUpdateTime();
+		});
+
+	connect(ui->cutoffButton, &QPushButton::clicked, this, &MainWindow::cutoffTableCalculations);
+
+	connect(ui->cutoffTable->model(), &QAbstractItemModel::rowsInserted, [&] {
+		ui->cutoffTable->show();
+		ui->cutoffTable->verticalScrollBar()->setFixedHeight(ui->cutoffTable->height());
+		});
+
+	connect(ui->cutoffTable->model(), &QAbstractItemModel::rowsRemoved, [&] {
+		if (ui->cutoffTable->rowCount() < 1)
+			ui->cutoffTable->hide();
+		});
+}
+
+void MainWindow::setWorldClockConnections()
+{
+	connect(this, &MainWindow::clockAdded, dbManager, &DatabaseManager::insertClockData);
+	connect(this, &MainWindow::clockDeleted, dbManager, &DatabaseManager::deleteClockData);
+
+	connect(ui->addClockButton, &QPushButton::clicked, this, &MainWindow::openAddClockWindow);
+
+	connect(ui->deleteClockButton, &QPushButton::clicked, [&] {
+		ui->deleteClockButton->hide();
+		ui->clockConfirmButton->show();
+
+		for (int i = 1; i < ui->worldClockListLayout->count(); i++)
+		{
+			ClockWidget* clock= qobject_cast<ClockWidget*>(ui->worldClockListLayout->itemAt(i)->widget());
+			clock->deleteMode(true);
+		}
+	});
+
+	connect(ui->clockConfirmButton, &QPushButton::clicked, [&] {
+		ui->clockConfirmButton->hide();
+		ui->deleteClockButton->show();
+
+		for (int i = 1; i < ui->worldClockListLayout->count(); i++)
+		{
+			ClockWidget* clock = qobject_cast<ClockWidget*>(ui->worldClockListLayout->itemAt(i)->widget());
+			clock->deleteMode(false);
+		}
+	});
+
+	auto updateWorldClocksTime = [&](){
+		for (int i = 0; i < ui->worldClockListLayout->count(); i++)
+		{
+			ClockWidget* clock = qobject_cast<ClockWidget*>(ui->worldClockListLayout->itemAt(i)->widget());
+			clock->updateUI();
+		}
+	};
+
+	QObject::connect(this->timer, &QTimer::timeout, this, updateWorldClocksTime);
+}
+
 void MainWindow::checkAlarm()
 {
 	QTime currentTime = QTime::currentTime();
@@ -558,9 +605,17 @@ TimerWidget* MainWindow::setTimer(const int& id, const QString& name, const QTim
 		timer->showPlayButton();
 	});
 
-	//QTimer::singleShot(1000, this, &MainWindow::checkAlarm);
-
 	return timer;
+}
+
+ClockWidget* MainWindow::addClock(const int& id, const QByteArray& timeZoneId)
+{
+	auto clock = new ClockWidget(this, id, timeZoneId);
+	ui->worldClockListLayout->addWidget(clock);
+
+	QObject::connect(clock, &ClockWidget::deleteButtonClicked, this, &MainWindow::deleteClock);
+
+	return clock;
 }
 
 void MainWindow::openTimerNotificationWindow(TimerWidget* timer)
@@ -576,6 +631,27 @@ void MainWindow::openTimerNotificationWindow(TimerWidget* timer)
 	notificationWindow->raise();
 
 	notificationWindow->move((scr.right() - notificationWindow->frameSize().width()), (scr.bottom() - notificationWindow->frameSize().height()));
+}
+
+void MainWindow::openAddClockWindow()
+{
+	emit childWindowShowed();
+
+	AddClockWindow* addClockWindow = new AddClockWindow(this);
+	addClockWindow->setModal(true);
+
+	addClockWindow->setFocus();
+
+	connect(addClockWindow, &AddClockWindow::setClock, this, [&](const int& id, const QByteArray& timeZoneId) {
+		ClockWidget* clock = addClock(id, timeZoneId);
+		emit clockAdded(id, timeZoneId);
+	});
+
+	connect(addClockWindow, &QDialog::finished, [&]() {
+		overlayWidget->hide();
+	});
+
+	addClockWindow->exec();
 }
 
 void MainWindow::updateAlarm(AlarmClockWidget* alarm, const QString& name, const QTime& time)
@@ -599,17 +675,17 @@ void MainWindow::updateTimer(TimerWidget* timer, const QString& name, const QTim
 void MainWindow::deleteAlarm(AlarmClockWidget* alarm)
 {
 	emit alarmClockDeleted(alarm->getId());
-
-	/*QSettings settings(settingsFile, QSettings::IniFormat);
-	int defaultNameCounter = settings.value("defaultNameCounter", 0).toInt();
-	settings.setValue("defaultNameCounter", --defaultNameCounter);*/
-
 	alarm->deleteLater();
 }
 
 void MainWindow::deleteTimer(TimerWidget* timer)
 {
 	emit timerDeleted(timer->getId());
-
 	timer->deleteLater();
+}
+
+void MainWindow::deleteClock(ClockWidget* clock)
+{
+	emit clockDeleted(clock->getId());
+	clock->deleteLater();
 }

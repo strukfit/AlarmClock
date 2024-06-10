@@ -14,7 +14,6 @@ class AlarmClockWidgetUI
 public:
 	void setupUI(QWidget* AlarmClockWidgetClass);
 
-	QWidget* centralWidget;
 	QGridLayout* gBoxLayout;
 	QLabel* time;
 	QHBoxLayout* ramainingTimeLayout;

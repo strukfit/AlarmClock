@@ -214,7 +214,7 @@ void TimerWindowUI::setupAddTimerWindowUI(QDialog* TimerWindowClass)
 	setTimerButton->setFixedHeight(32);
 	setTimerButton->setIconSize(QSize(18, 18));
 
-	cancelButton = new IconPushButton(TimerWindowClass, "Cancel", "white", "#a09c9c", "Resources/x-white.svg", "Resources/x-grey.svg", "#292929", "#2F2F2F", "#232323");;
+	cancelButton = new IconPushButton(TimerWindowClass, "Cancel", "white", "#a09c9c", "Resources/x-white.svg", "Resources/x-grey.svg", "#292929", "#2F2F2F", "#232323");
 	cancelButton->setFixedHeight(32);
 	cancelButton->setIconSize(QSize(18, 18));
 

@@ -57,5 +57,5 @@ private:
 };
 
 namespace Ui {
-	class SetTimerWindowClass : public TimerWindowUI {};
+	class TimerWindowClass : public TimerWindowUI {};
 } // namespace Ui

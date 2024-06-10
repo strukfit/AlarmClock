@@ -11,11 +11,13 @@
 #include <QLabel>
 #include <QTableWidget>
 #include <QHeaderView>
+#include <QTimeZone>
 
 #include "ResizableWidget.h"
 #include "IconPushButton.h"
 #include "CustomScrollBar.h"
 #include "CheckableButton.h"
+#include "Worldclock/ClockWidget.h"
 
 class MainWindowUI
 {
@@ -71,9 +73,16 @@ public:
 	QTableWidget* cutoffTable;
 
 	// World clock ui variables
-	QWidget* worldClockWidget;
+	ResizableWidget* worldClockWidget;
 	QVBoxLayout* worldClockLayout;
-	QLabel* worldClockLabel;
+	QWidget* worldClockChildWidget;
+	QVBoxLayout* worldClockChildLayout;
+	QVBoxLayout* worldClockListLayout;
+	QWidget* worldClockManagerWidget;
+	QHBoxLayout* worldClockManagerLayout;
+	IconPushButton* deleteClockButton;
+	IconPushButton* clockConfirmButton;
+	IconPushButton* addClockButton;
 
 private:
 	void setupAlarmClockUI();

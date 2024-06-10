@@ -20,5 +20,5 @@ public:
 	void setFocus();
 
 private:
-	Ui::SetTimerWindowClass* ui;
+	Ui::TimerWindowClass* ui;
 };

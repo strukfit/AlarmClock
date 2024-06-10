@@ -138,6 +138,7 @@ void AlarmWindowUI::setupAddAlarmWindowUI(QDialog* AlarmWindowClass)
 
 	xButton = new IconPushButton(editNameWidget, "", "", "", "Resources/x-grey.svg", "Resources/x-white.svg", "transparent", "#302c2c", "#282424");
 	xButton->setFixedSize(29, 25);
+	xButton->setFocusPolicy(Qt::NoFocus);
 	xButton->hide();
 
 	QObject::connect(nameLineEdit, &NameLineEdit::focusGained, [&] {

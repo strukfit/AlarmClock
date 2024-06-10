@@ -106,7 +106,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Worldclock\AddClockWindowUI.h" />
+    <QtMoc Include="include\Worldclock\AddClockWindow.h" />
+    <ClInclude Include="include\Worldclock\ClockWidgetUI.h" />
+    <ClCompile Include="src\Worldclock\AddClockWindow.cpp" />
+    <ClCompile Include="src\Worldclock\AddClockWindowUI.cpp" />
+    <ClCompile Include="src\Worldclock\ClockWidget.cpp" />
+    <ClCompile Include="src\Worldclock\ClockWidgetUI.cpp" />
+    <ClCompile Include="src\Worldclock\LocationSearchBar.cpp" />
+    <QtMoc Include="include\Worldclock\ClockWidget.h" />
     <QtMoc Include="include\Timer\CircularProgressBar.h" />
+    <ClCompile Include="include\Worldclock\LocationSearchBar.h" />
     <ClCompile Include="src\AlarmClock\AlarmClockWidget.cpp">
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>

@@ -21,7 +21,7 @@ public:
 	void setFocus();
 
 private:
-	Ui::SetTimerWindowClass* ui = new Ui::SetTimerWindowClass;
+	Ui::TimerWindowClass* ui;
 
 	TimerWidget* timer;
 };

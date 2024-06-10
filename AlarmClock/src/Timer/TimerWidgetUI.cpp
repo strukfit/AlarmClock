@@ -40,7 +40,7 @@ void TimerWidgetUI::setupUI(QWidget* TimerWidget)
 	auto manageButtons = new QHBoxLayout(TimerWidget);
 	manageButtons->setContentsMargins(0, 0, 0, 0);
 	manageButtons->setSpacing(13);
-
+	
 	playButton = new IconPushButton(TimerWidget, "", "", "", "Resources/play-black.svg", "Resources/play-light.svg", "#76B9ED", "#6FABDA", "#679DC6", 15, "Resources/play-inactive.svg");
 	playButton->setFixedSize(QSize(30, 30));
 	playButton->setIconSize(QSize(13, 13));

@@ -2,7 +2,7 @@
 
 AddTimerWindow::AddTimerWindow(QWidget* parent) :
 	QDialog(parent),
-	ui(new Ui::SetTimerWindowClass)
+	ui(new Ui::TimerWindowClass)
 {
 	ui->setupAddTimerWindowUI(this);
 

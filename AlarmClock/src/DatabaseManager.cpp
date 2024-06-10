@@ -39,6 +39,12 @@ bool DatabaseManager::tableInit()
 		return false;
 	}
 
+	if (!query.exec("CREATE TABLE IF NOT EXISTS Clocks (id INTEGER PRIMARY KEY, timeZoneId TEXT)"))
+	{
+		QMessageBox::critical(nullptr, "Fatal error", "Error: Failed to create table: " + query.lastError().text());
+		return false;
+	}
+
 	return true;
 }
 
@@ -68,6 +74,18 @@ void DatabaseManager::selectAllTimers()
 	}
 }
 
+void DatabaseManager::selectAllClocks()
+{
+	QSqlQuery query("SELECT * FROM Clocks");
+	while (query.next())
+	{
+		int id = query.value("id").toInt();
+		QString timeZoneId = query.value("timeZoneId").toString();
+
+		emit clockDataReceived(id, timeZoneId.toUtf8());
+	}
+}
+
 int DatabaseManager::getLastAlarmId()
 {
 	QSqlQuery query("SELECT * FROM AlarmClocks ORDER BY id DESC LIMIT 1;");
@@ -78,6 +96,13 @@ int DatabaseManager::getLastAlarmId()
 int DatabaseManager::getLastTimerId()
 {
 	QSqlQuery query("SELECT * FROM Timers ORDER BY id DESC LIMIT 1;");
+	query.next();
+	return query.value("id").toInt();
+}
+
+int DatabaseManager::getLastClockId()
+{
+	QSqlQuery query("SELECT * FROM Clocks ORDER BY id DESC LIMIT 1;");
 	query.next();
 	return query.value("id").toInt();
 }
@@ -134,6 +159,23 @@ void DatabaseManager::deleteTimerData(const int& id)
 {
 	QSqlQuery query;
 	query.prepare("DELETE FROM Timers WHERE id = :id;");
+	query.bindValue(":id", id);
+	query.exec();
+}
+
+void DatabaseManager::insertClockData(const int& id, const QByteArray& timeZoneId)
+{
+	QSqlQuery query;
+	query.prepare("INSERT INTO Clocks (id, timeZoneId) VALUES (:id, :timeZoneId);");
+	query.bindValue(":id", id);
+	query.bindValue(":timeZoneId", timeZoneId);
+	query.exec();
+}
+
+void DatabaseManager::deleteClockData(const int& id)
+{
+	QSqlQuery query;
+	query.prepare("DELETE FROM Clocks WHERE id = :id;");
 	query.bindValue(":id", id);
 	query.exec();
 }

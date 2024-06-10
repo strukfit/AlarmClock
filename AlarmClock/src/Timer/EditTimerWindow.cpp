@@ -2,6 +2,7 @@
 
 EditTimerWindow::EditTimerWindow(QWidget* parent, TimerWidget* timer) :
 	QDialog(parent),
+	ui(new Ui::TimerWindowClass),
 	timer(timer)
 {
 	ui->setupEditTimerWindowUI(this);

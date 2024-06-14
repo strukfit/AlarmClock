@@ -17,49 +17,49 @@ void MainWindowUI::setupUI(QMainWindow* MainWindow)
 	setupStopwatchUI();
 	setupWorldClockUI();
 
-	functionSelectorWidget = new QWidget(centralWidget);
-	functionSelectorWidget->setStyleSheet("background-color: #202020;");
-	functionSelectorWidget->setFixedWidth(48);
+	MenuUI.centralWidget = new QWidget(centralWidget);
+	MenuUI.centralWidget->setStyleSheet("background-color: #202020;");
+	MenuUI.centralWidget->setFixedWidth(48);
 
-	QVBoxLayout* functionSelectorLayout = new QVBoxLayout(functionSelectorWidget);
+	auto functionSelectorLayout = new QVBoxLayout(MenuUI.centralWidget);
 	functionSelectorLayout->setContentsMargins(3, 3, 3, 0);
 	functionSelectorLayout->setSpacing(5);
 
-	menuButton = new IconPushButton(functionSelectorWidget, "", "white", "#c1c1c1", "Resources/side-menu-white.svg", "Resources/side-menu-grey.svg", "transparent", "#383838", "#343434");
-	menuButton->setFixedSize(40, 32);
-	menuButton->setIconSize(QSize(18, 23));
+	MenuUI.menuButton = new IconPushButton(MenuUI.centralWidget, "", "white", "#c1c1c1", "Resources/side-menu-white.svg", "Resources/side-menu-grey.svg", "transparent", "#383838", "#343434");
+	MenuUI.menuButton->setFixedSize(40, 32);
+	MenuUI.menuButton->setIconSize(QSize(18, 23));
 	
-	functionSelectorLayout->addWidget(menuButton);
+	functionSelectorLayout->addWidget(MenuUI.menuButton);
 
-	alarmClockButton = new CheckableButton(functionSelectorWidget, "", "white", "#c1c1c1", "Resources/alarm-white.svg", "Resources/alarm-grey.svg", "transparent", "#383838", "#343434");
-	alarmClockButton->setFixedHeight(36);
-	alarmClockButton->setMinimumWidth(40);
+	MenuUI.alarmClockButton = new CheckableButton(MenuUI.centralWidget, "", "white", "#c1c1c1", "Resources/alarm-white.svg", "Resources/alarm-grey.svg", "transparent", "#383838", "#343434");
+	MenuUI.alarmClockButton->setFixedHeight(36);
+	MenuUI.alarmClockButton->setMinimumWidth(40);
 	//alarmClockButton->setIconSize(QSize(15, 15));
-	alarmClockButton->setStyleSheet(alarmClockButton->styleSheet().append("QPushButton { text-align: left; padding-left: 13px; }"));
+	MenuUI.alarmClockButton->setStyleSheet(MenuUI.alarmClockButton->styleSheet().append("QPushButton { text-align: left; padding-left: 13px; }"));
 	
-	timerButton = new CheckableButton(functionSelectorWidget, "", "white", "#c1c1c1", "Resources/timer-white.svg", "Resources/timer-grey.svg", "transparent", "#383838", "#343434");
-	timerButton->setFixedHeight(36);
-	timerButton->setMinimumWidth(40);
+	MenuUI.timerButton = new CheckableButton(MenuUI.centralWidget, "", "white", "#c1c1c1", "Resources/timer-white.svg", "Resources/timer-grey.svg", "transparent", "#383838", "#343434");
+	MenuUI.timerButton->setFixedHeight(36);
+	MenuUI.timerButton->setMinimumWidth(40);
 	//timerButton->setIconSize(QSize(22, 20));
-	timerButton->setStyleSheet(timerButton->styleSheet().append("QPushButton { text-align: left; padding-left: 13px; }"));
+	MenuUI.timerButton->setStyleSheet(MenuUI.timerButton->styleSheet().append("QPushButton { text-align: left; padding-left: 13px; }"));
 
-	stopwatchButton = new CheckableButton(functionSelectorWidget, "", "white", "#c1c1c1", "Resources/stopwatch-white.svg", "Resources/stopwatch-grey.svg", "transparent", "#383838", "#343434");
-	stopwatchButton->setFixedHeight(36);
-	stopwatchButton->setMinimumWidth(40);
-	stopwatchButton->setIconSize(QSize(18, 18));
-	stopwatchButton->setStyleSheet(stopwatchButton->styleSheet().append("QPushButton { text-align: left; padding-left: 13px; }"));
+	MenuUI.stopwatchButton = new CheckableButton(MenuUI.centralWidget, "", "white", "#c1c1c1", "Resources/stopwatch-white.svg", "Resources/stopwatch-grey.svg", "transparent", "#383838", "#343434");
+	MenuUI.stopwatchButton->setFixedHeight(36);
+	MenuUI.stopwatchButton->setMinimumWidth(40);
+	MenuUI.stopwatchButton->setIconSize(QSize(18, 18));
+	MenuUI.stopwatchButton->setStyleSheet(MenuUI.stopwatchButton->styleSheet().append("QPushButton { text-align: left; padding-left: 13px; }"));
 
-	worldClockButton = new CheckableButton(functionSelectorWidget, "", "white", "#c1c1c1", "Resources/world-clock-white.svg", "Resources/world-clock-grey.svg", "transparent", "#383838", "#343434");
-	worldClockButton->setFixedHeight(36);
-	worldClockButton->setMinimumWidth(40);
-	worldClockButton->setStyleSheet(worldClockButton->styleSheet().append("QPushButton { text-align: left; padding-left: 13px; }"));
+	MenuUI.worldClockButton = new CheckableButton(MenuUI.centralWidget, "", "white", "#c1c1c1", "Resources/world-clock-white.svg", "Resources/world-clock-grey.svg", "transparent", "#383838", "#343434");
+	MenuUI.worldClockButton->setFixedHeight(36);
+	MenuUI.worldClockButton->setMinimumWidth(40);
+	MenuUI.worldClockButton->setStyleSheet(MenuUI.worldClockButton->styleSheet().append("QPushButton { text-align: left; padding-left: 13px; }"));
 
-	alarmClockButton->setChecked(true);
+	MenuUI.alarmClockButton->setChecked(true);
 
-	functionSelectorLayout->addWidget(alarmClockButton);
-	functionSelectorLayout->addWidget(timerButton);
-	functionSelectorLayout->addWidget(stopwatchButton);
-	functionSelectorLayout->addWidget(worldClockButton);
+	functionSelectorLayout->addWidget(MenuUI.alarmClockButton);
+	functionSelectorLayout->addWidget(MenuUI.timerButton);
+	functionSelectorLayout->addWidget(MenuUI.stopwatchButton);
+	functionSelectorLayout->addWidget(MenuUI.worldClockButton);
 	functionSelectorLayout->addStretch(0);
 
 	MainWindow->setCentralWidget(centralWidget);
@@ -69,20 +69,22 @@ void MainWindowUI::setupUI(QMainWindow* MainWindow)
 
 void MainWindowUI::setupAlarmClockUI()
 {
-	alarmsWidget = new ResizableWidget(centralWidget);
-	alarmsWidget->setContentsMargins(0, 0, 0, 0);
+	auto& ui = AlarmClockUI;
 
-	alarmVLayout = new QVBoxLayout(alarmsWidget);
-	alarmVLayout->setContentsMargins(0, 0, 0, 0);
+	ui.centralWidget = new ResizableWidget(centralWidget);
+	ui.centralWidget->setContentsMargins(0, 0, 0, 0);
 
-	alarmsChildWidget = new QWidget(alarmsWidget);
-	alarmsChildWidget->setContentsMargins(0, 0, 0, 0);
+	ui.layout = new QVBoxLayout(ui.centralWidget);
+	ui.layout->setContentsMargins(0, 0, 0, 0);
 
-	alarmsChildLayout = new QVBoxLayout(alarmsChildWidget);
-	alarmsChildLayout->setContentsMargins(0, 0, 0, 0);
+	ui.childWidget = new QWidget(ui.centralWidget);
+	ui.childWidget->setContentsMargins(0, 0, 0, 0);
 
-	QScrollArea* scrollArea = new QScrollArea(alarmsChildWidget);
-	CustomScrollBar* scrollBar = new CustomScrollBar(alarmsChildWidget);
+	ui.childLayout = new QVBoxLayout(ui.childWidget);
+	ui.childLayout->setContentsMargins(0, 0, 0, 0);
+
+	QScrollArea* scrollArea = new QScrollArea(ui.childWidget);
+	CustomScrollBar* scrollBar = new CustomScrollBar(ui.childWidget);
 	scrollBar->setSingleStep(5);
 	scrollArea->setVerticalScrollBar(scrollBar);
 	scrollArea->setWidgetResizable(true);
@@ -90,70 +92,72 @@ void MainWindowUI::setupAlarmClockUI()
 
 	QWidget* scrollAreaWidgetContents = new QWidget();
 
-	alarmsListLayout = new QVBoxLayout(scrollAreaWidgetContents);
-	alarmsListLayout->setContentsMargins(48, 22, 48, 22);
-	alarmsListLayout->setSpacing(14);
+	ui.listLayout = new QVBoxLayout(scrollAreaWidgetContents);
+	ui.listLayout->setContentsMargins(48, 22, 48, 22);
+	ui.listLayout->setSpacing(14);
 
 	scrollArea->setWidget(scrollAreaWidgetContents);
 
-	alarmsChildLayout->addWidget(scrollArea);
+	ui.childLayout->addWidget(scrollArea);
 
-	alarmVLayout->addWidget(alarmsChildWidget);
+	ui.layout->addWidget(ui.childWidget);
 
-	alarmsManagerWidget = new QWidget(alarmsWidget);
-	alarmsManagerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
+	ui.managerWidget = new QWidget(ui.centralWidget);
+	ui.managerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
 
 	auto shadowEffect = new QGraphicsDropShadowEffect;
 	shadowEffect->setBlurRadius(20);
 	shadowEffect->setColor(QColor(0, 0, 0, 30));
 	shadowEffect->setOffset(3, 7);
 
-	alarmsManagerWidget->setGraphicsEffect(shadowEffect);
-	alarmsManagerWidget->setFixedSize(QSize(88, 48));
+	ui.managerWidget->setGraphicsEffect(shadowEffect);
+	ui.managerWidget->setFixedSize(QSize(88, 48));
 
-	QObject::connect(alarmsWidget, &ResizableWidget::resized, [&] {
-		alarmsManagerWidget->move(alarmsWidget->geometry().width() - alarmsManagerWidget->width() - 24, alarmsWidget->geometry().height() - alarmsManagerWidget->height() - 20);
+	QObject::connect(ui.centralWidget, &ResizableWidget::resized, [&] {
+		ui.managerWidget->move(ui.centralWidget->geometry().width() - ui.managerWidget->width() - 24, ui.centralWidget->geometry().height() - ui.managerWidget->height() - 20);
 		});
 
-	alarmsManagerLayout = new QHBoxLayout(alarmsManagerWidget);
-	alarmsManagerLayout->setContentsMargins(6, 0, 6, 0);
+	ui.managerLayout = new QHBoxLayout(ui.managerWidget);
+	ui.managerLayout->setContentsMargins(6, 0, 6, 0);
 
-	deleteAlarmsButton = new IconPushButton(alarmsManagerWidget, "", "transparent", "transparent", "Resources/pen-white.svg", "Resources/pen-grey.svg", "transparent", "#383838", "#343434");
-	deleteAlarmsButton->setFixedSize(QSize(36, 36));
-	deleteAlarmsButton->setIconSize(QSize(20, 20));
+	ui.deleteButton = new IconPushButton(ui.managerWidget, "", "transparent", "transparent", "Resources/pen-white.svg", "Resources/pen-grey.svg", "transparent", "#383838", "#343434");
+	ui.deleteButton->setFixedSize(QSize(36, 36));
+	ui.deleteButton->setIconSize(QSize(20, 20));
 
-	confirmButton = new IconPushButton(alarmsManagerWidget, "", "transparent", "transparent", "Resources/confirm-white.svg", "Resources/confirm-grey.svg", "transparent", "#383838", "#343434");
-	confirmButton->setFixedSize(QSize(36, 36));
-	confirmButton->setIconSize(QSize(16, 16));
+	ui.confirmButton = new IconPushButton(ui.managerWidget, "", "transparent", "transparent", "Resources/confirm-white.svg", "Resources/confirm-grey.svg", "transparent", "#383838", "#343434");
+	ui.confirmButton->setFixedSize(QSize(36, 36));
+	ui.confirmButton->setIconSize(QSize(16, 16));
 
-	addAlarmButton = new IconPushButton(alarmsManagerWidget, "", "transparent", "transparent", "Resources/add-white.svg", "Resources/add-grey.svg", "transparent", "#383838", "#343434");
-	addAlarmButton->setFixedSize(QSize(36, 36));
-	addAlarmButton->setIconSize(QSize(20, 20));
+	ui.addButton = new IconPushButton(ui.managerWidget, "", "transparent", "transparent", "Resources/add-white.svg", "Resources/add-grey.svg", "transparent", "#383838", "#343434");
+	ui.addButton->setFixedSize(QSize(36, 36));
+	ui.addButton->setIconSize(QSize(20, 20));
 
-	alarmsManagerLayout->addWidget(deleteAlarmsButton);
-	alarmsManagerLayout->addWidget(confirmButton);
-	confirmButton->hide();
-	alarmsManagerLayout->addWidget(addAlarmButton);
+	ui.managerLayout->addWidget(ui.deleteButton);
+	ui.managerLayout->addWidget(ui.confirmButton);
+	ui.confirmButton->hide();
+	ui.managerLayout->addWidget(ui.addButton);
 
-	centralLayout->addWidget(alarmsWidget);
+	centralLayout->addWidget(ui.centralWidget);
 }
 
 void MainWindowUI::setupTimerUI()
 {
-	timerWidget = new ResizableWidget(centralWidget);
-	timerWidget->setContentsMargins(0, 0, 0, 0);
+	auto& ui = TimerUI;
 
-	timerLayout = new QVBoxLayout(timerWidget);
-	timerLayout->setContentsMargins(0, 0, 0, 0);
+	ui.centralWidget = new ResizableWidget(centralWidget);
+	ui.centralWidget->setContentsMargins(0, 0, 0, 0);
 
-	timerChildWidget = new QWidget(timerWidget);
-	timerChildWidget->setContentsMargins(0, 0, 0, 0);
+	ui.layout = new QVBoxLayout(ui.centralWidget);
+	ui.layout->setContentsMargins(0, 0, 0, 0);
 
-	timerChildLayout = new QVBoxLayout(timerChildWidget);
-	timerChildLayout->setContentsMargins(0, 0, 0, 0);
+	ui.childWidget = new QWidget(ui.centralWidget);
+	ui.childWidget->setContentsMargins(0, 0, 0, 0);
 
-	QScrollArea* scrollArea = new QScrollArea(timerChildWidget);
-	CustomScrollBar* scrollBar = new CustomScrollBar(timerChildWidget);
+	ui.childLayout = new QVBoxLayout(ui.childWidget);
+	ui.childLayout->setContentsMargins(0, 0, 0, 0);
+
+	QScrollArea* scrollArea = new QScrollArea(ui.childWidget);
+	CustomScrollBar* scrollBar = new CustomScrollBar(ui.childWidget);
 	scrollBar->setSingleStep(5);
 	scrollArea->setVerticalScrollBar(scrollBar);
 	scrollArea->setWidgetResizable(true);
@@ -161,153 +165,155 @@ void MainWindowUI::setupTimerUI()
 
 	QWidget* scrollAreaWidgetContents = new QWidget();
 
-	timerListLayout = new QVBoxLayout(scrollAreaWidgetContents);
-	timerListLayout->setContentsMargins(48, 22, 48, 22);
-	timerListLayout->setSpacing(14);
+	ui.listLayout = new QVBoxLayout(scrollAreaWidgetContents);
+	ui.listLayout->setContentsMargins(48, 22, 48, 22);
+	ui.listLayout->setSpacing(14);
 
 	scrollArea->setWidget(scrollAreaWidgetContents);
 
-	timerChildLayout->addWidget(scrollArea);
+	ui.childLayout->addWidget(scrollArea);
 
-	timerLayout->addWidget(timerChildWidget);
+	ui.layout->addWidget(ui.childWidget);
 
-	timerManagerWidget = new QWidget(timerWidget);
-	timerManagerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
+	ui.managerWidget = new QWidget(ui.centralWidget);
+	ui.managerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
 
 	auto shadowEffect = new QGraphicsDropShadowEffect;
 	shadowEffect->setBlurRadius(20);
 	shadowEffect->setColor(QColor(0, 0, 0, 30));
 	shadowEffect->setOffset(3, 7);
 
-	timerManagerWidget->setGraphicsEffect(shadowEffect);
-	timerManagerWidget->setFixedSize(QSize(88, 48));
+	ui.managerWidget->setGraphicsEffect(shadowEffect);
+	ui.managerWidget->setFixedSize(QSize(88, 48));
 
-	QObject::connect(timerWidget, &ResizableWidget::resized, [&] {
-		timerManagerWidget->move(timerWidget->geometry().width() - timerManagerWidget->width() - 24, timerWidget->geometry().height() - timerManagerWidget->height() - 20);
+	QObject::connect(ui.centralWidget, &ResizableWidget::resized, [&] {
+		ui.managerWidget->move(ui.centralWidget->geometry().width() - ui.managerWidget->width() - 24, ui.centralWidget->geometry().height() - ui.managerWidget->height() - 20);
 	});
 
-	timerManagerLayout = new QHBoxLayout(timerManagerWidget);
-	timerManagerLayout->setContentsMargins(6, 0, 6, 0);
+	ui.managerLayout = new QHBoxLayout(ui.managerWidget);
+	ui.managerLayout->setContentsMargins(6, 0, 6, 0);
 
-	deleteTimerButton = new IconPushButton(timerManagerWidget, "", "transparent", "transparent", "Resources/pen-white.svg", "Resources/pen-grey.svg", "transparent", "#383838", "#343434");
-	deleteTimerButton->setFixedSize(QSize(36, 36));
-	deleteTimerButton->setIconSize(QSize(20, 20));
+	ui.deleteButton = new IconPushButton(ui.managerWidget, "", "transparent", "transparent", "Resources/pen-white.svg", "Resources/pen-grey.svg", "transparent", "#383838", "#343434");
+	ui.deleteButton->setFixedSize(QSize(36, 36));
+	ui.deleteButton->setIconSize(QSize(20, 20));
 
-	timerConfirmButton = new IconPushButton(timerManagerWidget, "", "transparent", "transparent", "Resources/confirm-white.svg", "Resources/confirm-grey.svg", "transparent", "#383838", "#343434");
-	timerConfirmButton->setFixedSize(QSize(36, 36));
-	timerConfirmButton->setIconSize(QSize(16, 16));
+	ui.confirmButton = new IconPushButton(ui.managerWidget, "", "transparent", "transparent", "Resources/confirm-white.svg", "Resources/confirm-grey.svg", "transparent", "#383838", "#343434");
+	ui.confirmButton->setFixedSize(QSize(36, 36));
+	ui.confirmButton->setIconSize(QSize(16, 16));
 
-	timerAddButton = new IconPushButton(timerManagerWidget, "", "transparent", "transparent", "Resources/add-white.svg", "Resources/add-grey.svg", "transparent", "#383838", "#343434");
-	timerAddButton->setFixedSize(QSize(36, 36));
-	timerAddButton->setIconSize(QSize(20, 20));
+	ui.addButton = new IconPushButton(ui.managerWidget, "", "transparent", "transparent", "Resources/add-white.svg", "Resources/add-grey.svg", "transparent", "#383838", "#343434");
+	ui.addButton->setFixedSize(QSize(36, 36));
+	ui.addButton->setIconSize(QSize(20, 20));
 
-	timerManagerLayout->addWidget(deleteTimerButton);
-	timerManagerLayout->addWidget(timerConfirmButton);
-	timerConfirmButton->hide();
-	timerManagerLayout->addWidget(timerAddButton);
+	ui.managerLayout->addWidget(ui.deleteButton);
+	ui.managerLayout->addWidget(ui.confirmButton);
+	ui.confirmButton->hide();
+	ui.managerLayout->addWidget(ui.addButton);
 
-	centralLayout->addWidget(timerWidget);
+	centralLayout->addWidget(ui.centralWidget);
 
-	timerWidget->hide();
+	ui.centralWidget->hide();
 }
 
 void MainWindowUI::setupStopwatchUI()
 {
-	stopwatchWidget = new QWidget(centralWidget);
-	stopwatchWidget->setContentsMargins(0, 0, 0, 0);
+	auto& ui = StopwatchUI;
 
-	stopwatchLayout = new QVBoxLayout(stopwatchWidget);
-	stopwatchLayout->setContentsMargins(0, 55, 0, 0);
-	stopwatchLayout->setAlignment(Qt::AlignCenter);
-	stopwatchLayout->setSpacing(0);
+	ui.centralWidget = new QWidget(centralWidget);
+	ui.centralWidget->setContentsMargins(0, 0, 0, 0);
 
-	stopwatchLabel = new QLabel(QString("<span style=\"font-size: 80pt; \">00:00:00,</span><span style=\"font-size: 60pt;\">00</span>"), stopwatchWidget);
-	stopwatchLabel->setStyleSheet("color: #CECECE;");
-	stopwatchLabel->setFixedHeight(125);
-	stopwatchLabel->setAlignment(Qt::AlignCenter);
+	ui.layout = new QVBoxLayout(ui.centralWidget);
+	ui.layout->setContentsMargins(0, 55, 0, 0);
+	ui.layout->setAlignment(Qt::AlignCenter);
+	ui.layout->setSpacing(0);
 
-	stopwatchLayout->addWidget(stopwatchLabel);
+	ui.label = new QLabel(QString("<span style=\"font-size: 80pt; \">00:00:00,</span><span style=\"font-size: 60pt;\">00</span>"), ui.centralWidget);
+	ui.label->setStyleSheet("color: #CECECE;");
+	ui.label->setFixedHeight(125);
+	ui.label->setAlignment(Qt::AlignCenter);
 
-	hLabel = new QLabel("h");
-	hLabel->setStyleSheet("color: #CECECE; font-size: 20px;");
+	ui.layout->addWidget(ui.label);
 
-	mLabel = new QLabel("min");
-	mLabel->setStyleSheet("color: #CECECE; font-size: 20px;");
+	ui.hLabel = new QLabel("h");
+	ui.hLabel->setStyleSheet("color: #CECECE; font-size: 20px;");
 
-	sLabel = new QLabel("s");
-	sLabel->setStyleSheet("color: #CECECE; font-size: 20px;");
+	ui.mLabel = new QLabel("min");
+	ui.mLabel->setStyleSheet("color: #CECECE; font-size: 20px;");
 
-	auto timeUnitsLayout = new QHBoxLayout(stopwatchWidget);
+	ui.sLabel = new QLabel("s");
+	ui.sLabel->setStyleSheet("color: #CECECE; font-size: 20px;");
+
+	auto timeUnitsLayout = new QHBoxLayout(ui.centralWidget);
 	timeUnitsLayout->setContentsMargins(27, 0, 139, 0);
 	timeUnitsLayout->setSpacing(116);
 
 	timeUnitsLayout->addStretch();
-	timeUnitsLayout->addWidget(hLabel);
-	timeUnitsLayout->addWidget(mLabel);
-	timeUnitsLayout->addWidget(sLabel);
+	timeUnitsLayout->addWidget(ui.hLabel);
+	timeUnitsLayout->addWidget(ui.mLabel);
+	timeUnitsLayout->addWidget(ui.sLabel);
 	timeUnitsLayout->addStretch();
 
-	stopwatchLayout->addLayout(timeUnitsLayout);
+	ui.layout->addLayout(timeUnitsLayout);
 
-	startButton = new IconPushButton(stopwatchWidget, "", "", "", "Resources/play-black.svg", "Resources/play-light.svg", "#76B9ED", "#6FABDA", "#679DC6", 35, "Resources/play-inactive.svg");
-	startButton->setFixedSize(QSize(70, 70));
-	startButton->setIconSize(QSize(23, 23));
-	startButton->setStyleSheet(startButton->styleSheet().append(R"(
+	ui.startButton = new IconPushButton(ui.centralWidget, "", "", "", "Resources/play-black.svg", "Resources/play-light.svg", "#76B9ED", "#6FABDA", "#679DC6", 35, "Resources/play-inactive.svg");
+	ui.startButton->setFixedSize(QSize(70, 70));
+	ui.startButton->setIconSize(QSize(23, 23));
+	ui.startButton->setStyleSheet(ui.startButton->styleSheet().append(R"(
 		QPushButton:disabled {
 			background-color: #525252;
 		}
 	)"));
 
-	pauseButton = new IconPushButton(stopwatchWidget, "", "", "", "Resources/pause-black.svg", "Resources/pause-light.svg", "#76B9ED", "#6FABDA", "#679DC6", 35, "Resources/pause-inactive.svg");
-	pauseButton->setFixedSize(QSize(70, 70));
-	pauseButton->setIconSize(QSize(23, 23));
-	pauseButton->setStyleSheet(pauseButton->styleSheet().append(R"(
+	ui.pauseButton = new IconPushButton(ui.centralWidget, "", "", "", "Resources/pause-black.svg", "Resources/pause-light.svg", "#76B9ED", "#6FABDA", "#679DC6", 35, "Resources/pause-inactive.svg");
+	ui.pauseButton->setFixedSize(QSize(70, 70));
+	ui.pauseButton->setIconSize(QSize(23, 23));
+	ui.pauseButton->setStyleSheet(ui.pauseButton->styleSheet().append(R"(
 		QPushButton:disabled {
 			background-color: #525252;
 		}
 	)"));
-	pauseButton->hide();
+	ui.pauseButton->hide();
 
-	resetButton = new IconPushButton(stopwatchWidget, "", "", "", "Resources/restart-white.svg", "Resources/restart-grey.svg", "#3B3B3B", "#3b3b3b", "#363636", 35, "Resources/restart-inactive.svg");
-	resetButton->setFixedSize(QSize(70, 70));
-	resetButton->setIconSize(QSize(35, 35));
-	resetButton->setStyleSheet(resetButton->styleSheet().append("QPushButton { border: 1px solid #474747; }"));
+	ui.resetButton = new IconPushButton(ui.centralWidget, "", "", "", "Resources/restart-white.svg", "Resources/restart-grey.svg", "#3B3B3B", "#3b3b3b", "#363636", 35, "Resources/restart-inactive.svg");
+	ui.resetButton->setFixedSize(QSize(70, 70));
+	ui.resetButton->setIconSize(QSize(35, 35));
+	ui.resetButton->setStyleSheet(ui.resetButton->styleSheet().append("QPushButton { border: 1px solid #474747; }"));
 
-	cutoffButton = new IconPushButton(stopwatchWidget, "", "", "", "Resources/flag-white.svg", "Resources/flag-grey.svg", "#3B3B3B", "#3b3b3b", "#363636", 35, "Resources/flag-inactive.svg");
-	cutoffButton->setFixedSize(QSize(70, 70));
-	cutoffButton->setIconSize(QSize(35, 35));
-	cutoffButton->setStyleSheet(cutoffButton->styleSheet().append(R"( QPushButton { border: 1px solid #474747; })"));
-	cutoffButton->setDisabled(true);
-	cutoffButton->setInactiveIcon(true);
+	ui.cutoffButton = new IconPushButton(ui.centralWidget, "", "", "", "Resources/flag-white.svg", "Resources/flag-grey.svg", "#3B3B3B", "#3b3b3b", "#363636", 35, "Resources/flag-inactive.svg");
+	ui.cutoffButton->setFixedSize(QSize(70, 70));
+	ui.cutoffButton->setIconSize(QSize(35, 35));
+	ui.cutoffButton->setStyleSheet(ui.cutoffButton->styleSheet().append(R"( QPushButton { border: 1px solid #474747; })"));
+	ui.cutoffButton->setDisabled(true);
+	ui.cutoffButton->setInactiveIcon(true);
 
-	auto buttonsLayout = new QHBoxLayout(stopwatchWidget);
+	auto buttonsLayout = new QHBoxLayout(ui.centralWidget);
 	buttonsLayout->setSpacing(24);
 
 	buttonsLayout->addStretch();
-	buttonsLayout->addWidget(startButton);
-	buttonsLayout->addWidget(pauseButton);
-	buttonsLayout->addWidget(cutoffButton);
-	buttonsLayout->addWidget(resetButton);
+	buttonsLayout->addWidget(ui.startButton);
+	buttonsLayout->addWidget(ui.pauseButton);
+	buttonsLayout->addWidget(ui.cutoffButton);
+	buttonsLayout->addWidget(ui.resetButton);
 	buttonsLayout->addStretch();
 
-	stopwatchLayout->addSpacing(48);
-	stopwatchLayout->addLayout(buttonsLayout);
+	ui.layout->addSpacing(48);
+	ui.layout->addLayout(buttonsLayout);
 
-	cutoffTable = new QTableWidget(stopwatchWidget);
-	cutoffTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	cutoffTable->setFocusPolicy(Qt::NoFocus);
-	cutoffTable->setSelectionMode(QAbstractItemView::NoSelection);
-	cutoffTable->setColumnCount(3);
+	ui.cutoffTable = new QTableWidget(ui.centralWidget);
+	ui.cutoffTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	ui.cutoffTable->setFocusPolicy(Qt::NoFocus);
+	ui.cutoffTable->setSelectionMode(QAbstractItemView::NoSelection);
+	ui.cutoffTable->setColumnCount(3);
 	QStringList columns = {"Circle time", "Time", "Total"};
-	cutoffTable->setHorizontalHeaderLabels(columns);
-	cutoffTable->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-	cutoffTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-	cutoffTable->setMaximumWidth(664);
-	cutoffTable->setMinimumWidth(536);
-	CustomScrollBar* scrollBar = new CustomScrollBar(stopwatchWidget);
+	ui.cutoffTable->setHorizontalHeaderLabels(columns);
+	ui.cutoffTable->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+	ui.cutoffTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+	ui.cutoffTable->setMaximumWidth(664);
+	ui.cutoffTable->setMinimumWidth(536);
+	CustomScrollBar* scrollBar = new CustomScrollBar(ui.centralWidget);
 	scrollBar->setSingleStep(5);
-	cutoffTable->setVerticalScrollBar(scrollBar);
-	cutoffTable->setStyleSheet(R"(
+	ui.cutoffTable->setVerticalScrollBar(scrollBar);
+	ui.cutoffTable->setStyleSheet(R"(
 		QTableWidget {
 			background-color: #272727;
 			gridline-color: transparent;
@@ -331,42 +337,44 @@ void MainWindowUI::setupStopwatchUI()
 			border-style: none;
 		}
 	)");
-	cutoffTable->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-	cutoffTable->verticalHeader()->setDefaultSectionSize(43);
-	cutoffTable->verticalHeader()->hide();
-	cutoffTable->hide();
+	ui.cutoffTable->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+	ui.cutoffTable->verticalHeader()->setDefaultSectionSize(43);
+	ui.cutoffTable->verticalHeader()->hide();
+	ui.cutoffTable->hide();
 
-	auto cutoffTableLayout = new QHBoxLayout(stopwatchWidget);
+	auto cutoffTableLayout = new QHBoxLayout(ui.centralWidget);
 	cutoffTableLayout->setContentsMargins(0, 0, 0, 0);
 	cutoffTableLayout->setSpacing(0);
-	cutoffTableLayout->addWidget(cutoffTable);
+	cutoffTableLayout->addWidget(ui.cutoffTable);
 
-	stopwatchLayout->addSpacing(32);
-	stopwatchLayout->addLayout(cutoffTableLayout);
-	stopwatchLayout->addStretch();
+	ui.layout->addSpacing(32);
+	ui.layout->addLayout(cutoffTableLayout);
+	ui.layout->addStretch();
 
-	centralLayout->addWidget(stopwatchWidget);
+	centralLayout->addWidget(ui.centralWidget);
 
-	stopwatchWidget->hide();
+	ui.centralWidget->hide();
 }
 
 void MainWindowUI::setupWorldClockUI()
 {
-	worldClockWidget = new ResizableWidget(centralWidget);
-	worldClockWidget->setContentsMargins(0, 0, 0, 0);
+	auto& ui = WorldClockUI;
 
-	worldClockLayout = new QVBoxLayout(worldClockWidget);
-	worldClockLayout->setAlignment(Qt::AlignCenter);
-	worldClockLayout->setContentsMargins(0, 0, 0, 0);
+	ui.centralWidget = new ResizableWidget(centralWidget);
+	ui.centralWidget->setContentsMargins(0, 0, 0, 0);
 
-	worldClockChildWidget = new QWidget(worldClockWidget);
-	worldClockChildWidget->setContentsMargins(0, 0, 0, 0);
+	ui.layout = new QVBoxLayout(ui.centralWidget);
+	ui.layout->setAlignment(Qt::AlignCenter);
+	ui.layout->setContentsMargins(0, 0, 0, 0);
 
-	worldClockChildLayout = new QVBoxLayout(worldClockChildWidget);
-	worldClockChildLayout->setContentsMargins(0, 0, 0, 0);
+	ui.childWidget = new QWidget(ui.centralWidget);
+	ui.childWidget->setContentsMargins(0, 0, 0, 0);
 
-	QScrollArea* scrollArea = new QScrollArea(worldClockChildWidget);
-	CustomScrollBar* scrollBar = new CustomScrollBar(worldClockChildWidget);
+	ui.childLayout = new QVBoxLayout(ui.childWidget);
+	ui.childLayout->setContentsMargins(0, 0, 0, 0);
+
+	QScrollArea* scrollArea = new QScrollArea(ui.childWidget);
+	CustomScrollBar* scrollBar = new CustomScrollBar(ui.childWidget);
 	scrollBar->setSingleStep(5);
 	scrollArea->setVerticalScrollBar(scrollBar);
 	scrollArea->setWidgetResizable(true);
@@ -374,54 +382,54 @@ void MainWindowUI::setupWorldClockUI()
 
 	QWidget* scrollAreaWidgetContents = new QWidget();
 
-	worldClockListLayout = new QVBoxLayout(scrollAreaWidgetContents);
-	worldClockListLayout->setContentsMargins(64, 24, 64, 24);
-	worldClockListLayout->setSpacing(14);
+	ui.listLayout = new QVBoxLayout(scrollAreaWidgetContents);
+	ui.listLayout->setContentsMargins(64, 24, 64, 24);
+	ui.listLayout->setSpacing(14);
 
 	auto systemClock = new ClockWidget(centralWidget, 0, QTimeZone::systemTimeZoneId());
-	worldClockListLayout->addWidget(systemClock);
+	ui.listLayout->addWidget(systemClock);
 
 	scrollArea->setWidget(scrollAreaWidgetContents);
 
-	worldClockChildLayout->addWidget(scrollArea);
+	ui.childLayout->addWidget(scrollArea);
 
-	worldClockLayout->addWidget(worldClockChildWidget);
+	ui.layout->addWidget(ui.childWidget);
 
-	worldClockManagerWidget = new QWidget(worldClockWidget);
-	worldClockManagerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
+	ui.managerWidget = new QWidget(ui.centralWidget);
+	ui.managerWidget->setStyleSheet("background-color: #2C2C2C; border: 1px solid #404040; border-radius: 10px;");
 
 	auto shadowEffect = new QGraphicsDropShadowEffect;
 	shadowEffect->setBlurRadius(20);
 	shadowEffect->setColor(QColor(0, 0, 0, 30));
 	shadowEffect->setOffset(3, 7);
 
-	worldClockManagerWidget->setGraphicsEffect(shadowEffect);
-	worldClockManagerWidget->setFixedSize(QSize(88, 48));
+	ui.managerWidget->setGraphicsEffect(shadowEffect);
+	ui.managerWidget->setFixedSize(QSize(88, 48));
 
-	QObject::connect(worldClockWidget, &ResizableWidget::resized, [&] {
-		worldClockManagerWidget->move(worldClockWidget->geometry().width() - worldClockManagerWidget->width() - 24, worldClockWidget->geometry().height() - worldClockManagerWidget->height() - 20);
+	QObject::connect(ui.centralWidget, &ResizableWidget::resized, [&] {
+		ui.managerWidget->move(ui.centralWidget->geometry().width() - ui.managerWidget->width() - 24, ui.centralWidget->geometry().height() - ui.managerWidget->height() - 20);
 		});
 
-	worldClockManagerLayout = new QHBoxLayout(worldClockManagerWidget);
-	worldClockManagerLayout->setContentsMargins(6, 0, 6, 0);
+	ui.managerLayout = new QHBoxLayout(ui.managerWidget);
+	ui.managerLayout->setContentsMargins(6, 0, 6, 0);
 
-	deleteClockButton = new IconPushButton(worldClockManagerWidget, "", "transparent", "transparent", "Resources/pen-white.svg", "Resources/pen-grey.svg", "transparent", "#383838", "#343434");
-	deleteClockButton->setFixedSize(QSize(36, 36));
-	deleteClockButton->setIconSize(QSize(20, 20));
+	ui.deleteButton = new IconPushButton(ui.managerWidget, "", "transparent", "transparent", "Resources/pen-white.svg", "Resources/pen-grey.svg", "transparent", "#383838", "#343434");
+	ui.deleteButton->setFixedSize(QSize(36, 36));
+	ui.deleteButton->setIconSize(QSize(20, 20));
 
-	clockConfirmButton = new IconPushButton(worldClockManagerWidget, "", "transparent", "transparent", "Resources/confirm-white.svg", "Resources/confirm-grey.svg", "transparent", "#383838", "#343434");
-	clockConfirmButton->setFixedSize(QSize(36, 36));
-	clockConfirmButton->setIconSize(QSize(16, 16));
+	ui.confirmButton = new IconPushButton(ui.managerWidget, "", "transparent", "transparent", "Resources/confirm-white.svg", "Resources/confirm-grey.svg", "transparent", "#383838", "#343434");
+	ui.confirmButton->setFixedSize(QSize(36, 36));
+	ui.confirmButton->setIconSize(QSize(16, 16));
 
-	addClockButton = new IconPushButton(worldClockManagerWidget, "", "transparent", "transparent", "Resources/add-white.svg", "Resources/add-grey.svg", "transparent", "#383838", "#343434");
-	addClockButton->setFixedSize(QSize(36, 36));
-	addClockButton->setIconSize(QSize(20, 20));
+	ui.addButton = new IconPushButton(ui.managerWidget, "", "transparent", "transparent", "Resources/add-white.svg", "Resources/add-grey.svg", "transparent", "#383838", "#343434");
+	ui.addButton->setFixedSize(QSize(36, 36));
+	ui.addButton->setIconSize(QSize(20, 20));
 
-	worldClockManagerLayout->addWidget(deleteClockButton);
-	worldClockManagerLayout->addWidget(clockConfirmButton);
-	clockConfirmButton->hide();
-	worldClockManagerLayout->addWidget(addClockButton);
+	ui.managerLayout->addWidget(ui.deleteButton);
+	ui.managerLayout->addWidget(ui.confirmButton);
+	ui.confirmButton->hide();
+	ui.managerLayout->addWidget(ui.addButton);
 
-	centralLayout->addWidget(worldClockWidget);
-	worldClockWidget->hide();
+	centralLayout->addWidget(ui.centralWidget);
+	ui.centralWidget->hide();
 }

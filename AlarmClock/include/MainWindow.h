@@ -74,7 +74,7 @@ private:
     void increaseMenu();
 
     Ui::MainWindowClass* ui;
-
+    
     DatabaseManager* dbManager;
 
     QWidget* overlayWidget;

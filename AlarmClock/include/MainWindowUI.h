@@ -27,62 +27,74 @@ public:
 	// General ui variables
 	QWidget* centralWidget;
 	QHBoxLayout* centralLayout;
-	QWidget* functionSelectorWidget;
-	IconPushButton* menuButton;
-	CheckableButton* alarmClockButton;
-	CheckableButton* timerButton;
-	CheckableButton* stopwatchButton;
-	CheckableButton* worldClockButton;
+	
+	// Menu ui variables
+	struct MenuUI {
+		QWidget* centralWidget;
+		IconPushButton* menuButton;
+		CheckableButton* alarmClockButton;
+		CheckableButton* timerButton;
+		CheckableButton* stopwatchButton;
+		CheckableButton* worldClockButton;
+	} MenuUI;
 
 	// Alarm clock ui variables
-	ResizableWidget* alarmsWidget;
-	QVBoxLayout* alarmsListLayout;
-	QWidget* alarmsManagerWidget;
-	QHBoxLayout* alarmsManagerLayout;
-	IconPushButton* deleteAlarmsButton;
-	IconPushButton* confirmButton;
-	IconPushButton* addAlarmButton;
-	QVBoxLayout* alarmVLayout;
-	QWidget* alarmsChildWidget;
-	QVBoxLayout* alarmsChildLayout;
+	struct AlarmClockUI {
+		ResizableWidget* centralWidget;
+		QVBoxLayout* listLayout;
+		QWidget* managerWidget;
+		QHBoxLayout* managerLayout;
+		IconPushButton* deleteButton;
+		IconPushButton* confirmButton;
+		IconPushButton* addButton;
+		QVBoxLayout* layout;
+		QWidget* childWidget;
+		QVBoxLayout* childLayout;
+	} AlarmClockUI;
 
 	// Timer ui variables
-	ResizableWidget* timerWidget;
-	QVBoxLayout* timerLayout;
-	QWidget* timerChildWidget;
-	QVBoxLayout* timerChildLayout;
-	QScrollArea* timerScrollArea;
-	QVBoxLayout* timerListLayout;
-	QWidget* timerManagerWidget;
-	QHBoxLayout* timerManagerLayout;
-	IconPushButton* deleteTimerButton;
-	IconPushButton* timerConfirmButton;
-	IconPushButton* timerAddButton;
+	struct TimerUI {
+		ResizableWidget* centralWidget;
+		QVBoxLayout* layout;
+		QWidget* childWidget;
+		QVBoxLayout* childLayout;
+		QScrollArea* scrollArea;
+		QVBoxLayout* listLayout;
+		QWidget* managerWidget;
+		QHBoxLayout* managerLayout;
+		IconPushButton* deleteButton;
+		IconPushButton* confirmButton;
+		IconPushButton* addButton;
+	} TimerUI;
 
 	// Stopwatch ui variables
-	QWidget* stopwatchWidget;
-	QVBoxLayout* stopwatchLayout;
-	QLabel* stopwatchLabel;
-	QLabel* hLabel;
-	QLabel* mLabel;
-	QLabel* sLabel;
-	IconPushButton* startButton;
-	IconPushButton* pauseButton;
-	IconPushButton* resetButton;
-	IconPushButton* cutoffButton;
-	QTableWidget* cutoffTable;
+	struct StopwatchUI {
+		QWidget* centralWidget;
+		QVBoxLayout* layout;
+		QLabel* label;
+		QLabel* hLabel;
+		QLabel* mLabel;
+		QLabel* sLabel;
+		IconPushButton* startButton;
+		IconPushButton* pauseButton;
+		IconPushButton* resetButton;
+		IconPushButton* cutoffButton;
+		QTableWidget* cutoffTable;
+	} StopwatchUI;
 
 	// World clock ui variables
-	ResizableWidget* worldClockWidget;
-	QVBoxLayout* worldClockLayout;
-	QWidget* worldClockChildWidget;
-	QVBoxLayout* worldClockChildLayout;
-	QVBoxLayout* worldClockListLayout;
-	QWidget* worldClockManagerWidget;
-	QHBoxLayout* worldClockManagerLayout;
-	IconPushButton* deleteClockButton;
-	IconPushButton* clockConfirmButton;
-	IconPushButton* addClockButton;
+	struct WorldClockUI {
+		ResizableWidget* centralWidget;
+		QVBoxLayout* layout;
+		QWidget* childWidget;
+		QVBoxLayout* childLayout;
+		QVBoxLayout* listLayout;
+		QWidget* managerWidget;
+		QHBoxLayout* managerLayout;
+		IconPushButton* deleteButton;
+		IconPushButton* confirmButton;
+		IconPushButton* addButton;
+	} WorldClockUI;
 
 private:
 	void setupAlarmClockUI();

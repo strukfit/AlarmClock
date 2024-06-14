@@ -11,8 +11,10 @@ public:
 	CustomScrollBar(QWidget* parent = nullptr);
 
 protected:
-	bool event(QEvent* event) override;
+	void enterEvent(QEnterEvent* event) override;
+	void leaveEvent(QEvent* event) override;
 
 private:
 	void setDefaultStyle();
+	void setHoveredStyle();
 };

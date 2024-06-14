@@ -90,8 +90,12 @@ void ClockWidget::updateUI()
 		}
 		else 
 		{
-			QString city = QString(timeZone.id()).section('/', 1, 1);
-			QString region = QString(timeZone.id()).section('/', 0, 0);
+			QString timeZoneName = QString(timeZone.id());
+			int lastIndex = timeZoneName.lastIndexOf('/');
+
+			QString region = timeZoneName.left(lastIndex).replace('_', ' ').replace('/', ", ");
+			QString city = timeZoneName.mid(lastIndex + 1).replace('_', ' ');
+
 			name = city;
 			displayName = QString("%1, %2").arg(city, region);
 		}
